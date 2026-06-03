@@ -1,22 +1,16 @@
 /**
  * POST /api/v1/orders
  *
- * Create an adoption + payment record and initiate payment.
+ * Create an adoption + payment record and initiate PayOS payment link.
  * Auth required (JWT cookie). Email must be verified.
  *
- * For VNPay/MoMo: returns redirect URL.
- * For bank_transfer: returns bank info.
+ * Returns PayOS checkoutUrl for redirect.
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth';
 import { createOrderSchema } from '@/lib/validation';
-import {
-  buildPaymentUrl,
-  createPaymentRequest,
-  getBankInfo,
-  generateReferenceCode,
-} from '@/lib/payment';
+import { createPaymentLink } from '@/lib/payment';
 
 export async function POST(request: NextRequest) {
   try {
@@ -95,90 +89,47 @@ export async function POST(request: NextRequest) {
       data: { adoptionId: adoption.id },
     });
 
-    // 7. Handle payment method
-    const orderInfo = `Coralume - ${product.name}${customName ? ` - ${customName}` : ''}`;
+    // 7. Create PayOS payment link
+    const orderCode = Date.now(); // Unique order code (Unix timestamp ms)
+    const description = `Coralume - ${product.name}${customName ? ` - ${customName}` : ''}`;
 
-    switch (paymentMethod) {
-      case 'vnpay': {
-        const clientIp =
-          request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '127.0.0.1';
+    const payosResult = await createPaymentLink({
+      orderCode,
+      amount,
+      description: description.substring(0, 255),
+      buyerName: user.fullName,
+      buyerEmail: user.email,
+      buyerPhone: user.phone || undefined,
+      items: [
+        {
+          name: product.name,
+          quantity: 1,
+          price: amount,
+        },
+      ],
+    });
 
-        const redirectUrl = buildPaymentUrl({
-          paymentId: payment.id,
-          amount,
-          orderInfo,
-          clientIp,
-        });
-
-        // Store gatewayTxnRef
-        await prisma.payment.update({
-          where: { id: payment.id },
-          data: { gatewayTxnId: payment.id.replace(/-/g, '').substring(0, 20) },
-        });
-
-        return NextResponse.json({
-          data: {
-            orderId: adoption.id,
-            paymentId: payment.id,
-            redirectUrl,
-          },
-        });
-      }
-
-      case 'momo': {
-        const momoResponse = await createPaymentRequest({
-          requestId: payment.id,
-          orderId: adoption.id,
-          amount,
-          orderInfo,
-        });
-
-        if (!momoResponse.success) {
-          return NextResponse.json(
-            { error: momoResponse.error || 'Không thể tạo thanh toán MoMo', code: 'PAYMENT_ERROR' },
-            { status: 502 }
-          );
-        }
-
-        await prisma.payment.update({
-          where: { id: payment.id },
-          data: { gatewayTxnId: payment.id },
-        });
-
-        return NextResponse.json({
-          data: {
-            orderId: adoption.id,
-            paymentId: payment.id,
-            redirectUrl: momoResponse.payUrl,
-            qrCodeUrl: momoResponse.qrCodeUrl || null,
-          },
-        });
-      }
-
-      case 'bank_transfer': {
-        const bankInfo = getBankInfo();
-        const reference = generateReferenceCode(adoption.id);
-
-        return NextResponse.json({
-          data: {
-            orderId: adoption.id,
-            paymentId: payment.id,
-            bankInfo: {
-              ...bankInfo,
-              amount,
-              reference,
-            },
-            redirectUrl: `/thanh-cong?orderId=${adoption.id}`,
-          },
-        });
-      }
-
-      default:
-        return NextResponse.json(
-          { error: 'Phương thức thanh toán không hợp lệ', code: 'VALIDATION_ERROR' },
-          { status: 400 }
-        );
+    if (!payosResult.success) {
+      return NextResponse.json(
+        { error: payosResult.error || 'Không thể tạo link thanh toán', code: 'PAYMENT_ERROR' },
+        { status: 502 }
+      );
     }
+
+    // Store orderCode in gatewayTxnId for webhook lookup
+    await prisma.payment.update({
+      where: { id: payment.id },
+      data: { gatewayTxnId: String(orderCode) },
+    });
+
+    return NextResponse.json({
+      data: {
+        orderId: adoption.id,
+        paymentId: payment.id,
+        redirectUrl: payosResult.checkoutUrl,
+        qrCode: payosResult.qrCode || null,
+      },
+    });
   } catch (error) {
     console.error('[POST /api/v1/orders]', error);
     return NextResponse.json(

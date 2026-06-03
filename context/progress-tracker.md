@@ -340,7 +340,14 @@
     - Frontend: /thanh-toan (CheckoutForm + PaymentMethodSelector), /thanh-cong (certificate preview + bank transfer pending)
     - Auth: middleware + API guard (login + email verified)
     - Build: 0 TypeScript errors
-  - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), payment gateway real creds (CLB)
+  - **PayOS Migration:** Thay VNPay/MoMo/bank-transfer riêng lẻ → PayOS unified gateway
+    - PayOS hỗ trợ VNPay + MoMo + VietQR qua 1 API duy nhất
+    - Người dùng chọn phương thức trên trang thanh toán của PayOS
+    - Xoá 5 files cũ (vnpay.ts, momo.ts, bank-transfer.ts, 2 callback routes)
+    - Tạo payos.ts + callback/payos/route.ts
+    - Prisma: PaymentMethod enum còn `payos`
+    - validation.ts: createOrderSchema chỉ còn `payos`
+  - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
 *Tổng: 11 tasks | 5 done, 0 in-progress, 6 planned*

@@ -70,7 +70,7 @@ export const createOrderSchema = z.object({
     .string()
     .max(255, "Tên san hô tối đa 255 ký tự")
     .optional(),
-  paymentMethod: z.enum(["vnpay", "momo", "bank_transfer"], {
+  paymentMethod: z.enum(["payos"], {
     message: "Phương thức thanh toán không hợp lệ",
   }),
   agreeTerms: z.boolean().refine((val) => val === true, "Bạn phải đồng ý điều khoản"),

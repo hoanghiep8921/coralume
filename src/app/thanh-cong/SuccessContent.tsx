@@ -16,17 +16,8 @@ interface PaymentData {
   };
 }
 
-interface BankInfoData {
-  bankName?: string;
-  accountNumber?: string;
-  accountName?: string;
-  amount?: number;
-  reference?: string;
-}
-
 interface SuccessContentProps {
   payment: PaymentData | null;
-  bankInfo?: BankInfoData | null;
 }
 
 function formatVND(amount: number): string {
@@ -34,79 +25,11 @@ function formatVND(amount: number): string {
 }
 
 const methodLabels: Record<string, string> = {
-  vnpay: 'VNPay',
-  momo: 'MoMo',
-  bank_transfer: 'Chuyển khoản ngân hàng',
+  payos: 'PayOS',
 };
 
-export function SuccessContent({ payment, bankInfo }: SuccessContentProps) {
+export function SuccessContent({ payment }: SuccessContentProps) {
   const { ref, isInView } = useInView(0.1, '-50px');
-
-  // Pending bank transfer state
-  if (payment?.status === 'pending' && payment?.method === 'bank_transfer') {
-    return (
-      <div
-        ref={ref}
-        className={`w-full max-w-2xl mx-auto transition-all duration-slow ${
-          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
-        }`}
-      >
-        <div className="bg-surface-container-lowest rounded-xl shadow-card p-8 text-center">
-          {/* Icon */}
-          <div className="mx-auto w-16 h-16 bg-on-tertiary-container/10 rounded-full flex items-center justify-center mb-4">
-            <span className="material-symbols-outlined text-3xl text-on-tertiary-container" aria-hidden="true">
-              hourglass_top
-            </span>
-          </div>
-
-          <h1 className="font-display text-display-lg-mobile text-primary mb-4">
-            Đang chờ thanh toán
-          </h1>
-          <p className="text-on-surface-variant mb-8 max-w-md mx-auto">
-            Chúng tôi đã ghi nhận yêu cầu nhận nuôi của bạn. Vui lòng chuyển khoản theo thông tin bên dưới.
-          </p>
-
-          {/* Bank Info */}
-          {bankInfo && (
-            <div className="bg-surface-container rounded-xl p-6 mb-8 text-left space-y-3">
-              <div className="flex justify-between">
-                <span className="text-sm text-on-surface-variant">Ngân hàng</span>
-                <span className="font-medium text-on-surface">{bankInfo.bankName}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-on-surface-variant">Số tài khoản</span>
-                <span className="font-mono font-medium text-on-surface">{bankInfo.accountNumber}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-on-surface-variant">Chủ tài khoản</span>
-                <span className="font-medium text-on-surface">{bankInfo.accountName}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-on-surface-variant">Số tiền</span>
-                <span className="font-mono font-bold text-primary">{formatVND(bankInfo.amount || payment.amount)}</span>
-              </div>
-              <div className="flex justify-between border-t border-outline-variant/50 pt-3">
-                <span className="text-sm text-on-surface-variant">Nội dung chuyển khoản</span>
-                <span className="font-mono font-bold text-secondary">{bankInfo.reference}</span>
-              </div>
-            </div>
-          )}
-
-          <p className="text-xs text-on-surface-variant mb-8">
-            Admin sẽ xác nhận thanh toán trong 1-2 ngày làm việc.
-            Bạn sẽ nhận được email thông báo khi thanh toán được xác nhận.
-          </p>
-
-          <Link
-            href="/dashboard"
-            className="inline-block bg-secondary hover:bg-secondary-container text-on-secondary font-semibold py-3 px-8 rounded-lg transition-all duration-normal hover:-translate-y-0.5 shadow-button"
-          >
-            Vào Dashboard
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   // Success state
   return (

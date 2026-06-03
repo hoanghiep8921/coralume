@@ -74,15 +74,9 @@ export function CheckoutForm({ product, user }: CheckoutFormProps) {
 
       const orderData = json.data;
 
-      // Redirect based on payment method
+      // Redirect to PayOS checkout page
       if (orderData.redirectUrl) {
-        if (data.paymentMethod === 'bank_transfer') {
-          // Navigate internally for bank transfer
-          router.push(orderData.redirectUrl);
-        } else {
-          // External redirect for VNPay/MoMo
-          window.location.href = orderData.redirectUrl;
-        }
+        window.location.href = orderData.redirectUrl;
       }
     } catch {
       setError('Không thể kết nối đến server');
