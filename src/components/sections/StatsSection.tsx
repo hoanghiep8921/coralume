@@ -1,63 +1,21 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useInView } from '@/hooks/useInView';
+import { useCountUp } from '@/hooks/useCountUp';
 
-function useInView(threshold = 0.15, rootMargin = '-50px') {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold, rootMargin }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold, rootMargin]);
-
-  return { ref, isInView };
-}
-
-function CountUp({
+function AnimatedNumber({
   target,
   suffix = '',
-  prefix = '',
-  duration = 2000,
   isInView,
 }: {
   target: number;
   suffix?: string;
-  prefix?: string;
-  duration?: number;
   isInView: boolean;
 }) {
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-    let startTime: number | null = null;
-    let animationFrame: number;
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCurrent(Math.floor(eased * target));
-      if (progress < 1) animationFrame = requestAnimationFrame(animate);
-    };
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [isInView, target, duration]);
-
+  const current = useCountUp(target, 2000, isInView);
   return (
     <span className="font-mono font-medium">
-      {prefix}
       {current.toLocaleString('vi-VN')}
       {suffix}
     </span>
@@ -102,7 +60,7 @@ export function StatsSection() {
             </span>
           </div>
           <div className="font-mono text-4xl text-primary mb-2">
-            <CountUp target={500} suffix="+" isInView={isInView} />
+            <AnimatedNumber target={500} suffix="+" isInView={isInView} />
           </div>
           <p className="font-body-md text-on-surface-variant">
             Corals Adopted into our Nha Trang nurseries this year.
@@ -132,7 +90,7 @@ export function StatsSection() {
             </span>
           </div>
           <div className="font-mono text-4xl text-primary mb-2">
-            <CountUp target={1200} suffix="" prefix="" isInView={isInView} />
+            <AnimatedNumber target={1200} isInView={isInView} />
             <span className="text-2xl">+</span>
           </div>
           <p className="font-body-md text-on-surface-variant">
@@ -159,7 +117,7 @@ export function StatsSection() {
             </span>
           </div>
           <div className="font-mono text-4xl text-primary mb-2">
-            <CountUp target={98} suffix="%" isInView={isInView} />
+            <AnimatedNumber target={98} suffix="%" isInView={isInView} />
           </div>
           <p className="font-body-md text-on-surface-variant">
             Survival Rate monitored by our expert marine biologists.

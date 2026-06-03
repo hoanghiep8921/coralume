@@ -17,11 +17,11 @@
 
 ## Current Phase
 
-- Phase 2: Development — Unit 03 Complete
+- Phase 2: Development — Unit 04 Complete
 
 ## Current Goal
 
-- Unit 04: Products page (3 gói chi tiết, comparison table, FAQ)
+- Unit 05: Payment flow (checkout, VNPay/MoMo integration, success page)
 
 ## Completed
 
@@ -40,7 +40,14 @@
   - Partner: "From Nha Trang with Love" — masonry grid, placeholder ảnh
   - CTA Banner: Gradient Navy → Teal, parallax, CTA pulse 2s
   - Footer: 3 cột, Navy background, mobile stack
-  - Placeholder pages: About, Products, Blog, Leaderboard, Community
+  - ✅ **Unit 04:** Products page (5 sections: Hero, 3 detail cards, comparison table, Ambassador, FAQ accordion) — **Stitch tokens**
+  - ProductsHeroSection: badge chip + H1 "Nuôi 1 bé san hô ngay tại đây!" + sub, stagger fade-in
+  - ProductDetailCardsSection: 3 cards desktop / 1 mobile, Reef Guardian featured (scale 1.05 + border-primary)
+  - Mỗi card: image placeholder, specs bento grid, benefits list, pricing, CTA → /thanh-toan?goi={slug}
+  - ComparisonTableSection: sticky header + sticky feature column, zebra striping, mobile scroll ngang, checkmark icons
+  - AmbassadorSection: bg-primary container, 4 rewards grid, progress bar 0/5, CTA chia sẻ link
+  - FAQSection: 5 câu hỏi accordion, grid-template-rows animation 0.3s ease-out-expo, WCAG AA
+  - Shared hooks: useInView + useCountUp extracted
 
 ## In Progress
 
@@ -48,7 +55,6 @@
 
 ## Next Up
 
-- Unit 04: Products page (3 gói chi tiết, comparison table, FAQ)
 - Unit 05: Payment flow (checkout, VNPay/MoMo integration, success page)
 - Unit 06: Dashboard (coral grid, modal detail, impact)
 - Unit 07: Admin panel
@@ -154,22 +160,25 @@
   - [x] `npm run build` passes — 0 TypeScript errors
 
 ### TASK-004: Products Page (3 Gói, Comparison Table, FAQ)
-- **Status**: planned
+- **Status**: done
 - **SRS**: 3.3 Trang Sản Phẩm
-- **Branch**: feature/TASK-004-products-page
+- **Branch**: main
 - **Dependencies**: TASK-002
 - **Priority**: P0
-- **Description:** Xây dựng trang Products với 4 sections: Hero, 3 gói chi tiết, bảng so sánh, FAQ accordion. Mỗi gói: tên, giá, quyền lợi, CTA "Nhận nuôi ngay". Reef Guardian card có border Coral nổi bật. Bảng so sánh sticky header. FAQ 5 câu hỏi với animation grid.
+- **Description:** Xây dựng trang Products với 5 sections: Hero, 3 gói chi tiết, bảng so sánh, Ambassador, FAQ accordion. Mỗi gói: tên, giá, quyền lợi, CTA "Nhận nuôi ngay". Reef Guardian card có border Coral nổi bật + scale 1.05. Bảng so sánh sticky header + sticky feature column + zebra striping. FAQ 5 câu hỏi với grid-template-rows animation.
 - **Requirements**: FR-020, FR-021, FR-022, FR-023, FR-024
 - **Acceptance Criteria**:
-  - [ ] Hero: "Nuôi 1 bé san hô ngay tại đây!"
-  - [ ] 3 gói cards chi tiết: Seed Coral, Reef Guardian, Diving Experience
-  - [ ] Reef Guardian: border Coral nổi bật
-  - [ ] Mỗi gói: CTA "Nhận nuôi ngay" → /thanh-toan?goi={slug}
-  - [ ] Bảng so sánh: sticky header, zebra striping, mobile scroll ngang
-  - [ ] FAQ accordion: 5 câu hỏi, expand/collapse animation 0.3s
-  - [ ] Responsive: mobile 1 cột → desktop 3 cột
-  - [ ] SEO metadata cho Products page
+  - [x] Hero: "Nuôi 1 bé san hô ngay tại đây!" — badge chip + headline + sub
+  - [x] 3 gói cards chi tiết: Seed Coral, Reef Guardian, Diving Experience — specs bento grid, benefits list, pricing, footer specs
+  - [x] Reef Guardian: border-primary + scale 1.05 + badge "PHỔ BIẾN NHẤT" centered
+  - [x] Mỗi gói: CTA "Nhận nuôi ngay" → /thanh-toan?goi={slug}
+  - [x] Bảng so sánh: sticky header + sticky feature column, zebra striping, mobile scroll ngang, checkmark icons
+  - [x] FAQ accordion: 5 câu hỏi, expand/collapse grid-template-rows 0.3s ease-out-expo, aria-expanded/aria-controls
+  - [x] Ambassador section: 4 rewards grid, progress bar 0/5, CTA chia sẻ link
+  - [x] Responsive: mobile 1 cột → desktop 3 cột
+  - [x] SEO metadata cho Products page
+  - [x] Shared hooks extracted: useInView + useCountUp
+  - [x] `npm run build` passes — 0 TypeScript errors
 
 ### TASK-005: Payment Flow (Checkout, Payment Gateway, Success Page)
 - **Status**: planned
@@ -309,8 +318,12 @@
     - TASK-001: Font Lexend load qua next/font, Lora → heading-serif
     - TASK-002: 4 auth pages chuyển từ legacy class names → Stitch tokens (bg-sand→bg-surface, text-navy→text-primary, bg-coral→bg-secondary,...)
     - TASK-003: ProductsPreviewSection + CTABannerSection sửa legacy tokens + import vào page.tsx (6 sections)
+  - **TASK-004 (Unit 04): Trang Sản Phẩm hoàn chỉnh — 5 sections, Stitch tokens, shared hooks**
+    - 9 files mới: useInView, useCountUp, products.ts data, 5 section components
+    - 4 files updated: page.tsx, ProductsPreviewSection, StatsSection, CTABannerSection
+    - Stitch ref: coralume_choose_your_impact (light warm theme, Vietnamese)
+    - Build: 0 TypeScript errors
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
-  - TODO Unit 04: Products page từ Stitch `coralume_abyssal_marketplace/`
 
-*Tổng: 11 tasks | 3 done, 0 in-progress, 8 planned*
+*Tổng: 11 tasks | 4 done, 0 in-progress, 7 planned*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
