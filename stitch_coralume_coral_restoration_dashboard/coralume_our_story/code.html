@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Về chúng tôi | Coralume - Marine Stewardship</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Lexend:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e8e2d3",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dfdacb",
+                        "surface": "#fff9ea",
+                        "outline-variant": "#c0c8cb",
+                        "on-secondary-fixed-variant": "#802a08",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#ffdbd0",
+                        "secondary-fixed-dim": "#ffb59d",
+                        "on-tertiary-container": "#96b9c8",
+                        "tertiary-container": "#284a57",
+                        "on-primary-container": "#87bbce",
+                        "on-background": "#1d1c13",
+                        "inverse-surface": "#333027",
+                        "inverse-primary": "#9acee1",
+                        "tertiary": "#0e3340",
+                        "surface-tint": "#306576",
+                        "secondary": "#9f411e",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#c5e8f8",
+                        "surface-container-highest": "#e8e2d3",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f9f3e4",
+                        "surface-container": "#f3edde",
+                        "on-secondary-fixed": "#390c00",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#0f4c5c",
+                        "surface-bright": "#fff9ea",
+                        "on-tertiary-fixed-variant": "#294b58",
+                        "outline": "#70787c",
+                        "on-surface-variant": "#40484b",
+                        "on-secondary-container": "#732100",
+                        "on-primary-fixed-variant": "#114d5d",
+                        "primary-fixed-dim": "#9acee1",
+                        "inverse-on-surface": "#f6f0e1",
+                        "tertiary-fixed-dim": "#a9ccdc",
+                        "on-tertiary-fixed": "#001f29",
+                        "surface-container-high": "#eee8d9",
+                        "on-primary": "#ffffff",
+                        "primary": "#003441",
+                        "secondary-container": "#fe885f",
+                        "background": "#fff9ea",
+                        "primary-fixed": "#b6ebfe",
+                        "on-surface": "#1d1c13",
+                        "on-primary-fixed": "#001f28"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-md": "24px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "stack-lg": "48px",
+                        "margin-mobile": "20px",
+                        "container-max": "1280px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "display-lg-mobile": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "data-mono": ["JetBrains Mono"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .buoyant-card {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+        }
+        .buoyant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 20px 40px rgba(15, 76, 92, 0.1);
+        }
+        .organic-wave {
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23000' fill-opacity='1' d='M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,165.3C672,139,768,117,864,128C960,139,1056,181,1152,197.3C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            mask-repeat: no-repeat;
+            mask-position: bottom;
+            mask-size: cover;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden selection:bg-secondary-fixed-dim selection:text-on-secondary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl shadow-sm transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
+<div class="font-display-lg text-display-lg-mobile md:text-headline-md font-semibold text-primary tracking-tight">Coralume</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Adopt</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Nha Trang</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Community</a>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="hidden md:block text-primary font-semibold hover:opacity-80 transition-opacity">Login</button>
+<button class="bg-secondary text-on-secondary px-6 py-2.5 rounded-full font-semibold hover:opacity-90 transition-opacity shadow-sm">Register</button>
+</div>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[819px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A breathtaking cinematic wide-angle shot of a vibrant coral reef in the crystal clear turquoise waters of Nha Trang, Vietnam. The sun rays penetrate the deep blue water, creating shimmering ethereal patterns across a diverse ecosystem of soft and hard corals. The overall mood is serene, majestic, and high-end, reflecting a premium commitment to marine conservation and scientific stewardship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2XdXZhGfe1HuNqxxzCOhyvjIV6sXiCbxwszkTS57ss5qKV536BxC_QwvZktS55bnZbDhIDYKk4xJypvRGrUZhBaQK6oCMAgwrJRJFlzA1UfaWAWBSw3MLA19l3XwbrCA5UxJ3bnyWW84X2bSGbz0BQ_RWqmbcujRa9Y-kFh15uEkqEuOyiqal1RswhEKdPvRYSOczNHHkqLk7e-3GmNGK1CqxcLaJDf5p5hqHkJ_LEm-UQrjBkbeIa1IE3d6nKWuyF44LzguVbzw"/>
+<div class="absolute inset-0 bg-gradient-to-b from-primary/40 to-surface"></div>
+</div>
+<div class="relative z-10 text-center max-w-3xl px-margin-mobile">
+<span class="inline-block px-4 py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm mb-stack-md uppercase tracking-widest">Sứ mệnh của chúng tôi</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-stack-md">Khi Khoa học gặp gỡ Sự tận tâm</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant opacity-90 leading-relaxed">
+                    Tại Coralume, chúng tôi không chỉ bảo tồn; chúng tôi kiến tạo một tương lai bền vững cho đại dương thông qua sự kết hợp giữa dữ liệu chính xác và niềm đam mê bản địa.
+                </p>
+</div>
+</section>
+<!-- The Story Section -->
+<section class="py-stack-lg md:py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-stack-md">
+<h2 class="font-display-lg text-headline-md text-primary">Câu chuyện khởi đầu</h2>
+<div class="h-1 w-20 bg-secondary rounded-full"></div>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    Hành trình của chúng tôi bắt đầu từ một cuộc gặp gỡ tình cờ trên những bãi biển của Nha Trang. Giữa một bên là các nhà khoa học đang nỗ lực phục hồi hệ sinh thái biển, và một bên là những người dân chài đã dành cả đời gắn bó với con sóng. 
+                </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    Chúng tôi nhận ra rằng: Khoa học cần một trái tim, và stewardship (sự tận tâm bảo quản) cần những công cụ công nghệ để thực sự bứt phá. Coralume ra đời từ đó — một nền tảng trao quyền cho mọi cá nhân trở thành người bảo hộ cho chính rạn san hô của mình.
+                </p>
+<div class="flex items-center gap-4 pt-4">
+<div class="p-4 bg-surface-container rounded-xl border border-outline-variant/30 flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-3xl">biotech</span>
+<div>
+<p class="font-data-mono text-primary font-bold">12,000+</p>
+<p class="font-label-sm text-on-surface-variant">San hô được cấy ghép</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="aspect-square rounded-[40px] overflow-hidden shadow-xl buoyant-card">
+<img class="w-full h-full object-cover" data-alt="A high-quality portrait of two founders, a Vietnamese marine biologist and a tech entrepreneur, standing together on a research boat in Nha Trang Bay. They are wearing professional field gear, looking out towards the horizon with a warm, hopeful expression. The lighting is soft golden hour sunlight, emphasizing a sense of personal partnership, professional expertise, and authentic commitment to the ocean." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCznZLf_Zo5xgsJZ2Djpwd5uEglqB41InM_Matkp0oMR5JzXgTbCjm2CzZKDWG-qj_i68NROj-EvnZEHHGY5GICTcH9QxNCv14U6QINwOKtK8l1GJXNlNeFMyFl7SlyPyG_nsjaiDPuTBuf6G8rvWGMAeueUs7aqJLMxlX-ALjFOV3uqVyD9l6HZjoqYXg9xUytMz38RyDrLDK1WtN-5ZX6I1T0vRBOzrfKcT0ioNS_ajL_gEGiowiRCmfkycWsSUR_CKTgonFSpnQ"/>
+</div>
+<div class="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl shadow-lg border border-surface-variant max-w-[240px] hidden md:block">
+<p class="italic font-body-md text-on-surface-variant">"Chúng tôi coi mỗi mầm san hô như một cá thể sống cần sự chăm sóc cá nhân hóa."</p>
+<p class="font-bold text-primary mt-2">— Đội ngũ sáng lập</p>
+</div>
+</div>
+</section>
+<!-- Partners Section: Nha Trang Marine Institute -->
+<section class="bg-surface-container-low py-32 overflow-hidden relative">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto relative z-10">
+<div class="text-center mb-24">
+<h2 class="font-display-lg text-headline-md text-primary mb-4">Đối tác Chiến lược</h2>
+<p class="text-on-surface-variant font-body-lg">Sự kết hợp giữa chuyên môn địa phương và tiêu chuẩn toàn cầu.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Partner Card -->
+<div class="bg-white p-10 rounded-3xl shadow-sm border border-surface-variant flex flex-col items-center text-center buoyant-card">
+<div class="w-24 h-24 mb-6 rounded-full bg-primary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl">water_drop</span>
+</div>
+<h3 class="font-headline-md text-primary mb-4">Viện Hải dương học Nha Trang</h3>
+<p class="text-on-surface-variant mb-6">Đối tác khoa học cốt lõi, cung cấp dữ liệu sinh trắc học và hỗ trợ kỹ thuật cấy ghép San hô.</p>
+<a class="text-secondary font-bold hover:underline flex items-center gap-2" href="#">Tìm hiểu về Viện <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<!-- Partner Card -->
+<div class="bg-white p-10 rounded-3xl shadow-sm border border-surface-variant flex flex-col items-center text-center buoyant-card">
+<div class="w-24 h-24 mb-6 rounded-full bg-primary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl">groups</span>
+</div>
+<h3 class="font-headline-md text-primary mb-4">Cộng đồng Stewards Địa phương</h3>
+<p class="text-on-surface-variant mb-6">Mạng lưới những thợ lặn và ngư dân địa phương trực tiếp chăm sóc các vườn san hô hàng ngày.</p>
+<a class="text-secondary font-bold hover:underline flex items-center gap-2" href="#">Gặp gỡ Stewards <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<!-- Partner Card -->
+<div class="bg-white p-10 rounded-3xl shadow-sm border border-surface-variant flex flex-col items-center text-center buoyant-card">
+<div class="w-24 h-24 mb-6 rounded-full bg-primary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl">analytics</span>
+</div>
+<h3 class="font-headline-md text-primary mb-4">Marine Data Alliance</h3>
+<p class="text-on-surface-variant mb-6">Cung cấp các cảm biến IoT và công nghệ AI để theo dõi sức khỏe rạn san hô thời gian thực.</p>
+<a class="text-secondary font-bold hover:underline flex items-center gap-2" href="#">Hệ thống Dữ liệu <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+</div>
+</div>
+<!-- Atmospheric Shader Element -->
+<div class="absolute bottom-0 left-0 w-full h-64 pointer-events-none opacity-20">
+
+</div>
+</section>
+<!-- Meet the Team Section -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-stack-md">
+<div class="max-w-xl">
+<h2 class="font-display-lg text-headline-md text-primary mb-4">Đội ngũ của chúng tôi</h2>
+<p class="text-on-surface-variant font-body-lg leading-relaxed">Gặp gỡ những con người tận tụy đang ngày đêm làm việc để hồi sinh những "khu rừng dưới đáy đại dương".</p>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-semibold hover:opacity-90 transition-all shadow-md">Gia nhập đội ngũ</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Team Member -->
+<div class="group">
+<div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional close-up portrait of a female Vietnamese marine scientist working in a high-tech laboratory setting. She is wearing a white lab coat and examining a small coral fragment under a high-precision microscope. The background features blue-tinted laboratory equipment and glass tanks, creating a data-driven yet warm and personal professional atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc3w_mfTogDOECei0bUQAYN7QRPI7FP3jPXy8mu1PiM5iXQVkTDr-H2V98H8idrak_dPohqvNTJe-6AprnGruYfrk__SKmnR5OHtnVRjNC0ytGfN_3os_8Rh_pCrU1BDgu-n2CWgOPxUzRoizi495zICR6JEL3Fq-Cju4aZOfxajf6ncVrInCRwgAKVGYnjP_jcrj0_vzIpe7FRAuR_lbBtL6dhe3_7D_x9iJeoRqxTZ3YlWwxbb1QZy7eqw4PTN3y7MKpIKJXDWE"/>
+</div>
+<h4 class="font-headline-md text-primary">Dr. Linh Nguyen</h4>
+<p class="text-secondary font-label-sm uppercase tracking-wider mb-2">Giám đốc Khoa học</p>
+<p class="text-on-surface-variant text-body-md">15 năm kinh nghiệm trong lĩnh vực phục hồi hệ sinh thái biển tại Biển Đông.</p>
+</div>
+<!-- Team Member -->
+<div class="group">
+<div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A portrait of a male local steward in his 40s, a former fisherman who is now a coral conservationist. He is dressed in professional diving gear, standing on the deck of a boat with the blue waters of Nha Trang in the background. His expression is proud and knowledgeable, symbolizing the transition from exploitation to stewardship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtU0eCj54PfWQN7MqmY9LD0xAFmMWhe_1fqdxUxdwV5Ccq_P95HfPc3tTt0kExkBzzSoms1aI4hVTu8sk6L9D58tqWHN9Ynr0fqbiKQq7ZFgVCjNHijQLK4w-7igCezhDDwHLS60z9AqNYLLvZJjsxIPKYZzYwrUVlrfApxDVRvxc2VzLRLDpwifeO0QTtBd-cgBfkf5QOvBoUHJ9Us2Ns-eowvdhDZGC7hLKeKhWI4snfjJlv7P9RHem2ohoRTUlEjV2mI3kUnOU"/>
+</div>
+<h4 class="font-headline-md text-primary">Anh Minh Trần</h4>
+<p class="text-secondary font-label-sm uppercase tracking-wider mb-2">Trưởng nhóm Steward</p>
+<p class="text-on-surface-variant text-body-md">Chuyên gia thực địa am hiểu sâu sắc về dòng hải lưu và tập tính của san hô Nha Trang.</p>
+</div>
+<!-- Team Member -->
+<div class="group">
+<div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A portrait of a young female tech specialist in a modern workspace overlooking the ocean. She is working on a high-resolution data visualization of coral growth patterns on a tablet. The style is crisp and modern, with soft natural light and professional marine conservation aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpdJE-Lx-QobgTNSI1Flwf1hopb8N3fUhkdO83q-08yDnOb2hjiyQLsngYoiRvoyulmUQpv3jaDnRXOhVa1OpcMsPBgjJJMQOtGl5MbX34f_qoCqL4PmrSdzkjPN-xe2xTq1Gg0FsrVJv2XZ6S2WHQeZthtRqokA9YylWJPD_rb1iKrvlbAHW72BP3q9NGNk5x-uSQjEXDRJCWomIyN58QXoyw_cpIChWGG7_NZ_xhojkzBkeQ1XhvqT8LOv7E3Ig2e8eiUwuhiCE"/>
+</div>
+<h4 class="font-headline-md text-primary">Mai Pham</h4>
+<p class="text-secondary font-label-sm uppercase tracking-wider mb-2">Kỹ sư Dữ liệu</p>
+<p class="text-on-surface-variant text-body-md">Người đứng sau hệ thống theo dõi và báo cáo tăng trưởng thông minh của Coralume.</p>
+</div>
+<!-- Team Member -->
+<div class="group">
+<div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A portrait of a male community outreach coordinator interacting with a group of local school children near the beach. He is showing them a model of a coral reef. The mood is warm, educational, and deeply personal, emphasizing the brand's commitment to community stewardship and future generations." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLIG5wva6UmR8OQOBbfGoKIGGPYCJhcgHzghKh2xCPXSSLE2KTuZmBcykCfT4FE9VXj__aPQqRnswnGoHMjOG9L0UdkUNM9r80vv5yJVKCZhlpmW6GuP5sDgNAGDvhu7-21urigVJQoJOO94SBhC6H4lKrsCn1Wq-Mf9NKkIlnG9E9UrP-QYwzt8VZeYDh8k4SUmW7Swe2wdkGa77lIGYjtSiuxVEEiVM-2B7S_UuA6HrxTeulvrm8v4XkXMC80lrRXZnDXEsDnBk"/>
+</div>
+<h4 class="font-headline-md text-primary">Son Vu</h4>
+<p class="text-secondary font-label-sm uppercase tracking-wider mb-2">Điều phối Cộng đồng</p>
+<p class="text-on-surface-variant text-body-md">Kết nối Coralume với thế hệ trẻ và giáo dục ý thức bảo tồn bền vững.</p>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="relative bg-primary rounded-[48px] p-12 md:p-24 overflow-hidden text-center">
+<!-- Background decoration -->
+<div class="absolute top-0 right-0 w-96 h-96 bg-tertiary-container/20 rounded-full blur-[100px]"></div>
+<div class="absolute -bottom-20 -left-20 w-80 h-80 bg-secondary/10 rounded-full blur-[80px]"></div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="font-display-lg text-display-lg-mobile md:text-headline-md text-white mb-6">Bạn đã sẵn sàng trở thành một phần của câu chuyện?</h2>
+<p class="text-on-primary-container font-body-lg mb-10 opacity-90">Hãy cùng chúng tôi bảo vệ những rạn san hô Nha Trang — cho hôm nay và cho muôn đời sau.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-secondary text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-on-secondary-container transition-all buoyant-card">Nhận nuôi San hồ ngay</button>
+<button class="bg-transparent border border-white/30 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-all">Xem báo cáo tác động</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest w-full mt-stack-lg border-t border-outline-variant dark:border-outline">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div class="space-y-stack-md">
+<div class="font-display-lg text-headline-md text-primary">Coralume</div>
+<p class="text-on-surface-variant font-body-md">Bảo tồn san hô qua lăng kính công nghệ và lòng tận tâm.</p>
+</div>
+<div class="space-y-stack-md">
+<h5 class="font-bold text-primary">Tài nguyên</h5>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Impact Reports</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Nha Trang Center</a></li>
+</ul>
+</div>
+<div class="space-y-stack-md">
+<h5 class="font-bold text-primary">Pháp lý</h5>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="space-y-stack-md">
+<h5 class="font-bold text-primary">Liên hệ</h5>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Contact Us</a></li>
+<li class="flex gap-4 pt-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary">public</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary">mail</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary">share</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="px-margin-mobile md:px-margin-desktop py-8 border-t border-outline-variant/30 text-center max-w-container-max mx-auto">
+<p class="text-on-surface-variant font-body-md">© 2024 Coralume. Premium Stewardship &amp; Marine Conservation.</p>
+</div>
+</footer>
+<script>
+        // Smooth scroll reveal logic
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2', 'bg-surface/95');
+                nav.classList.remove('h-20');
+            } else {
+                nav.classList.remove('py-2', 'bg-surface/95');
+                nav.classList.add('h-20');
+            }
+        });
+
+        // Simple parallax for hero
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            const heroImg = document.querySelector('section img');
+            if (heroImg) {
+                heroImg.style.transform = `translateY(${scroll * 0.4}px)`;
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Coralume | Premium Coral Stewardship</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#284a57",
+                    "surface-dim": "#dfdacb",
+                    "on-secondary-container": "#732100",
+                    "on-primary-container": "#87bbce",
+                    "on-surface-variant": "#40484b",
+                    "outline": "#70787c",
+                    "tertiary-fixed-dim": "#a9ccdc",
+                    "on-secondary-fixed-variant": "#802a08",
+                    "primary-fixed-dim": "#9acee1",
+                    "secondary": "#9f411e",
+                    "inverse-on-surface": "#f6f0e1",
+                    "surface-variant": "#e8e2d3",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0f4c5c",
+                    "on-primary-fixed-variant": "#114d5d",
+                    "primary-fixed": "#b6ebfe",
+                    "on-tertiary-fixed": "#001f29",
+                    "primary": "#003441",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#96b9c8",
+                    "surface-container-high": "#eee8d9",
+                    "inverse-primary": "#9acee1",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#fe885f",
+                    "tertiary-fixed": "#c5e8f8",
+                    "on-secondary-fixed": "#390c00",
+                    "surface-bright": "#fff9ea",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#294b58",
+                    "surface-container": "#f3edde",
+                    "background": "#fff9ea",
+                    "on-background": "#1d1c13",
+                    "on-primary-fixed": "#001f28",
+                    "secondary-fixed": "#ffdbd0",
+                    "surface": "#fff9ea",
+                    "inverse-surface": "#333027",
+                    "secondary-fixed-dim": "#ffb59d",
+                    "outline-variant": "#c0c8cb",
+                    "surface-container-highest": "#e8e2d3",
+                    "surface-container-low": "#f9f3e4",
+                    "on-surface": "#1d1c13",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#306576",
+                    "tertiary": "#0e3340"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "stack-lg": "48px",
+                    "container-max": "1280px",
+                    "margin-mobile": "20px",
+                    "stack-md": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Lexend"],
+                    "label-sm": ["Be Vietnam Pro"],
+                    "display-lg-mobile": ["Lexend"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "data-mono": ["JetBrains Mono"],
+                    "display-lg": ["Lexend"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "heading-serif": ["Lora"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #F5EFE0;
+            color: #1d1c13;
+            overflow-x: hidden;
+        }
+        .premium-shadow {
+            box-shadow: 0px 10px 30px rgba(15, 76, 92, 0.05);
+        }
+        .hero-gradient-overlay {
+            background: linear-gradient(to bottom, rgba(0, 52, 65, 0.4), rgba(245, 239, 224, 1));
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .coral-progress-bar {
+            background: linear-gradient(90deg, #E87750 0%, #ffdbd0 100%);
+            border-radius: 9999px;
+            height: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .coral-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='8' viewBox='0 0 40 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 4C5 4 5 1 10 1C15 1 15 7 20 7C25 7 25 1 30 1C35 1 35 4 40 4' stroke='white' stroke-opacity='0.2'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-secondary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 z-50 w-full glass-nav bg-surface/80">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold tracking-tight text-primary">Coralume</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-primary border-b-2 border-secondary font-medium font-body-md text-body-md" href="#">Adopt</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Nha Trang</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Community</a>
+</div>
+<button class="bg-[#E87750] text-white px-6 py-2.5 rounded-full font-medium hover:scale-95 transition-transform duration-200">
+                Adopt Your Coral
+            </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative min-h-screen flex items-center justify-center pt-20">
+<!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full z-0" -->
+<div class="absolute inset-0 w-full h-full z-0" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Wave motion parameters
+    float wave1 = sin(uv.x * 3.0 + u_time * 0.5) * 0.05;
+    float wave2 = sin(uv.y * 2.0 + u_time * 0.3) * 0.02;
+    
+    // Ocean colors from design system
+    vec3 oceanBlue = vec3(0.71, 0.85, 0.91); // #B5D8E8
+    vec3 navyDeep = vec3(0.06, 0.30, 0.36);  // #0F4C5C
+    vec3 tealMid = vec3(0.36, 0.66, 0.71);   // #5BA8B5
+    
+    // Gradient mix based on UV and wave noise
+    float mixFactor = uv.y + wave1 + wave2;
+    mixFactor = clamp(mixFactor, 0.0, 1.0);
+    
+    vec3 color = mix(navyDeep, oceanBlue, mixFactor);
+    
+    // Add some subtle light "shimmer" at the top
+    float shimmer = pow(max(0.0, 1.0 - uv.y + sin(u_time * 0.2 + uv.x * 10.0) * 0.05), 4.0) * 0.1;
+    color += shimmer;
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+<div class="absolute inset-0 hero-gradient-overlay z-10"></div>
+<div class="relative z-20 text-center max-w-4xl px-margin-mobile">
+<h1 class="font-heading-serif text-display-lg-mobile md:text-display-lg text-primary mb-4 leading-tight">
+                Nhận nuôi san hô — <br class="hidden md:block"/> Gieo mầm cho đại dương
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-2 italic">Adopt a Coral — Plant a Future for the Ocean</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-primary mb-stack-lg">Your coral. Your story. Your impact.</p>
+<div class="flex flex-col md:flex-row gap-4 justify-center">
+<button class="bg-[#E87750] text-white px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                    Adopt Your Coral
+                </button>
+<button class="bg-white/30 backdrop-blur-md border border-white/40 text-primary px-10 py-4 rounded-full font-bold text-lg hover:bg-white/50 transition-all">
+                    Growth Report
+                </button>
+</div>
+</div>
+</header>
+<!-- Section 1: Real Impact, Real Data -->
+<section class="py-24 px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<span class="text-secondary font-label-sm uppercase tracking-widest mb-2 block">Transparency &amp; Science</span>
+<h2 class="font-heading-serif text-headline-md md:text-display-lg text-primary">Real Impact, Real Data</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Stat Card 1 -->
+<div class="bg-white p-8 rounded-xl premium-shadow border border-surface-container">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-secondary text-4xl">water_drop</span>
+<span class="bg-tertiary-container/10 text-tertiary px-3 py-1 rounded-full font-data-mono text-xs uppercase">Live Count</span>
+</div>
+<div class="font-data-mono text-4xl text-primary mb-2">500+</div>
+<p class="font-body-md text-on-surface-variant">Corals Adopted into our Nha Trang nurseries this year.</p>
+<div class="mt-6 pt-6 border-t border-surface-container">
+<div class="flex justify-between text-xs font-label-sm mb-2">
+<span>Restoration Target</span>
+<span>84%</span>
+</div>
+<div class="coral-progress-bar w-full"></div>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-white p-8 rounded-xl premium-shadow border border-surface-container">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-secondary text-4xl">public</span>
+<span class="bg-tertiary-container/10 text-tertiary px-3 py-1 rounded-full font-data-mono text-xs uppercase">Community</span>
+</div>
+<div class="font-data-mono text-4xl text-primary mb-2">1.2k</div>
+<p class="font-body-md text-on-surface-variant">Adopters Worldwide joining the stewardship movement.</p>
+<div class="mt-6 flex gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed"></div>
+<div class="w-8 h-8 rounded-full bg-primary-fixed"></div>
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-[10px] font-bold">+1k</div>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-white p-8 rounded-xl premium-shadow border border-surface-container">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-secondary text-4xl">eco</span>
+<span class="bg-tertiary-container/10 text-tertiary px-3 py-1 rounded-full font-data-mono text-xs uppercase">Resilience</span>
+</div>
+<div class="font-data-mono text-4xl text-primary mb-2">98%</div>
+<p class="font-body-md text-on-surface-variant">Survival Rate monitored by our expert marine biologists.</p>
+<div class="mt-6">
+<svg class="w-full h-12" viewbox="0 0 200 40">
+<path d="M0 35 Q 20 30, 40 32 T 80 20 T 120 25 T 160 10 T 200 15" fill="none" stroke="#306576" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Your Stewardship Journey -->
+<section class="bg-surface-container py-32 px-margin-desktop">
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div>
+<span class="text-secondary font-label-sm uppercase tracking-widest mb-2 block">The Experience</span>
+<h2 class="font-heading-serif text-display-lg-mobile md:text-display-lg text-primary mb-8">Your Stewardship Journey</h2>
+<div class="space-y-12">
+<div class="flex gap-6 group">
+<div class="w-12 h-12 rounded-full border border-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="font-data-mono">01</span>
+</div>
+<div>
+<h3 class="font-headline-md text-primary mb-2">Select Your Coral</h3>
+<p class="text-on-surface-variant">Browse our active nursery beds and choose a specimen that resonates with you. Each coral has a unique biological profile.</p>
+</div>
+</div>
+<div class="flex gap-6 group">
+<div class="w-12 h-12 rounded-full border border-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="font-data-mono">02</span>
+</div>
+<div>
+<h3 class="font-headline-md text-primary mb-2">Name &amp; Dedicate</h3>
+<p class="text-on-surface-variant">Make it personal. Give your coral a name and dedicate it to a loved one or a significant moment in your life.</p>
+</div>
+</div>
+<div class="flex gap-6 group">
+<div class="w-12 h-12 rounded-full border border-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="font-data-mono">03</span>
+</div>
+<div>
+<h3 class="font-headline-md text-primary mb-2">Track Personal Growth</h3>
+<p class="text-on-surface-variant">Receive quarterly 3D scans and high-resolution growth reports of your specific coral, directly from our Nha Trang divers.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="aspect-[4/5] rounded-3xl overflow-hidden premium-shadow">
+<img alt="Stewardship Journey" class="w-full h-full object-cover" data-alt="A serene underwater photograph of a marine biologist carefully planting a small, vibrant coral fragment onto a restoration frame in crystal clear turquoise water. The lighting is ethereal and sun-drenched, with ripples of light dancing across the seafloor. The overall aesthetic is premium and professional, using a soft palette of teal and sand to evoke a sense of hope and stewardship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2ywgTfhaQo_UBKbZmC5tKYMhp12Pb_3-Afqn0nkvURXbuXpcXnJpH0H4OX6VGc6jfV7tYkXFKcO4mGS4ZbX_pp50tAdaVAEHJtVHo8AzTM_TWxfDx0FqVDINBJ6ZwoXkJA48t4O83Kjy-YdVguvFulwMN907u3u1Bs8f53HC4uvVIxU1GMDzHNneFZ5emPvDLBIJ1ZBktoHmCJMVNgRzmX-HaNpOQ-kgLrpELuuUxo3jAObrWqcowwixaty9FyzOYGxNA7CBCxw8"/>
+</div>
+<div class="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl premium-shadow border border-surface-container max-w-xs">
+<p class="text-secondary font-label-sm uppercase mb-2">Live Update</p>
+<p class="font-heading-serif italic text-primary">"My coral, 'Aurora', has grown 2.4cm in just three months! Seeing the data makes it so real."</p>
+<p class="font-label-sm text-on-surface-variant mt-4">— Sarah J., Adopter since 2023</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: From Nha Trang with Love -->
+<section class="py-32 px-margin-desktop max-w-container-max mx-auto text-center">
+<h2 class="font-heading-serif text-display-lg-mobile md:text-display-lg text-primary mb-stack-lg">From Nha Trang with Love</h2>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-[600px]">
+<div class="md:col-span-8 rounded-3xl overflow-hidden relative group">
+<img alt="Nha Trang Center" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A breathtaking panoramic view of the Coralume restoration center coastline in Nha Trang. The scene captures the intersection of lush green hills and pristine, deep blue ocean waters under a clear sky. In the foreground, subtle silhouettes of stewardship boats are visible, bathed in the golden, warm glow of a late afternoon sun. The mood is tranquil and sophisticated, reflecting a high-end environmental mission." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw-u7N26J4WILcXlXBIFP98qDEj4Dp6UaFxcuWFTFzg86K1VvB18PPa0eNenVHRa7VqG-Y65H8b24YgRjEPC9ICgaF4v8cwTgBFbp0S85Ok8DdUNekDQf_H7D3K4LVT-W6-C71fsUg2f3m5LGCXSu0MSZAvzsUA05xhR8amLUyuH3b8f7GX6ekDw9_5-3KdhgyNaARUyM1lBwjJYs1rmXYXhbvLQOc1vygwoS5d2yxdISoaP7lmWR-U2qliMBXdK8gYUkn6rT9R-o"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex flex-col justify-end p-12 text-left">
+<h4 class="text-white font-headline-md mb-2">Our Restoration Center</h4>
+<p class="text-white/80 max-w-md">Located in the heart of Vietnam's marine biodiversity, our center combines local wisdom with global technology.</p>
+</div>
+</div>
+<div class="md:col-span-4 grid grid-rows-2 gap-6">
+<div class="rounded-3xl overflow-hidden premium-shadow">
+<img alt="Marine Laboratory" class="w-full h-full object-cover" data-alt="A high-tech, clean marine biology laboratory with scientists examining coral larvae under a sophisticated microscope. The lighting is clinical yet warm, with teal and white dominance. The equipment is modern and sleek, emphasizing the data-driven stewardship approach of Coralume. The environment feels professional, calm, and pioneering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPyOxy9Jnabg6eGIujpK-JeAmeo7Hevn9m1G_NqW_QPtoRsPDtc4797llb1WOEOx_fk73ZCW8ouCucTq6HLKNniJ_xDZlW9ZX5JzAu7xClIA-0Pkfqw6yQZlgyQZuCD4MUm_Ef2BSdW7Hhnmva0Jl-jmqw2r5n3jkqjdQG0IoV2tmLQ6N1L3yqFVeRbjwep6nfmT8xw_k2wmmynsXdHpC21YcROP_jDgp6dfsAl7sIfh_c7SlRsgDk5wzxeVyFWRu2eJh8to0HOD4"/>
+</div>
+<div class="bg-primary p-8 rounded-3xl flex flex-col justify-center text-left">
+<span class="material-symbols-outlined text-secondary-fixed text-4xl mb-4">location_on</span>
+<h4 class="text-white font-headline-md mb-2">Nha Trang, Vietnam</h4>
+<p class="text-white/70 font-body-md">Visit our center to witness the growth of your coral firsthand. Open for Stewardship Tours by appointment.</p>
+</div>
+</div>
+</div>
+<div class="mt-16 flex justify-center">
+<button class="bg-[#E87750] text-white px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3 hover:gap-5 transition-all">
+                Become a Steward <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-primary py-stack-lg mt-24">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop w-full max-w-container-max mx-auto gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="font-headline-md text-headline-md text-on-primary font-bold tracking-tight">Coralume</div>
+<p class="text-on-primary/80 font-body-md text-center md:text-left max-w-xs">© 2024 Coralume. Premium Stewardship for Our Oceans.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-label-sm uppercase tracking-wider" href="#">Impact Report</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-label-sm uppercase tracking-wider" href="#">Privacy Policy</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-label-sm uppercase tracking-wider" href="#">Nha Trang Center</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-label-sm uppercase tracking-wider" href="#">Contact</a>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-white text-xl">language</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-white text-xl">mail</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and scroll effects
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        // Simple observer for parallax or fade-in effects
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
+</body></html>

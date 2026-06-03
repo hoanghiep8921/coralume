@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cộng đồng Coralume | Bảo vệ Đại dương</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Lexend:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e8e2d3",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dfdacb",
+                    "surface": "#fff9ea",
+                    "outline-variant": "#c0c8cb",
+                    "on-secondary-fixed-variant": "#802a08",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#ffdbd0",
+                    "secondary-fixed-dim": "#ffb59d",
+                    "on-tertiary-container": "#96b9c8",
+                    "tertiary-container": "#284a57",
+                    "on-primary-container": "#87bbce",
+                    "on-background": "#1d1c13",
+                    "inverse-surface": "#333027",
+                    "inverse-primary": "#9acee1",
+                    "tertiary": "#0e3340",
+                    "surface-tint": "#306576",
+                    "secondary": "#9f411e",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#c5e8f8",
+                    "surface-container-highest": "#e8e2d3",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f9f3e4",
+                    "surface-container": "#f3edde",
+                    "on-secondary-fixed": "#390c00",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#0f4c5c",
+                    "surface-bright": "#fff9ea",
+                    "on-tertiary-fixed-variant": "#294b58",
+                    "outline": "#70787c",
+                    "on-surface-variant": "#40484b",
+                    "on-secondary-container": "#732100",
+                    "on-primary-fixed-variant": "#114d5d",
+                    "primary-fixed-dim": "#9acee1",
+                    "inverse-on-surface": "#f6f0e1",
+                    "tertiary-fixed-dim": "#a9ccdc",
+                    "on-tertiary-fixed": "#001f29",
+                    "surface-container-high": "#eee8d9",
+                    "on-primary": "#ffffff",
+                    "primary": "#003441",
+                    "secondary-container": "#fe885f",
+                    "background": "#fff9ea",
+                    "primary-fixed": "#b6ebfe",
+                    "on-surface": "#1d1c13",
+                    "on-primary-fixed": "#001f28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "stack-md": "24px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "stack-lg": "48px",
+                    "margin-mobile": "20px",
+                    "container-max": "1280px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "display-lg-mobile": ["Lexend"],
+                    "display-lg": ["Lexend"],
+                    "data-mono": ["JetBrains Mono"],
+                    "label-sm": ["Be Vietnam Pro"],
+                    "headline-md": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .coral-gradient {
+            background: linear-gradient(135deg, #003441 0%, #0f4c5c 100%);
+        }
+        .buoyant-card {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .buoyant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 20px 40px rgba(15, 76, 92, 0.12);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        @keyframes ripple {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        .pulse-dot::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: currentColor;
+            animation: ripple 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
+<div class="font-display-lg text-display-lg-mobile md:text-headline-md font-semibold text-primary tracking-tight">Coralume</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Adopt</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Nha Trang</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-body-lg text-body-lg" href="#">Community</a>
+</div>
+<div class="flex gap-4 items-center">
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity font-body-lg text-body-lg px-4 py-2">Login</button>
+<button class="bg-secondary text-on-secondary px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity font-body-lg text-body-lg shadow-md">Register</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-stack-lg">
+<!-- Hero Section -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mb-24">
+<div class="text-center md:text-left max-w-3xl">
+<span class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary-container/10 text-primary font-label-sm text-label-sm mb-6">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+                    KẾT NỐI VỚI HỆ SINH THÁI
+                </span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">Cộng đồng Người Bảo trợ Đại dương</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Nơi những trái tim hướng về đại dương gặp gỡ. Theo dõi tác động toàn cầu và vinh danh những nỗ lực tái tạo san hô tại Nha Trang.</p>
+</div>
+</section>
+<!-- Main Grid Layout -->
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Community Pulse (Left Column - 4 cols) -->
+<aside class="lg:col-span-4 space-y-stack-md order-3 lg:order-1">
+<div class="bg-surface-container rounded-xl p-stack-md h-full">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md text-primary">Nhịp đập Cộng đồng</h2>
+<span class="material-symbols-outlined text-secondary">waves</span>
+</div>
+<div class="space-y-6 relative">
+<!-- Vertical line for feed -->
+<div class="absolute left-6 top-2 bottom-0 w-px bg-outline-variant"></div>
+<!-- Feed Items -->
+<div class="relative flex gap-4 items-start">
+<div class="relative z-10 w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-surface shadow-sm">
+<img alt="User" data-alt="A close-up portrait of a young woman with a warm, authentic smile, photographed in soft natural outdoor light with a coastal background. The image has a professional editorial quality, with gentle color grading that emphasizes natural skin tones and a peaceful atmosphere consistent with marine stewardship themes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRR99GJuH5jxdPs43HK4SWvKwJYZjFE-MXDf2DwRt6Zq09hcGTz7X3pavqmvo-9NZYchqhkVAV9w8uuRq1SZSPwX445PnpqThriwoqKVcywvD0gLVKOsUkQo1NjOVuTr3jTRfXjXLPc7PZfcbcMwLRj-7Gzp-rSS1eaw0tNWPhq87SsNSGVncwGvsvIqF78zllqm0MqPYyLcfyngSW1ILfGgzMeFUPGIRy55RWdnvUI5lrknl8BzkDUwtslueGlZD4VZpLuoTOT9o"/>
+</div>
+<div>
+<p class="text-on-surface text-body-md font-medium">Linh Trần vừa nhận nuôi một rạn san hô <span class="text-secondary font-bold">Acropora</span>.</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm mt-1">Vừa xong • Nha Trang Center</p>
+</div>
+</div>
+<div class="relative flex gap-4 items-start">
+<div class="relative z-10 w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-surface shadow-sm">
+<img alt="User" data-alt="A portrait of a mature man with a kind and determined expression, wearing a high-end linen shirt in sea-foam green. The lighting is soft and diffuse, creating a premium feel against a background of blurred azure water. The aesthetic is modern and sophisticated, conveying a sense of personal investment and stewardship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmDFzLQb3ea8bmeUoGLihxmOapzCpVZezQn9Hs4y4j4KOoBaYnxGzaKojqqHQK8au87tFyyo7GyujZWRZskv4UzhJUBtAmwJn4tLD3qErMR-IkmCVFmBxDgykYZboNTMz3m_Ab3i4gukOlvOFpTSXUrXXNx08WnoNVvoi4W5EQmaRJ0Ds_sxau2JA2EquIIy_CYXAE9RmMtPTKffOoDeD6C85pMiLG9ST5D6ZqhSNWfU_pVE6SUHLk6trfWWTjAAaEq10mcqYRz_4"/>
+</div>
+<div>
+<p class="text-on-surface text-body-md font-medium">Anh Tú đã đạt mốc <span class="text-primary font-bold">12 tháng</span> bảo trợ liên tục.</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm mt-1">15 phút trước • Hà Nội</p>
+</div>
+</div>
+<div class="relative flex gap-4 items-start">
+<div class="relative z-10 w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-surface shadow-sm">
+<img alt="User" data-alt="A high-resolution photograph of a serene woman looking towards the horizon. The lighting is warm golden hour, reflecting off calm ocean waves in the distance. The overall image has a blue-green color grading to align with a marine conservation theme, presented in a clean, modern lifestyle photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyum_w2Qcbos_4YdBu7YfrWuRmP6Zjo_R5-wB7XDs8HPgxXF3tz1zoWldzXnpKJCRaXLUNOdABrEgLada7f8SCpY6huJZBgjNf_6WjzVVO0WriPrDgIOhPikD5Zxmviwe-cRDlOMX0x3T9g6n-ZoLTXOQ0DsDMde3Ms0eb9B9HVuDEq6uB0bvRJ8zAfloDtL5l_DyJ-oQs6onM7GmqpNyCadnKBHwUpjmhQCzJtNbi41IrQKsKkhO_ZrBIwwKw0lf2Z_CAVz22huA"/>
+</div>
+<div>
+<p class="text-on-surface text-body-md font-medium">Minh Anh tặng <span class="text-secondary font-bold">Bản Đồ San Hô</span> cho người thân.</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm mt-1">1 giờ trước • TP. Hồ Chí Minh</p>
+</div>
+</div>
+<div class="relative flex gap-4 items-start opacity-60">
+<div class="relative z-10 w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-surface shadow-sm">
+<img alt="User" data-alt="A candid, high-quality portrait of a person with a joyful expression, lit by bright, clean sunlight. The background is a minimalist modern interior with subtle hints of aquatic decor. The color palette is composed of soft beiges and deep navy tones, maintaining a premium and data-driven brand feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbjN01CBPIkdbfeUfcs_nTmXUR8KZsCsYYnKBb2NWZ7Kf3FgLwxIHI6bST3gK9glvXW2CJKSmv41w3uqutR9zjoLFbWScm63A72TxbfWj9Zo2uT_IEl4JhHXgoypzgBK49oYBwtMHxEiuBVD_qYN4zKrtKF9v-Fr-L1xcV1jaM0r9gM4WBSijChiRWeM5IPvYx_0zaEwGwbLMEAzxPrsLD8xibmpzQOXX6ybiNvv-oAlTbinSF8Xz2_gRu4x2qeLE2WI3wDuND2J0"/>
+</div>
+<div>
+<p class="text-on-surface text-body-md font-medium">Hồng Vy vừa cập nhật báo cáo tăng trưởng: <span class="text-primary font-bold">+15%</span>.</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm mt-1">2 giờ trước • Đà Nẵng</p>
+</div>
+</div>
+</div>
+<div class="mt-12 p-6 bg-surface-container-high rounded-xl border border-outline-variant/30">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h3 class="font-bold text-primary">Thống kê Hôm nay</h3>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<div class="font-data-mono text-data-mono text-secondary">24</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">San hô mới</div>
+</div>
+<div>
+<div class="font-data-mono text-data-mono text-primary">$1,250</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Quỹ bảo tồn</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Meet Other Adopters & Leaderboard (Center/Right - 8 cols) -->
+<div class="lg:col-span-8 space-y-stack-lg order-2 lg:order-2">
+<!-- Testimonials Section -->
+<section>
+<div class="flex items-end justify-between mb-8">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Gặp gỡ Người Bảo trợ</h2>
+<p class="text-on-surface-variant mt-2">Hành trình cá nhân đằng sau mỗi rạn san hô.</p>
+</div>
+<button class="text-primary font-label-sm text-label-sm hover:underline">Xem tất cả</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Card 1 -->
+<div class="buoyant-card bg-surface-container-lowest p-stack-md rounded-2xl shadow-sm border border-surface-variant/50">
+<div class="flex items-center gap-4 mb-6">
+<img alt="Profile" class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="A professional portrait of a tech-entrepreneur in their 30s, looking confident and serene. The lighting is soft and even, highlighting a high-end minimalist lifestyle. The background is a clean, modern space with soft teal accents, conveying a sense of data-driven stewardship and luxury marine conservation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJS8Q41l7hrQdv36na0FSb9fzsULhhHoDsk2aWAzV7fO52rzAfCyRskZiKP-qSiZ1go91-YKEoYaaYt2Ow6bpvMY_UswqkfBYkBBCOFcMPy9hO5sAeDQStvGmFzu-sYftlkeClQWm8YMjdSFvMM8dTm8ZnwNoVMkmozrudW9Os5L1RdL98kyM3iTnhnwBJeEc2DOlOS515dFf18me2WxqSiziP65JajsaE4HTk-9ntcmoV1lB7LL0DbFgwY8g22YS1gdRskON5emw"/>
+<div>
+<h4 class="font-bold text-primary">Thế Vinh</h4>
+<p class="text-on-surface-variant text-label-sm font-label-sm">Bảo trợ từ 2022</p>
+</div>
+</div>
+<p class="text-body-md italic text-on-surface/80 leading-relaxed">"Tôi chọn Coralume vì sự minh bạch. Được nhìn thấy san hô của mình lớn lên từng ngày qua báo cáo hình ảnh là một trải nghiệm vô cùng kết nối."</p>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="bg-primary-container/10 text-primary-container px-3 py-1 rounded-full text-label-sm font-label-sm">4 San hô</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="buoyant-card bg-surface-container-lowest p-stack-md rounded-2xl shadow-sm border border-surface-variant/50">
+<div class="flex items-center gap-4 mb-6">
+<img alt="Profile" class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="A portrait of a sophisticated woman with a focused yet warm expression, set against a softly blurred coastal landscape at dawn. The image has a premium, airy feel with high-key lighting and a palette dominated by whites, light beiges, and deep ocean blues, reflecting a serious commitment to environmental stewardship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsnYPnL13tKNPV1s0h78wqfc85hxixw8Ek_UtaFCix_O9s7rurUiAhCDgFGlULO1bSjA8d7Y7-m4_bLizwnmKTqpyFI2u60AXwhfizx9SAJKLlEbZlWa11gok5QeAL3-RNFoZb3yirc4Lz9_92KDcv-rlZoFMI-gdsalyS__qNMYV1VA_zVNblyLBZwrWsMGGsohpmum8_6iktshQCw8dKDhUkCfLXbtmsSD-BD0_kancTVgPih8H_-QTJsJFJfaUtDIEdqF43pLE"/>
+<div>
+<h4 class="font-bold text-primary">Lan Phương</h4>
+<p class="text-on-surface-variant text-label-sm font-label-sm">Bảo trợ từ 2023</p>
+</div>
+</div>
+<p class="text-body-md italic text-on-surface/80 leading-relaxed">"Món quà ý nghĩa nhất tôi từng tặng bản thân. Không chỉ là bảo tồn, đó là việc để lại một di sản sống cho thế hệ mai sau."</p>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="bg-primary-container/10 text-primary-container px-3 py-1 rounded-full text-label-sm font-label-sm">2 San hô</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Leaderboard Section -->
+<section class="bg-primary-container rounded-3xl overflow-hidden relative">
+<!-- Subtle Background Decoration -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+
+</div>
+<div class="relative z-10 p-stack-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary-fixed">Bảng vàng Guardian</h2>
+<p class="text-primary-fixed/70 mt-1">Tôn vinh những cá nhân có đóng góp lớn nhất cho hệ sinh thái.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface/10 p-1 rounded-full border border-white/10 backdrop-blur-md">
+<button class="px-4 py-1.5 rounded-full bg-surface-bright text-primary font-label-sm text-label-sm">Tháng này</button>
+<button class="px-4 py-1.5 rounded-full text-primary-fixed font-label-sm text-label-sm hover:bg-white/5">Tất cả</button>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Leaderboard Rank 1 -->
+<div class="flex items-center justify-between p-6 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm hover:bg-white/10 transition-colors">
+<div class="flex items-center gap-6">
+<div class="font-data-mono text-2xl text-secondary-fixed">01</div>
+<div class="relative">
+<img alt="Rank 1" class="w-14 h-14 rounded-full border-2 border-secondary-fixed shadow-lg" data-alt="A striking portrait of a distinguished man with an air of quiet authority. The lighting is dramatic yet soft, focused on his face with deep shadows in the background. The aesthetic is ultra-premium, suggesting a high-level investor or philanthropist, with subtle maritime themes in the color palette and textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe9Dru6nlnGs9QfyQ1mPHfNzdyqXaiF1iYj2L0JjXwEoLzDGbWr7yC7bUOGKRjHTpqJpkKZWfF6jWPOrM-P4J1lYCg803IyP316m9L0D5cK4P1Yxveiqnpl7ccftZbWYom_9fSoXyHnyvT6p_RPsNZ9FblaFCY87JSfV8ReGcovYAnX5FtOY6auyWBR5u3AjMHkJCJvWIAUEyKa_3AO13hWVfvrc5qe1zsusQehnsR0jGfLmFSknuu1yBOeveVZmECyoq1WbpfcJc"/>
+<div class="absolute -top-2 -right-2 bg-secondary text-on-secondary w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold">🏆</div>
+</div>
+<div>
+<h4 class="font-bold text-primary-fixed">Hoàng Nam</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-primary-fixed-dim text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-primary-fixed/60 text-label-sm font-label-sm">Ocean Ambassador</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-data-mono text-xl text-primary-fixed">42 San hô</div>
+<div class="text-label-sm font-label-sm text-primary-fixed/60">Tăng trưởng +18%</div>
+</div>
+</div>
+<!-- Leaderboard Rank 2 -->
+<div class="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors">
+<div class="flex items-center gap-6">
+<div class="font-data-mono text-2xl text-primary-fixed/40">02</div>
+<img alt="Rank 2" class="w-14 h-14 rounded-full border-2 border-primary-fixed/20" data-alt="A sophisticated portrait of a woman with a bright, visionary gaze. The image is captured in a high-key setting with a luminous, watery background that feels expansive. The color grading leans toward soft teals and sandy beiges, perfectly aligning with a modern marine conservation brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1GvdvI4JdIMKH1e8NEkJIHogYwEW9hcu3b9aQMpE2H5q0gLO8MOuwapeG5HKNc_2gotlHBD75MO-FWWC89z5X5eFe4mvZ8WVmgyxBkSEstTGVHH4I2YGf3mHX4MZzdfeu8XYUVdObIFjMpDjc9gDDTEB8Kk1lcFMb4F0aVZe_YDFZGoASKefoPTSxS-q2TjIcIEVxkN407YjlfzOEaoKeqcOUKvO6VO3-F97lFOi3Zj_TUM95kGke4fAz_jreoi3IALonZvOFSHI"/>
+<div>
+<h4 class="font-bold text-primary-fixed">Quỳnh Anh</h4>
+<div class="text-primary-fixed/60 text-label-sm font-label-sm mt-1">Blue Guardian</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-data-mono text-xl text-primary-fixed">28 San hô</div>
+<div class="text-label-sm font-label-sm text-primary-fixed/60">Tăng trưởng +12%</div>
+</div>
+</div>
+<!-- Leaderboard Rank 3 -->
+<div class="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors">
+<div class="flex items-center gap-6">
+<div class="font-data-mono text-2xl text-primary-fixed/40">03</div>
+<div class="w-14 h-14 rounded-full bg-surface-variant flex items-center justify-center text-primary font-bold border-2 border-primary-fixed/20">
+                                        Ẩn
+                                    </div>
+<div>
+<h4 class="font-bold text-primary-fixed italic">Chế độ Riêng tư</h4>
+<div class="text-primary-fixed/40 text-label-sm font-label-sm mt-1">Sanctuary Keeper</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-data-mono text-xl text-primary-fixed">24 San hô</div>
+<div class="text-label-sm font-label-sm text-primary-fixed/60">Tăng trưởng +15%</div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-white/10 flex justify-center">
+<button class="flex items-center gap-2 text-primary-fixed/70 hover:text-primary-fixed transition-colors font-label-sm text-label-sm">
+<span class="material-symbols-outlined">settings</span>
+                                Tùy chỉnh quyền riêng tư của bạn
+                            </button>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Global Map Visualizer (CTA) -->
+<section class="mt-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="bg-surface-container rounded-[2rem] overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+<div class="p-stack-lg flex flex-col justify-center">
+<h2 class="font-display-lg text-display-lg-mobile md:text-headline-md text-primary mb-6">Dấu chân Xanh trên Toàn cầu</h2>
+<p class="text-body-lg text-body-lg text-on-surface-variant mb-8">Hiện diện tại 42 quốc gia, cộng đồng Coralume đang cùng nhau hồi sinh đại dương từ Nha Trang ra thế giới.</p>
+<div class="flex flex-wrap gap-4">
+<div class="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-outline-variant/30 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary pulse-dot relative"></span>
+<span class="font-data-mono text-data-mono">1,248 Người bảo trợ</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-outline-variant/30 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary pulse-dot relative"></span>
+<span class="font-data-mono text-data-mono">8,500+ San hô đã trồng</span>
+</div>
+</div>
+<div class="mt-12">
+<button class="bg-secondary text-on-secondary px-8 py-4 rounded-full font-bold text-body-lg hover:shadow-lg hover:-translate-y-1 transition-all">Gia nhập cộng đồng ngay</button>
+</div>
+</div>
+<div class="relative h-64 lg:h-auto min-h-[400px]">
+<img alt="Ocean Map" class="absolute inset-0 w-full h-full object-cover" data-alt="A stylized, premium map of the world focused on the Pacific and Southeast Asian regions, specifically highlighting coastal Vietnam. The map is designed in a dark navy and teal palette, with glowing points of light representing marine conservation sites and active communities. The style is data-driven, clean, and modern, evoking a sense of global impact and connectivity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuToy_2OKH_KuIQGnFkcywC_-IRA8TDlfLJZh6GZ5VmIEF2KYJO2bgx0SLKNWZvt0-TPzJAJy_ln17MDGV7y7eEW1pS-o34_PkxkzL29RvHK82bhEN8RfNgqp_TsRECSweojCbv9zNIFHTE3c7MRHquYw5tmYhdE4e8S-3CwW1zA2Xb5SsBcLHq8mxdWKki0XoftFvb_wgOeGVxPv_qMJQOIpUa2_8uTfFe71t-ERBZmPCKlay2SW3rYki6_0iyytefHcsnBbC0gQ"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container via-transparent to-transparent"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-stack-lg bg-surface-container-low border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div class="lg:col-span-1">
+<div class="font-display-lg text-headline-md text-primary mb-6">Coralume</div>
+<p class="text-on-surface-variant text-body-md">Hệ sinh thái bảo tồn san hô cá nhân hóa hàng đầu, kết hợp dữ liệu và tình yêu đại dương.</p>
+</div>
+<div>
+<h5 class="font-bold text-primary mb-4">Hành trình</h5>
+<ul class="space-y-3">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">Impact Reports</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">Nha Trang Center</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-primary mb-4">Hỗ trợ</h5>
+<ul class="space-y-3">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">Contact Us</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-primary mb-4">Kết nối</h5>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">language</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">camera_outdoor</span>
+</a>
+</div>
+<p class="text-on-surface-variant text-label-sm font-label-sm mt-8">© 2024 Coralume. Premium Stewardship &amp; Marine Conservation.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for live feed
+        document.addEventListener('DOMContentLoaded', () => {
+            const feedItems = document.querySelectorAll('.relative.flex.gap-4.items-start');
+            feedItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    item.style.transition = 'all 0.6s ease';
+                    item.style.opacity = index > 2 ? '0.6' : '1';
+                    item.style.transform = 'translateY(0)';
+                }, 200 * index);
+            });
+        });
+    </script>
+</body></html>

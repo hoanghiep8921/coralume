@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Adopt Your Coral | Coralume</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#284a57",
+                        "surface-dim": "#dfdacb",
+                        "on-secondary-container": "#732100",
+                        "on-primary-container": "#87bbce",
+                        "on-surface-variant": "#40484b",
+                        "outline": "#70787c",
+                        "tertiary-fixed-dim": "#a9ccdc",
+                        "on-secondary-fixed-variant": "#802a08",
+                        "primary-fixed-dim": "#9acee1",
+                        "secondary": "#9f411e",
+                        "inverse-on-surface": "#f6f0e1",
+                        "surface-variant": "#e8e2d3",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#0f4c5c",
+                        "on-primary-fixed-variant": "#114d5d",
+                        "primary-fixed": "#b6ebfe",
+                        "on-tertiary-fixed": "#001f29",
+                        "primary": "#003441",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#96b9c8",
+                        "surface-container-high": "#eee8d9",
+                        "inverse-primary": "#9acee1",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#fe885f",
+                        "tertiary-fixed": "#c5e8f8",
+                        "on-secondary-fixed": "#390c00",
+                        "surface-bright": "#fff9ea",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#294b58",
+                        "surface-container": "#f3edde",
+                        "background": "#fff9ea",
+                        "on-background": "#1d1c13",
+                        "on-primary-fixed": "#001f28",
+                        "secondary-fixed": "#ffdbd0",
+                        "surface": "#fff9ea",
+                        "inverse-surface": "#333027",
+                        "secondary-fixed-dim": "#ffb59d",
+                        "outline-variant": "#c0c8cb",
+                        "surface-container-highest": "#e8e2d3",
+                        "surface-container-low": "#f9f3e4",
+                        "on-surface": "#1d1c13",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#306576",
+                        "tertiary": "#0e3340"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "margin-mobile": "20px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Lexend"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "display-lg-mobile": ["Lexend"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "data-mono": ["JetBrains Mono"],
+                        "display-lg": ["Lexend"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f5efe0; /* Beige Sand */
+            scroll-behavior: smooth;
+        }
+        .organic-wave {
+            mask-image: url("data:image/svg+xml,%3Csvg width='1440' height='200' viewBox='0 0 1440 200' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100C360 200 1080 0 1440 100V200H0V100Z' fill='black'/%3E%3C/svg%3E");
+            mask-size: cover;
+        }
+        .buoyant-card {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .buoyant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 20px 40px rgba(15, 76, 92, 0.1);
+        }
+        .custom-progress-fill {
+            background: linear-gradient(90deg, #306576 0%, #87bbce 100%);
+            border-radius: 9999px;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)]">
+<div class="max-w-container-max mx-auto px-margin-desktop py-4 flex justify-between items-center">
+<div class="font-headline-md text-headline-md font-bold tracking-tight text-primary">Coralume</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-primary border-b-2 border-secondary font-medium font-body-md text-body-md" href="#">Adopt</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Nha Trang</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Community</a>
+</nav>
+<button class="bg-secondary text-on-primary px-6 py-2.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider hover:bg-on-secondary-container transition-all active:scale-95 shadow-md">
+                Adopt Your Coral
+            </button>
+</div>
+</header>
+<main class="pt-32 pb-stack-lg">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<!-- Hero Header -->
+<div class="mb-stack-lg space-y-4">
+<h1 class="font-display-lg text-display-lg text-primary max-w-2xl">Find Your Ocean Partner</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                    Invest in the resilience of Nha Trang's reefs. Each adoption provides the specific nutrients and stewardship required for your coral's optimal growth.
+                </p>
+</div>
+<div class="flex flex-col lg:flex-row gap-12">
+<!-- Sidebar Filters -->
+<aside class="lg:w-64 space-y-8">
+<div class="bg-white p-6 rounded-xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)]">
+<div class="flex items-center gap-2 mb-6 text-primary">
+<span class="material-symbols-outlined">filter_list</span>
+<span class="font-label-sm text-label-sm uppercase">Refine Selection</span>
+</div>
+<div class="space-y-6">
+<!-- Species Filter -->
+<div class="space-y-3">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Species Group</label>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="font-body-md text-body-md group-hover:text-primary transition-colors">Branching</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="font-body-md text-body-md group-hover:text-primary transition-colors">Massive</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="font-body-md text-body-md group-hover:text-primary transition-colors">Plate</span>
+</label>
+</div>
+</div>
+<!-- Growth Rate Filter -->
+<div class="space-y-3">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Growth Rate</label>
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<div class="flex justify-between font-data-mono text-data-mono text-on-surface-variant">
+<span>Stable</span>
+<span>Rapid</span>
+</div>
+</div>
+<!-- Impact Filter -->
+<div class="space-y-3">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Impact level</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1 bg-primary-container text-on-primary-container rounded-full font-label-sm text-label-sm">High Habitat</button>
+<button class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full font-label-sm text-label-sm">Heat Resilient</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Ambient Stat -->
+<div class="p-6 rounded-xl bg-primary text-on-primary space-y-2">
+<span class="font-data-mono text-[24px]">1,240</span>
+<p class="font-label-sm text-label-sm text-on-primary/70 uppercase">Corals Stewarded This Month</p>
+</div>
+</aside>
+<!-- Coral Catalog Grid -->
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Card 1: Staghorn -->
+<div class="buoyant-card bg-white rounded-xl overflow-hidden shadow-[0px_10px_30px_rgba(15,76,92,0.05)] flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" data-alt="A macro close-up photograph of a vibrant Acropora Staghorn coral under crystal clear turquoise water. The coral's delicate branching structures are illuminated by dappled sunlight filtering from the surface, highlighting soft orange and teal hues. The aesthetic is premium and editorial, emphasizing the organic texture and fragile beauty of the marine life in a serene oceanic setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1B0i_UQP0_qZGfOjw9U9NXN9VqLnhAX48oeWvyes7NVaroU7ZqEmtzxugkgzsj-0ByoAiPE09msNTx06Vl_wcU9msG4Zh46e4iBkQHoN3pQ6-23u7EsqKK896A4296-XdBbuQeDVogoRac-0DuJdyBpz9Zpe1zeJeHGkMkXtohsn1PPmXXjw1KVs1dn97U3_Z337yLnMOK6YZeER63flKJd7_6w0gt6QVotk-vkyAKmITbrgs-mMJFwVbG6Ko70ck9UCiQvZoIZQ"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 backdrop-blur-md rounded-full">
+<span class="font-label-sm text-label-sm text-white">Rapid Growth</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Staghorn Coral</h3>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Growth Rate</span>
+<span class="font-data-mono text-data-mono text-primary">+14cm / year</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mb-6">
+<div class="custom-progress-fill" style="width: 85%;"></div>
+</div>
+<button class="mt-auto w-full py-4 bg-secondary text-on-primary rounded-xl font-label-sm text-label-sm uppercase tracking-widest hover:shadow-lg transition-all active:scale-[0.98]">
+                                Adopt This Coral
+                            </button>
+</div>
+</div>
+<!-- Card 2: Table Coral -->
+<div class="buoyant-card bg-white rounded-xl overflow-hidden shadow-[0px_10px_30px_rgba(15,76,92,0.05)] flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" data-alt="A wide-angle professional photograph of a majestic Table Coral structure on a thriving reef in Nha Trang. The coral forms a flat, expansive plate with intricate geometric patterns, colored in deep earthy reds and soft pinks. The surrounding water is a deep Navy blue with small colorful fish swimming nearby, creating a sense of a vast, high-end underwater ecosystem with sophisticated natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiNPnkykqRQ45HpswDrZktsUIOSFoTDlnGFSmRR55rqEi4W5dZW0X22zSc6QR_waxBQ2Ej4G-IOMSwxTDpN6w48vK_W5HS7l7s3iMfScgPm65YhUH-AM9kBbDhnymg_nWdqDrPzEAG0RZGDVWsvtw9-WQuViu-ThKI9SBnTxs07HNxuin2G9P32OVA0NA_Uha0bA7cGv2SsV6kWWGy9Ov8Qm4BoGTaVWqlYueuJDyJ4PEMZKzDWot621eTSiMO6GljilwDldzgwFU"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 backdrop-blur-md rounded-full">
+<span class="font-label-sm text-label-sm text-white">High Impact</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Table Coral</h3>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Growth Rate</span>
+<span class="font-data-mono text-data-mono text-primary">+8cm / year</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mb-6">
+<div class="custom-progress-fill" style="width: 60%;"></div>
+</div>
+<button class="mt-auto w-full py-4 bg-secondary text-on-primary rounded-xl font-label-sm text-label-sm uppercase tracking-widest hover:shadow-lg transition-all active:scale-[0.98]">
+                                Adopt This Coral
+                            </button>
+</div>
+</div>
+<!-- Card 3: Brain Coral -->
+<div class="buoyant-card bg-white rounded-xl overflow-hidden shadow-[0px_10px_30px_rgba(15,76,92,0.05)] flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" data-alt="A detailed macro shot of a Brain Coral, highlighting the complex, labyrinth-like grooves and ridges that resemble a human brain. The color palette is a sophisticated mix of golden sand and muted teal. The image uses a shallow depth of field to focus on the intricate textures, evoking a sense of ancient wisdom and environmental stewardship within a modern oceanic context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUY34tHXJgudv5lXCZBp7USaYTU1XZMq1x2N0D7pWHaD4U_sxiEIYyrZffTzyttUvmKWA1W5NeZeyLEMqXQXdlsh1xjqf8ru7fQfdYmhnAGuC63Wga87kfPSU_hw0-2UrYvhL2K3HicgQ2gjnO6CSLvC1fwVP2zUUW0sJHJ9v8ClmWNjj5h8RF6KxDiav3tAupQ2t-qtVi22kGOJi3gvI8kk2DMICWFMiZ49mhhOy12fi33COzjSgnZMnrgA0839CZI-yhVb_CH6s"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 backdrop-blur-md rounded-full">
+<span class="font-label-sm text-label-sm text-white">Resilient</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Brain Coral</h3>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Growth Rate</span>
+<span class="font-data-mono text-data-mono text-primary">+2cm / year</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mb-6">
+<div class="custom-progress-fill" style="width: 25%;"></div>
+</div>
+<button class="mt-auto w-full py-4 bg-secondary text-on-primary rounded-xl font-label-sm text-label-sm uppercase tracking-widest hover:shadow-lg transition-all active:scale-[0.98]">
+                                Adopt This Coral
+                            </button>
+</div>
+</div>
+<!-- Card 4: Elkhorn Coral -->
+<div class="buoyant-card bg-white rounded-xl overflow-hidden shadow-[0px_10px_30px_rgba(15,76,92,0.05)] flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" data-alt="A stunning underwater photograph of Elkhorn coral, showcasing its thick, antler-like branches reaching towards the sunlit surface of the ocean. The lighting is dramatic, with light rays piercing through clear tropical water. The palette is dominated by warm amber tones of the coral and vibrant cyan of the water, creating a high-contrast, premium aesthetic suitable for a high-end stewardship platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuXf5vKHdRGiSlDcRCu4AuB95n0Xsbeml1u6e-kCuD_fruqoytPE2okvSjokHNGQC3ulSIpGvNRKMCf7dj1YFBm-2A-r05UE7i-7R68YKqDz5GjraGSKSuTy7HeSNONc1xiZOLlw1Tn78R2ASZycDE49lHibwpzDf7ua6edBkdTMGXJWN2XXCINxgsT0WWrXRCBTF8ywTLqc7PLa2eP-qh0k9W4JA3y1a_XNVmGOf14CMqVHshPIHNSfXAZKP57ycswocxQg-abAU"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 backdrop-blur-md rounded-full">
+<span class="font-label-sm text-label-sm text-white">Rapid Growth</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Elkhorn Coral</h3>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Growth Rate</span>
+<span class="font-data-mono text-data-mono text-primary">+12cm / year</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mb-6">
+<div class="custom-progress-fill" style="width: 75%;"></div>
+</div>
+<button class="mt-auto w-full py-4 bg-secondary text-on-primary rounded-xl font-label-sm text-label-sm uppercase tracking-widest hover:shadow-lg transition-all active:scale-[0.98]">
+                                Adopt This Coral
+                            </button>
+</div>
+</div>
+<!-- Card 5: Bubble Coral -->
+<div class="buoyant-card bg-white rounded-xl overflow-hidden shadow-[0px_10px_30px_rgba(15,76,92,0.05)] flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" data-alt="A professional marine photography shot of Bubble Coral, featuring its unique, grape-like clusters that shimmer under the reef lights. The bubbles have a translucent, pearlescent quality with soft mint and ivory tones. The overall mood is ethereal and calm, capturing the delicate and organic nature of marine life in a luxurious, modern light-mode style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpbOo4xKQYVyBPZ18K3OiluzNQIByw27dYBsnIXBLzBWm2pd3Akzaeh2f5dltbg82tyiJG-6YWYyWrGQzmtQci25vAG-OpTSnHTAkwSAwaPrgBiAtuPHo2LtWtTOs-d64InFeqNMhBnz97XWV2tv1sUz54fCShe2ou00_1Po79sVCwy5OWO8uImumC78Th-pdVp8Mzti3efwENzNCk1MX6DSz9xlwn-lzh3PcP9yIQEZYesTZKMljW3L0PECGsF8NDJcYD0grt-SY"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 backdrop-blur-md rounded-full">
+<span class="font-label-sm text-label-sm text-white">Rare</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Bubble Coral</h3>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Growth Rate</span>
+<span class="font-data-mono text-data-mono text-primary">+3cm / year</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mb-6">
+<div class="custom-progress-fill" style="width: 35%;"></div>
+</div>
+<button class="mt-auto w-full py-4 bg-secondary text-on-primary rounded-xl font-label-sm text-label-sm uppercase tracking-widest hover:shadow-lg transition-all active:scale-[0.98]">
+                                Adopt This Coral
+                            </button>
+</div>
+</div>
+<!-- Card 6: Pillar Coral -->
+<div class="buoyant-card bg-white rounded-xl overflow-hidden shadow-[0px_10px_30px_rgba(15,76,92,0.05)] flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" data-alt="An artistic underwater image of Pillar Coral colonies rising from the ocean floor like natural skyscrapers. The pillars are covered in tiny, fuzzy polyps that catch the light, giving them a soft, glowing appearance. The background shows a deep, vast ocean expanse in gradients of teal and navy, emphasizing the stewardship and protection of these majestic marine structures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClTvLQef218KuKKjbJiws-IqjSQCnRy7UewpUTLDOLjgwgwoZDb-Gpy2sOq1lM7iXxi5xnjNc9H7NOVdMppl5YoS0AnEQ7mvza5fsl6veK6a2_EW3-tTfdcGXcdGPMfCC32zo13xsTmKk3Kt9oPkGgCKXknj6KOCa8RleDqlIlwlTBWjXlCp9pq0Nd14putvhXakM7I-wqlDMwx9JsEvmq6z6Huav9Mivbtk-v2l29EioRRVgcnEw2TC5FR4Btw8t-HU55o3zZY6k"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-primary/20 backdrop-blur-md rounded-full">
+<span class="font-label-sm text-label-sm text-white">Structural</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Pillar Coral</h3>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Growth Rate</span>
+<span class="font-data-mono text-data-mono text-primary">+5cm / year</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mb-6">
+<div class="custom-progress-fill" style="width: 50%;"></div>
+</div>
+<button class="mt-auto w-full py-4 bg-secondary text-on-primary rounded-xl font-label-sm text-label-sm uppercase tracking-widest hover:shadow-lg transition-all active:scale-[0.98]">
+                                Adopt This Coral
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Impact Wave Section -->
+<section class="relative bg-primary py-32 overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-24 organic-wave bg-surface -translate-y-1"></div>
+<div class="max-w-container-max mx-auto px-margin-desktop relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="md:w-1/2 space-y-6">
+<h2 class="font-display-lg text-display-lg text-on-primary">Real-time Marine Stewardship</h2>
+<p class="font-body-lg text-body-lg text-on-primary/80">
+                    Your adoption isn't just a donation; it's a direct investment in marine biology. Each coral is tagged with a unique identifier, allowing you to track pH levels, temperature, and growth metrics through your personal dashboard.
+                </p>
+<div class="flex gap-4">
+<div class="p-4 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20">
+<span class="font-data-mono text-on-primary text-[20px]">98%</span>
+<p class="font-label-sm text-label-sm text-on-primary/60 uppercase">Survival Rate</p>
+</div>
+<div class="p-4 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20">
+<span class="font-data-mono text-on-primary text-[20px]">+2.4k</span>
+<p class="font-label-sm text-label-sm text-on-primary/60 uppercase">Biodiversity Points</p>
+</div>
+</div>
+</div>
+<div class="md:w-1/2 flex justify-center">
+<div class="relative w-full max-w-sm aspect-square bg-on-primary/5 rounded-full border border-on-primary/20 flex items-center justify-center">
+<div class="w-4/5 h-4/5 rounded-full border border-on-primary/10 animate-pulse"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-[120px] text-secondary opacity-30">water_drop</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-primary pt-12 pb-stack-lg">
+<div class="max-w-container-max mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="font-headline-md text-headline-md text-on-primary">Coralume</div>
+<div class="flex gap-8">
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md text-body-md" href="#">Impact Report</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md text-body-md" href="#">Privacy Policy</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md text-body-md" href="#">Nha Trang Center</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md text-body-md" href="#">Contact</a>
+</div>
+<p class="font-label-sm text-label-sm text-on-primary/80">© 2024 Coralume. Premium Stewardship for Our Oceans.</p>
+</div>
+</footer>
+<script>
+        // Micro-interactions for filtering
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const cards = document.querySelectorAll('.buoyant-card');
+                cards.forEach(card => {
+                    card.style.opacity = '0.5';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                    }, 200);
+                });
+            });
+        });
+
+        // Buoyant effect script for cards (additional subtle movement)
+        document.querySelectorAll('.buoyant-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) translateY(0) rotateX(0) rotateY(0)`;
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,326 @@
+// Coralume Database Schema
+// Generated from SRS Section 8 · 03/06/2026
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+enum UserRole {
+  visitor
+  adopter
+  ambassador
+  admin
+  editor
+  coral_staff
+}
+
+enum CoralStatus {
+  available
+  assigned
+  growing
+  dead
+}
+
+enum ProductTier {
+  standard
+  premium
+  premium_plus
+}
+
+enum AdoptionStatus {
+  pending
+  active
+  completed
+}
+
+enum PaymentMethod {
+  vnpay
+  momo
+  bank_transfer
+}
+
+enum PaymentStatus {
+  pending
+  completed
+  failed
+  refunded
+}
+
+enum HealthStatus {
+  good
+  average
+  needs_attention
+}
+
+enum BlogCategory {
+  ecology
+  conservation
+  green_economy
+  adopter_stories
+}
+
+enum BlogStatus {
+  draft
+  published
+}
+
+enum SubmissionStatus {
+  pending
+  approved
+  rejected
+}
+
+enum EmailType {
+  welcome
+  verify
+  reset_password
+  payment_confirm
+  coral_update
+  monthly_report
+  quarterly_report
+  ambassador
+  assign_coral
+}
+
+enum EmailStatus {
+  sent
+  failed
+  bounced
+}
+
+enum ReferralStatus {
+  pending
+  completed
+}
+
+// ============================================================
+// MODELS
+// ============================================================
+
+model User {
+  id               String     @id @default(uuid())
+  fullName         String     @map("full_name")
+  email            String     @unique
+  passwordHash     String     @map("password_hash")
+  phone            String?
+  avatarUrl        String?    @map("avatar_url")
+  role             UserRole   @default(visitor)
+  isVerified       Boolean    @default(false) @map("is_verified")
+  isActive         Boolean    @default(true) @map("is_active")
+  isPublic         Boolean    @default(true) @map("is_public")
+  emailNotify      Boolean    @default(true) @map("email_notify")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  adoptions        Adoption[]
+  coralUpdates     CoralUpdate[]  // Updates created by coral_staff
+  payments         Payment[]
+  referredBy       Referral[] @relation("ReferredBy")
+  referredUsers    Referral[] @relation("ReferredUsers")
+  blogPosts        BlogPost[]
+  submissions      CommunitySubmission[]
+  activityLogs     AdminActivityLog[]
+  emailLogs        EmailLog[]
+
+  @@map("users")
+}
+
+model Product {
+  id          String     @id @default(uuid())
+  slug        String     @unique
+  name        String
+  tier        ProductTier
+  priceMin    Int        @map("price_min")    // VND
+  priceMax    Int        @map("price_max")    // VND
+  description String?
+  benefits    String[]   // Array of benefit strings
+  isActive    Boolean    @default(true) @map("is_active")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  adoptions   Adoption[]
+
+  @@map("products")
+}
+
+model Coral {
+  id           String      @id @default(uuid())
+  code         String      @unique  // CRL-2026-XXXX
+  species      String?
+  locationZone String?     @map("location_zone")   // Vùng GPS tương đối (adopter thấy)
+  locationGps  String?     @map("location_gps")    // Tọa độ thật (chỉ admin/staff)
+  status       CoralStatus @default(available)
+  productTier  ProductTier @map("product_tier")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  adoptions    Adoption[]
+  updates      CoralUpdate[]
+
+  @@map("corals")
+}
+
+model Adoption {
+  id          String         @id @default(uuid())
+  userId      String         @map("user_id")
+  coralId     String?        @map("coral_id")      // NULL khi chưa gán san hô thật
+  productId   String         @map("product_id")
+  customName  String?        @map("custom_name")   // Tên do adopter đặt
+  status      AdoptionStatus @default(pending)
+  adoptedAt   DateTime?      @map("adopted_at")
+  assignedAt  DateTime?      @map("assigned_at")   // Khi admin gán san hô thật
+  completedAt DateTime?      @map("completed_at")
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+
+  // Relations
+  user        User           @relation(fields: [userId], references: [id])
+  coral       Coral?         @relation(fields: [coralId], references: [id])
+  product     Product        @relation(fields: [productId], references: [id])
+  payment     Payment[]
+  certificate Certificate?
+
+  @@map("adoptions")
+}
+
+model CoralUpdate {
+  id        String      @id @default(uuid())
+  coralId   String      @map("coral_id")
+  staffId   String      @map("staff_id")
+  sizeCm    Decimal?    @map("size_cm") @db.Decimal(5, 2)
+  health    HealthStatus
+  notes     String?
+  images    String[]    // Array of S3 URLs (1-5)
+  videoUrl  String?     @map("video_url") // S3 URL (optional)
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  // Relations
+  coral     Coral       @relation(fields: [coralId], references: [id])
+  staff     User        @relation(fields: [staffId], references: [id])
+
+  @@map("coral_updates")
+}
+
+model Payment {
+  id            String        @id @default(uuid())
+  userId        String        @map("user_id")
+  adoptionId    String?       @map("adoption_id")
+  amount        Int           // VND
+  method        PaymentMethod
+  status        PaymentStatus @default(pending)
+  gatewayTxnId  String?       @map("gateway_txn_id") // ID từ cổng thanh toán
+  invoiceUrl    String?       @map("invoice_url")    // Link hoá đơn PDF
+  paidAt        DateTime?     @map("paid_at")
+  createdAt     DateTime      @default(now()) @map("created_at")
+
+  // Relations
+  user          User          @relation(fields: [userId], references: [id])
+  adoption      Adoption?     @relation(fields: [adoptionId], references: [id])
+
+  @@map("payments")
+}
+
+model Referral {
+  id          String         @id @default(uuid())
+  referrerId  String         @map("referrer_id")
+  referredId  String         @map("referred_id")
+  code        String         // CRL-[USERNAME]
+  status      ReferralStatus @default(pending)
+  createdAt   DateTime       @default(now()) @map("created_at")
+
+  // Relations
+  referrer    User           @relation("ReferredBy", fields: [referrerId], references: [id])
+  referred    User           @relation("ReferredUsers", fields: [referredId], references: [id])
+
+  @@map("referrals")
+}
+
+model BlogPost {
+  id             String       @id @default(uuid())
+  authorId       String       @map("author_id")
+  title          String
+  slug           String       @unique
+  excerpt        String?
+  content        String
+  featuredImage  String?      @map("featured_image") // S3 URL
+  category       BlogCategory
+  tags           String[]
+  status         BlogStatus   @default(draft)
+  readingTime    Int?         @map("reading_time") // Phút
+  publishedAt    DateTime?    @map("published_at")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  author         User         @relation(fields: [authorId], references: [id])
+
+  @@map("blog_posts")
+}
+
+model CommunitySubmission {
+  id        String           @id @default(uuid())
+  userId    String           @map("user_id")
+  content   String
+  images    String[]
+  status    SubmissionStatus @default(pending)
+  reviewedBy String?         @map("reviewed_by") // Admin duyệt
+  createdAt DateTime         @default(now()) @map("created_at")
+
+  // Relations
+  user      User             @relation(fields: [userId], references: [id])
+
+  @@map("community_submissions")
+}
+
+model Certificate {
+  id         String   @id @default(uuid())
+  adoptionId String   @unique @map("adoption_id")
+  pdfUrl     String   @map("pdf_url") // S3 URL
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  // Relations
+  adoption   Adoption @relation(fields: [adoptionId], references: [id])
+
+  @@map("certificates")
+}
+
+model AdminActivityLog {
+  id         String   @id @default(uuid())
+  adminId    String   @map("admin_id")
+  action     String
+  targetType String?  @map("target_type")
+  targetId   String?  @map("target_id")
+  details    Json?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  // Relations
+  admin      User     @relation(fields: [adminId], references: [id])
+
+  @@map("admin_activity_logs")
+}
+
+model EmailLog {
+  id        String      @id @default(uuid())
+  userId    String      @map("user_id")
+  type      EmailType
+  subject   String
+  status    EmailStatus @default(sent)
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  // Relations
+  user      User        @relation(fields: [userId], references: [id])
+
+  @@map("email_logs")
+}

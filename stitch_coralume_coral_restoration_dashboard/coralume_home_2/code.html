@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Coralume | Stewardship &amp; Marine Conservation</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Lexend:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e8e2d3",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dfdacb",
+                    "surface": "#fff9ea",
+                    "outline-variant": "#c0c8cb",
+                    "on-secondary-fixed-variant": "#802a08",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#ffdbd0",
+                    "secondary-fixed-dim": "#ffb59d",
+                    "on-tertiary-container": "#96b9c8",
+                    "tertiary-container": "#284a57",
+                    "on-primary-container": "#87bbce",
+                    "on-background": "#1d1c13",
+                    "inverse-surface": "#333027",
+                    "inverse-primary": "#9acee1",
+                    "tertiary": "#0e3340",
+                    "surface-tint": "#306576",
+                    "secondary": "#9f411e",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#c5e8f8",
+                    "surface-container-highest": "#e8e2d3",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f9f3e4",
+                    "surface-container": "#f3edde",
+                    "on-secondary-fixed": "#390c00",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#0f4c5c",
+                    "surface-bright": "#fff9ea",
+                    "on-tertiary-fixed-variant": "#294b58",
+                    "outline": "#70787c",
+                    "on-surface-variant": "#40484b",
+                    "on-secondary-container": "#732100",
+                    "on-primary-fixed-variant": "#114d5d",
+                    "primary-fixed-dim": "#9acee1",
+                    "inverse-on-surface": "#f6f0e1",
+                    "tertiary-fixed-dim": "#a9ccdc",
+                    "on-tertiary-fixed": "#001f29",
+                    "surface-container-high": "#eee8d9",
+                    "on-primary": "#ffffff",
+                    "primary": "#003441",
+                    "secondary-container": "#fe885f",
+                    "background": "#fff9ea",
+                    "primary-fixed": "#b6ebfe",
+                    "on-surface": "#1d1c13",
+                    "on-primary-fixed": "#001f28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "stack-md": "24px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "stack-lg": "48px",
+                    "margin-mobile": "20px",
+                    "container-max": "1280px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "display-lg-mobile": ["Lexend"],
+                    "display-lg": ["Lexend"],
+                    "data-mono": ["JetBrains Mono"],
+                    "label-sm": ["Be Vietnam Pro"],
+                    "headline-md": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .organic-progress {
+            mask-image: radial-gradient(circle, black 50%, rgba(0,0,0,0.5) 100%);
+            background-size: 200% 100%;
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .buoyant:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 20px 40px rgba(15, 76, 92, 0.12);
+        }
+        body {
+            background-color: #f5efe0; /* Sand Base */
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background antialiased overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm h-20 transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-full max-w-container-max mx-auto">
+<div class="font-display-lg text-display-lg-mobile md:text-headline-md font-semibold text-primary tracking-tight">Coralume</div>
+<div class="hidden md:flex items-center gap-stack-lg">
+<a class="font-body-lg text-body-lg text-secondary font-bold border-b-2 border-secondary pb-1" href="#">Adopt</a>
+<a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Nha Trang</a>
+<a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Community</a>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="font-body-md text-body-md text-primary hover:opacity-80 transition-opacity">Login</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-body-md text-body-md hover:opacity-90 transition-opacity">Register</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover brightness-[0.85]" data-alt="A mesmerizing wide-angle underwater shot of a vibrant coral reef in Nha Trang. Crystal clear turquoise water is illuminated by shimmering light rays from the sun filtering through the surface. The scene features a variety of organic coral shapes in soft pinks, oranges, and deep blues, creating a high-end, cinematic atmosphere that evokes the premium stewardship brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4TAmGEsxoNDUUlfPnSClrm2C63ZAecHQ7ef1HxmclZus2IhtnV9ewSOSqrYBAqxf3w_0uJvdmM8llabQUzxX8r2XO8WCuZaD8mlnAoQ55yD6oIC7hZA-PiSwBSoimYi57j99nSkDpsZtHmCuxcUF5N47AkTceDn0yi8H3ahfxGEccUqDIwpTQKYfGgIyNeO7s883llDwDtQtz3P0y_LIU2lNt0l87Cu4d2xu_opTeXh945Fi_VRqUkj523NOmR_YytqwbdRRCMU4"/>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#f5efe0]"></div>
+</div>
+<div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<div class="max-w-3xl">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-stack-md leading-tight">
+                    Nhận nuôi san hô — <br/><span class="text-secondary-fixed">Gieo mầm cho đại dương</span>
+</h1>
+<p class="font-body-lg text-body-lg text-white/90 mb-stack-lg max-w-xl">
+                    Adopt a Coral – Plant a Future for the Ocean. Your coral. Your story. Your impact. Một hành trình cá nhân hoá để bảo tồn di sản biển cả.
+                </p>
+<div class="flex flex-col sm:flex-row gap-gutter">
+<button class="bg-secondary text-on-secondary px-stack-lg py-4 rounded-full font-headline-md buoyant transition-all flex items-center justify-center gap-2">
+                        Adopt Your Coral
+                        <span class="material-symbols-outlined">east</span>
+</button>
+<button class="bg-white/10 backdrop-blur-md border border-white/30 text-white px-stack-lg py-4 rounded-full font-headline-md hover:bg-white/20 transition-all">
+                        Growth Report
+                    </button>
+</div>
+</div>
+</div>
+<!-- Float Decoration -->
+<div class="absolute bottom-10 right-margin-desktop hidden lg:block">
+<div class="bg-white/10 glass-panel p-6 rounded-xl border border-white/20 text-white">
+<div class="font-data-mono text-label-sm uppercase opacity-70 mb-2">Live Status</div>
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+<span class="font-headline-md">Nha Trang Reef Active</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Real Impact Metrics -->
+<section class="py-stack-lg bg-surface relative z-20">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-display-lg text-headline-md md:text-display-lg text-primary mb-4">Real Impact, Real Data</h2>
+<div class="w-24 h-1 bg-secondary mx-auto rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Metric Card 1 -->
+<div class="bg-white p-10 rounded-2xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)] buoyant transition-all border border-surface-variant/50">
+<div class="text-primary/10 mb-6">
+<span class="material-symbols-outlined text-5xl">water_drop</span>
+</div>
+<div class="font-data-mono text-primary text-5xl font-bold mb-2">500+</div>
+<div class="font-headline-md text-on-surface-variant">Corals Adopted</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/30">
+<div class="flex justify-between items-end">
+<span class="font-label-sm text-secondary uppercase">Growth Trend</span>
+<span class="font-data-mono text-tertiary-container">+12% MoM</span>
+</div>
+<div class="h-1 bg-surface-variant mt-3 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container w-[70%]"></div>
+</div>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="bg-white p-10 rounded-2xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)] buoyant transition-all border border-surface-variant/50">
+<div class="text-primary/10 mb-6">
+<span class="material-symbols-outlined text-5xl">group</span>
+</div>
+<div class="font-data-mono text-primary text-5xl font-bold mb-2">1.2k</div>
+<div class="font-headline-md text-on-surface-variant">Global Adopters</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/30">
+<div class="flex -space-x-4">
+<img class="w-10 h-10 rounded-full border-2 border-white object-cover" data-alt="Portrait of a smiling young environmental steward in natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjfotTBScDXOVQoTX2KSQATFgBCJmOhSTIzkJbkjn4ABVtMVtoOGLDSCLnb_VvgV7kHt0oKrixqjwQK4_dMEsfgplyFKrq_6JQblGvyRLo53J7oMFC_fAZ6Ef5_evIq2PEX7PYWbevFFfp35CPZRmveM7mzZxk3zfW4ni6NksymRL-s0nIeAw_gv_qNHdx5PPE07htZnBqZ9HrmF6rDbJt-iCLnIwGa0ALRCNzyHJVxGEH9d4NAUlySPnlHyNvawRXllsENkMIHEc"/>
+<img class="w-10 h-10 rounded-full border-2 border-white object-cover" data-alt="Portrait of a diverse woman looking into the distance with a hopeful expression, marine background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACIlgpw-HBumq7JriV67r4jJwNEcCfZpgDgmXlMFB4DNUwzm1G0Nk3q4dBLacsd2ISE_tpxNLyT82UNcJTKaUzo2jnke3U9ApCTvTyEXQkW0_PaapbUV4b6aZUFw1AUJbfAddSQ43sKGMvhGZh5LgWkb4z7A2Chg18S6twruuwzWQT3gZqHPyyp2s5_r6wqouKDbweiGtFBjmlxFQ_1CiIoJB3JLyvVHsbHVKEG_gL-dr5n-HX3ddM1o1FAJDKD7XP4fJu4MuwNjY"/>
+<img class="w-10 h-10 rounded-full border-2 border-white object-cover" data-alt="Portrait of an explorer in nature, with warm natural light tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZtAzSifdhb8o2rTV7w7wN9IoPfmNKXLbloq2BFeyHg63kD0-iG3JJOcBe5asalGHTtCufeyX-t3kBBdKcdsEu2CvVV147ORWdUmiAxsl0NUV9qiWEoRuRS4rz8zxwa4NTDYwrdE-RPM2Iw17uGFezQ9z5Wi0bexc4ERko-e4GYZJi4f3j6CIebWBTuhIrncr_VLocFDEhq5G_DNHxJDcZKXrLAXhlT1ZM41z-Su3sk4bSl4WMqEu7GUZNFY_U2XhyonSGLDkR830"/>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-secondary flex items-center justify-center text-white font-label-sm">+20</div>
+</div>
+<div class="mt-4 font-body-md text-on-surface-variant/70 italic">Join a community of premium stewards.</div>
+</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="bg-white p-10 rounded-2xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)] buoyant transition-all border border-surface-variant/50">
+<div class="text-primary/10 mb-6">
+<span class="material-symbols-outlined text-5xl">vital_signs</span>
+</div>
+<div class="font-data-mono text-primary text-5xl font-bold mb-2">98%</div>
+<div class="font-headline-md text-on-surface-variant">Survival Rate</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/30">
+<div class="flex justify-between items-center">
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full font-label-sm">High Performance</span>
+<span class="material-symbols-outlined text-primary">verified</span>
+</div>
+<p class="mt-4 font-body-md text-on-surface-variant/70">Our data-driven approach ensures lasting marine legacy.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stewardship Journey -->
+<section class="py-32 bg-[#f5efe0]">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex flex-col lg:flex-row gap-20 items-center">
+<div class="lg:w-1/2">
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-12">Your Stewardship Journey</h2>
+<div class="space-y-12">
+<!-- Step 1 -->
+<div class="flex gap-8 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center font-headline-md text-primary group-hover:bg-primary group-hover:text-white transition-all">1</div>
+<div>
+<h3 class="font-headline-md text-primary mb-2">Select Your Coral</h3>
+<p class="font-body-lg text-on-surface-variant">Browse our nursery of diverse coral species, each with unique growth patterns and resilience profiles.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-8 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center font-headline-md text-primary group-hover:bg-primary group-hover:text-white transition-all">2</div>
+<div>
+<h3 class="font-headline-md text-primary mb-2">Name &amp; Dedicate</h3>
+<p class="font-body-lg text-on-surface-variant">Give your coral a identity. Dedicate it to a loved one or a personal milestone. It becomes part of your story.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-8 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center font-headline-md text-primary group-hover:bg-primary group-hover:text-white transition-all">3</div>
+<div>
+<h3 class="font-headline-md text-primary mb-2">Track Personal Growth</h3>
+<p class="font-body-lg text-on-surface-variant">Receive high-definition growth reports, 3D scans, and live updates from the reef through your personal dashboard.</p>
+</div>
+</div>
+</div>
+<button class="mt-16 bg-primary text-on-primary px-10 py-5 rounded-full font-headline-md buoyant">Start Your Journey Now</button>
+</div>
+<div class="lg:w-1/2 relative">
+<div class="aspect-square rounded-[4rem] overflow-hidden shadow-2xl rotate-3">
+<img class="w-full h-full object-cover" data-alt="A close-up, high-definition photograph of a healthy Acropora coral specimen underwater. The lighting is soft and organic, highlighting the delicate textures and vibrant orange-teal color grading. The background is a soft-focus blue ocean, emphasizing the premium stewardship and technical transparency of the brand's restoration efforts." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtmcyqymRMd1EFaqYgLX8UoB4p1z7Ui4pyViIP9v3pw4odIWy0SVj1y0fzmhSIapzbZx_K4qfgGdSWIqBLE8RrSaX6mYHZ0617B8XcbogPHfYumYsnXJePQRWqNSTqQ_d8fD4zpRc_juK_3ZpwQX5NI-I4uKQvlndp67FwY2-gfrYI2I8ydbhVpoCBQWm92GIbrPY8G0ykOqv2xnyOcEmcc-nAJkG_mZKh_WJREwp36IVyYDXOXJE2yXZWUTHzz8hv2xbl11_5KQ4"/>
+</div>
+<!-- Overlay Sparkline Decoration -->
+<div class="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-xl border border-surface-variant w-64">
+<div class="flex justify-between items-center mb-4">
+<div class="font-label-sm text-on-surface-variant uppercase">Coral Growth</div>
+<span class="text-tertiary-container font-data-mono">+2.4cm</span>
+</div>
+<div class="h-16 flex items-end gap-1">
+<div class="flex-1 bg-tertiary-container/20 h-1/2 rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary-container/30 h-3/4 rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary-container/40 h-2/3 rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary-container/60 h-full rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary-container/80 h-[90%] rounded-t-sm"></div>
+<div class="flex-1 bg-secondary h-[110%] rounded-t-sm animate-pulse"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- From Nha Trang Section -->
+<section class="py-stack-lg bg-surface-container-low overflow-hidden">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex flex-col lg:flex-row items-end justify-between mb-16 gap-8">
+<div class="max-w-2xl">
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">From Nha Trang with Love</h2>
+<p class="font-body-lg text-on-surface-variant">Tọa lạc tại trung tâm bảo tồn biển Nha Trang, trạm phục hồi của chúng tôi là nơi khoa học gặp gỡ tâm huyết. Mỗi nhành san hô được chăm sóc bởi những chuyên gia hàng đầu để đảm bảo sự sống bền vững nhất.</p>
+</div>
+<div class="flex gap-4">
+<button class="w-14 h-14 rounded-full border border-primary flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">west</span>
+</button>
+<button class="w-14 h-14 rounded-full border border-primary flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">east</span>
+</button>
+</div>
+</div>
+<!-- Bento-style Gallery -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter h-[600px]">
+<div class="md:col-span-8 rounded-3xl overflow-hidden relative group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A premium photograph of a marine biologist carefully tending to small coral fragments in a high-tech underwater nursery lab in Nha Trang. The water is pristine, and the lighting is clinical yet warm, showcasing the blend of marine biology and stewardship. The aesthetic is clean, professional, and sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0FC-mZBJCfO8_EzGX6otfMLqrQyfCVpYCM9ctQ7sLA13XnmcYOHKDHf6xunxHLrXF4ZN97q7t8jrAZUyfOc0gqccAIyS3j2P1oeingVsbXQFAm3Nc4n6Gf3ObuC5qdrpp3gNOTJWXHgF6UCpuFDZEee0of_7LE7zkfpzVGJAqsVy1cYD69vI1Vps2cjGoS4vmdPaIPwrI4fWP0ifpW31T6X0gK2ClW0OCxYDFbYMwzfNn39Hvqy8nU0a3AHwjtXeiAqUoF6JHH7g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex flex-col justify-end p-10 text-white">
+<span class="font-label-sm uppercase tracking-widest mb-2 text-secondary-fixed">Lab Facility</span>
+<h4 class="font-headline-md">Hệ thống nuôi cấy hiện đại</h4>
+</div>
+</div>
+<div class="md:col-span-4 grid grid-rows-2 gap-gutter">
+<div class="rounded-3xl overflow-hidden relative group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A group of local marine conservationists in Nha Trang preparing to dive for a coral restoration session. The scene is full of vibrant energy, warm sunlight, and premium outdoor gear, reflecting the deep sense of ownership and community impact of the project." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAytbykjJqCbqIypSo82-fF-uvcCts4BPlIVlfU9kGIc3qtnNyf0RYvjsbCMxfIoZWWH9uw9sNz_30ig-lu1_J8nuoDN4poxaA8gF5Xfmn5D6iItD2XykofmTlYMefXQjv9oR1PpWU3XB8wGPURsBRbDLe1SGkcVQuq1iVqFcpbPUWF0QEmHok--Qno5BiPH5hl8QY7TESjGoFAV6tzBVlSEH-6Nr6tribwcaa12b8BTyqefr_jyet-GkqS3OeRpl5VoN3rLjZPTbo"/>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all"></div>
+</div>
+<div class="rounded-3xl overflow-hidden relative group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A stunning aerial drone shot of the turquoise waters of the Nha Trang marine sanctuary. The coral reefs are visible through the shallow, clear water, creating an organic tapestry of colors. The style is vast and minimal, evoking the 'breathing room' of the open ocean." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIc4zaIN3_CXPAS775o8Shnl9dSB6RFu7ZOiOXcT9UxAMdgrMEQwIGfnpE7tF3RAj7kEi9q3_P4arpXLL13fswuaIQjvm8ZElr1HqOLpml-my_o0RFT-Avc96TiNo7UnsyQzjGHmAQAL4eT2pKMwTULuhFh6cWwallqTOUbwuF5kRYTfolYVmPdg62PQDqYnlEhabw_accAG3CLR7JA-ZcKI5IgKS-Q9-inZAwxrYQdZtGrRNI2q7hx3vKUTPzCnfPwIiiK1A_qKY"/>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-low border-t border-outline-variant w-full mt-32">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div>
+<div class="font-display-lg text-headline-md text-primary mb-6">Coralume</div>
+<p class="font-body-md text-on-surface-variant max-w-xs">Premium Stewardship &amp; Marine Conservation. Building a bridge between investors and the deep blue.</p>
+</div>
+<div>
+<h4 class="font-label-sm text-primary uppercase mb-6">Explore</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Impact Reports</a></li>
+<li><a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Nha Trang Center</a></li>
+<li><a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Conservation Science</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-sm text-primary uppercase mb-6">Legal</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Cookie Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-sm text-primary uppercase mb-6">Contact</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Us</a></li>
+<li><a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Support Center</a></li>
+<li class="flex gap-4 mt-6">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary transition-colors">public</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary transition-colors">mail</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary transition-colors">share</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="px-margin-mobile md:px-margin-desktop py-10 border-t border-outline-variant/30 max-w-container-max mx-auto text-center md:text-left">
+<span class="font-body-md text-on-surface-variant opacity-60">© 2024 Coralume. Premium Stewardship &amp; Marine Conservation. Designed for the Future of our Oceans.</span>
+</div>
+</footer>
+<!-- Interactive Elements Script -->
+<script>
+        // Smooth scroll reveal for metrics
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.buoyant').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('h-16', 'bg-surface/95');
+                nav.classList.remove('h-20', 'bg-surface/80');
+            } else {
+                nav.classList.add('h-20', 'bg-surface/80');
+                nav.classList.remove('h-16', 'bg-surface/95');
+            }
+        });
+    </script>
+</body></html>

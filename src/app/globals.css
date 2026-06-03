@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Coralume Design Tokens — Material Design 3 (from Stitch)
+   Nguồn: stitch_coralume_coral_restoration_dashboard/coralume_design_system/DESIGN.md
+   Updated: 2026-06-03
+   ============================================================ */
+
+@theme inline {
+  /* === MATERIAL DESIGN 3 COLORS === */
+  --color-primary: #003441;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #0f4c5c;
+  --color-on-primary-container: #87bbce;
+  --color-primary-fixed: #b6ebfe;
+  --color-primary-fixed-dim: #9acee1;
+  --color-secondary: #9f411e;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fe885f;
+  --color-on-secondary-container: #732100;
+  --color-secondary-fixed: #ffdbd0;
+  --color-secondary-fixed-dim: #ffb59d;
+  --color-tertiary: #0e3340;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #284a57;
+  --color-on-tertiary-container: #96b9c8;
+  --color-tertiary-fixed: #c5e8f8;
+  --color-tertiary-fixed-dim: #a9ccdc;
+  --color-surface: #fff9ea;
+  --color-surface-bright: #fff9ea;
+  --color-surface-dim: #dfdacb;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f9f3e4;
+  --color-surface-container: #f3edde;
+  --color-surface-container-high: #eee8d9;
+  --color-surface-container-highest: #e8e2d3;
+  --color-on-surface: #1d1c13;
+  --color-on-surface-variant: #40484b;
+  --color-inverse-surface: #333027;
+  --color-inverse-on-surface: #f6f0e1;
+  --color-inverse-primary: #9acee1;
+  --color-outline: #70787c;
+  --color-outline-variant: #c0c8cb;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-background: #fff9ea;
+  --color-on-background: #1d1c13;
+
+  /* === FONTS === */
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Be Vietnam Pro', sans-serif;
+  --font-heading-serif: 'Lora', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* === SPACING (from Stitch) === */
+  --spacing-unit: 8px;
+  --spacing-stack-sm: 8px;
+  --spacing-stack-md: 24px;
+  --spacing-stack-lg: 48px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 64px;
+  --spacing-container-max: 1280px;
+
+  /* === BORDER RADIUS === */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* === SHADOWS === */
+  --shadow-premium: 0px 10px 30px rgba(15, 76, 92, 0.05);
+  --shadow-card: 0 2px 12px rgba(15, 76, 92, 0.08);
+  --shadow-card-hover: 0 8px 30px rgba(15, 76, 92, 0.15);
+  --shadow-button: 0 4px 14px rgba(159, 65, 30, 0.3);
+
+  /* === EASING === */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* === DURATIONS === */
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-glacial: 800ms;
+  --duration-count-up: 2000ms;
+}
+
+/* ============================================================
+   Base styles (mobile-first)
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* === FOCUS STATES (WCAG 2.1 AA) === */
+*:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === UTILITY CLASSES === */
+.container {
+  max-width: var(--spacing-container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-margin-mobile);
+  padding-right: var(--spacing-margin-mobile);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: var(--spacing-gutter);
+    padding-right: var(--spacing-gutter);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: var(--spacing-margin-desktop);
+    padding-right: var(--spacing-margin-desktop);
+  }
+}
+
+.premium-shadow {
+  box-shadow: 0px 10px 30px rgba(15, 76, 92, 0.05);
+}
+
+.hero-gradient-overlay {
+  background: linear-gradient(to bottom, rgba(0, 52, 65, 0.4), rgba(245, 239, 224, 1));
+}
+
+.glass-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* === ANIMATIONS === */
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(159, 65, 30, 0.4); }
+  50%      { box-shadow: 0 0 0 12px rgba(159, 65, 30, 0); }
+}
+
+.cta-pulse {
+  animation: ctaPulse 2s ease-in-out infinite;
+}
+
+/* Smooth transitions for scroll-based reveals */
+.transition-reveal {
+  transition-property: opacity, transform;
+  transition-duration: 1s;
+  transition-timing-function: var(--ease-out-expo);
+}

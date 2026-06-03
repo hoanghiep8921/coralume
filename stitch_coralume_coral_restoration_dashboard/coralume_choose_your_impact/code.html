@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Coralume | Danh Mục Sản Phẩm Bảo Tồn San Hô</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Lexend:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e8e2d3",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dfdacb",
+                    "surface": "#fff9ea",
+                    "outline-variant": "#c0c8cb",
+                    "on-secondary-fixed-variant": "#802a08",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#ffdbd0",
+                    "secondary-fixed-dim": "#ffb59d",
+                    "on-tertiary-container": "#96b9c8",
+                    "tertiary-container": "#284a57",
+                    "on-primary-container": "#87bbce",
+                    "on-background": "#1d1c13",
+                    "inverse-surface": "#333027",
+                    "inverse-primary": "#9acee1",
+                    "tertiary": "#0e3340",
+                    "surface-tint": "#306576",
+                    "secondary": "#9f411e",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#c5e8f8",
+                    "surface-container-highest": "#e8e2d3",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f9f3e4",
+                    "surface-container": "#f3edde",
+                    "on-secondary-fixed": "#390c00",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#0f4c5c",
+                    "surface-bright": "#fff9ea",
+                    "on-tertiary-fixed-variant": "#294b58",
+                    "outline": "#70787c",
+                    "on-surface-variant": "#40484b",
+                    "on-secondary-container": "#732100",
+                    "on-primary-fixed-variant": "#114d5d",
+                    "primary-fixed-dim": "#9acee1",
+                    "inverse-on-surface": "#f6f0e1",
+                    "tertiary-fixed-dim": "#a9ccdc",
+                    "on-tertiary-fixed": "#001f29",
+                    "surface-container-high": "#eee8d9",
+                    "on-primary": "#ffffff",
+                    "primary": "#003441",
+                    "secondary-container": "#fe885f",
+                    "background": "#fff9ea",
+                    "primary-fixed": "#b6ebfe",
+                    "on-surface": "#1d1c13",
+                    "on-primary-fixed": "#001f28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "stack-md": "24px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "stack-lg": "48px",
+                    "margin-mobile": "20px",
+                    "container-max": "1280px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "display-lg-mobile": ["Lexend"],
+                    "display-lg": ["Lexend"],
+                    "data-mono": ["JetBrains Mono"],
+                    "label-sm": ["Be Vietnam Pro"],
+                    "headline-md": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .coral-growth-bar {
+            background: linear-gradient(90deg, #E87750 0%, #003441 100%);
+            mask-image: url("data:image/svg+xml,%3Csvg width='100' height='10' viewBox='0 0 100 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 5 0 10 5 T 20 5 T 30 5 T 40 5 T 50 5 T 60 5 T 70 5 T 80 5 T 90 5 T 100 5' fill='none' stroke='black' stroke-width='4'/%3E%3C/svg%3E");
+            mask-size: cover;
+        }
+        .card-buoyancy:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 20px 40px rgba(15, 76, 92, 0.12);
+        }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(232, 119, 80, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl transition-all duration-300 ease-in-out shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
+<div class="font-display-lg text-display-lg-mobile md:text-headline-md font-semibold text-primary tracking-tight">Coralume</div>
+<div class="hidden md:flex items-center space-x-gutter">
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-body-lg text-body-lg" href="#">Adopt</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Nha Trang</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-lg text-body-lg" href="#">Community</a>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="text-primary font-semibold font-body-md hover:opacity-80 transition-opacity">Login</button>
+<button class="bg-primary text-on-primary px-stack-md py-2 rounded-full font-semibold font-body-md hover:opacity-90 transition-opacity">Register</button>
+</div>
+</div>
+</nav>
+<!-- Hero / Header Section -->
+<header class="pt-40 pb-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center">
+<span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-secondary mb-stack-sm block">Đầu tư vào Tương lai Đại dương</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-stack-md max-w-3xl mx-auto leading-tight">
+            Chọn Hệ Sinh Thái <br/><span class="italic text-secondary">Của Riêng Bạn</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+            Mỗi gói bảo tồn được thiết kế để mang lại tác động tối đa đến đa dạng sinh học biển. Từ việc nuôi trồng mầm sống đến giám sát bằng trí tuệ nhân tạo.
+        </p>
+</header>
+<!-- Catalog Section -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-start">
+<!-- Product Card 1: Seed Coral -->
+<div class="bg-white rounded-xl overflow-hidden shadow-[0px_10px_30px_rgba(15,76,92,0.05)] card-buoyancy transition-all duration-500 border border-surface-variant/50 flex flex-col h-full">
+<div class="relative h-64 w-full overflow-hidden">
+<img alt="Seed Coral" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" data-alt="A macro photograph of a vibrant orange coral polyp growing in a sun-drenched, shallow tropical reef. The lighting is soft and ethereal, capturing the delicate textures of the marine life. The scene is set in a pristine underwater environment with a calming palette of teal and coral orange, reflecting a premium and scientific stewardship aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYxDigOptfR4KLS65faMkXepxXhS0FijGnXcM8LK1Lr_iEWETajYFkoFi_U9rOYZvQlU9CUiBopmCj89IaXDQkUYFxjx2iIjSyEPzvf-29AidV3u6bQ30Hf2SyH_iI4t_LmfGi3CSAPoYOpQGEahy6xhzaxhOzr0W1_GttmB3MKEC0HrLefeh1lxMTzXl3QI5ruX93-4xvISXaKZEmn6fIkkP0FIdRBzbWmg5PErNEUaIRTaOXEW2cX6KgKVK5oCtnuvnZUteXt3M"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary/90 backdrop-blur-md text-on-primary font-label-sm text-[10px] py-1 px-3 rounded-full uppercase tracking-widest">Khởi Đầu</span>
+</div>
+</div>
+<div class="p-stack-md flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Seed Coral</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md">Gói khởi đầu hoàn hảo để cá nhân hóa hành trình bảo tồn của bạn tại vịnh Nha Trang.</p>
+<div class="space-y-stack-sm mb-stack-lg">
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-lg">
+<span class="font-label-sm text-on-surface-variant uppercase">Tăng Trưởng</span>
+<span class="font-data-mono text-data-mono text-secondary">1.2x / Năm</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-lg">
+<span class="font-label-sm text-on-surface-variant uppercase">Giấy Chứng Nhận</span>
+<span class="material-symbols-outlined text-primary" data-icon="verified">verified</span>
+</div>
+</div>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-stack-md">
+<span class="font-data-mono text-headline-md text-primary">$49</span>
+<span class="font-label-sm text-on-surface-variant">/ San hô</span>
+</div>
+<a class="block w-full bg-secondary text-on-secondary text-center py-4 rounded-xl font-bold font-body-lg hover:opacity-90 transition-all shadow-lg shadow-secondary/20" href="/register">Adopt Now</a>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 border-t border-outline-variant/30">
+<h4 class="font-label-sm text-primary mb-2 uppercase tracking-tighter">Thông số kỹ thuật</h4>
+<ul class="text-[13px] font-body-md text-on-surface-variant space-y-1">
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-secondary rounded-full"></span> Giống Acropora chọn lọc</li>
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-secondary rounded-full"></span> Cập nhật ảnh mỗi quý</li>
+</ul>
+</div>
+</div>
+<!-- Product Card 2: Reef Guardian (Featured) -->
+<div class="bg-white rounded-xl overflow-hidden shadow-[0px_20px_50px_rgba(15,76,92,0.1)] card-buoyancy transition-all duration-500 border-2 border-primary relative flex flex-col h-full transform lg:scale-105 z-10">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+<span class="bg-secondary text-on-secondary font-label-sm py-1 px-4 rounded-full shadow-lg">PHỔ BIẾN NHẤT</span>
+</div>
+<div class="relative h-64 w-full overflow-hidden">
+<img alt="Reef Guardian" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" data-alt="An advanced AI-integrated marine monitoring device installed on a healthy coral reef. The technology looks sleek and high-end, featuring subtle teal glowing status lights. The surrounding water is crystal clear with schools of small fish, captured in a bright, high-contrast photography style that emphasizes technical transparency and premium ocean stewardship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIX5jQTSI7dxlgc7tWnmnVCaKoQad8hgxYdpngERBOM5I1lzDi5HSZIWcKFbOGcF-5AkkxIYMNd3rRqcVdBgSfI7ZCtLVTDNcrqm_AM62KUf9LMRY-iiwQurEqVrOC49JpojDdxJt8WS42uCaO27cnwe-0AM5s9gLrFuVxR3sAO7nttaSbp5KUmEHfxOdfNAQqB-OSR85ucWr1at1VGX_edBLoj1h1hnBN1Qz7TwAhQoukxmPXpE0R5xb4g1q_dGpu47Z2t66rPRQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+</div>
+<div class="p-stack-md flex-grow flex flex-col bg-surface-container-low/30">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Reef Guardian</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md">Bảo vệ một vùng sinh thái toàn diện với công nghệ giám sát thời gian thực bằng AI.</p>
+<div class="space-y-stack-sm mb-stack-lg">
+<div class="flex justify-between items-center p-3 bg-white rounded-lg border border-primary/10">
+<span class="font-label-sm text-on-surface-variant uppercase">Tầm Ảnh Hưởng</span>
+<span class="font-data-mono text-data-mono text-secondary">Bán Kính 15m</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-white rounded-lg border border-primary/10">
+<span class="font-label-sm text-on-surface-variant uppercase">Giám Sát AI</span>
+<span class="material-symbols-outlined text-primary" data-icon="biotech">biotech</span>
+</div>
+<div class="mt-4">
+<span class="font-label-sm text-on-surface-variant block mb-2">Tiến Độ Phục Hồi Vùng</span>
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-1000" style="width: 75%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-stack-md">
+<span class="font-data-mono text-headline-md text-primary">$299</span>
+<span class="font-label-sm text-on-surface-variant">/ Năm</span>
+</div>
+<a class="block w-full bg-primary text-on-primary text-center py-4 rounded-xl font-bold font-body-lg hover:bg-primary-container hover:text-on-primary-container transition-all shadow-xl shadow-primary/20" href="/register">Adopt Now</a>
+</div>
+</div>
+<div class="bg-primary p-4 text-on-primary">
+<h4 class="font-label-sm mb-2 uppercase tracking-tighter opacity-80">Thông số kỹ thuật</h4>
+<ul class="text-[13px] font-body-md space-y-1">
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-secondary-container rounded-full"></span> Cảm biến IoT đa điểm</li>
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-secondary-container rounded-full"></span> Phân tích sức khỏe 24/7</li>
+</ul>
+</div>
+</div>
+<!-- Product Card 3: Diving Experience -->
+<div class="bg-white rounded-xl overflow-hidden shadow-[0px_10px_30px_rgba(15,76,92,0.05)] card-buoyancy transition-all duration-500 border border-surface-variant/50 flex flex-col h-full">
+<div class="relative h-64 w-full overflow-hidden">
+<img alt="Diving Experience" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" data-alt="A first-person perspective of a professional diver interacting with a coral restoration nursery in the turquoise waters of Nha Trang. The sunlight ripples through the water surface, creating shimmering patterns on the seabed. The atmosphere is serene and exclusive, styled as a high-end luxury travel experience with soft focus and vibrant marine colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMmsGTREjyJkY7ms_LHVa_6uPj0wUylfbQjhw35lRrf3yXXwxqRyIyOyk7A8kfP7sjg4Snb9ld0EXqfLpsHwBIbIoRts3AtfsDUytxuqeqOslF2MkuM88iTrkMscFSo9-4lM9niDfsLIxrTIQpYdVLfQsXJJ664pjuXgqhcjGV7l1JLZE90kpF0nKEfmvQMvDx-uA0BQuKoSYvDWxCNo5cTg1QBQs9t5dwBPVIGmMmlDqFpRqkR123aAoR7HJ11aAdn4H83mocqzo"/>
+<div class="absolute top-4 left-4">
+<span class="bg-secondary/90 backdrop-blur-md text-on-secondary font-label-sm text-[10px] py-1 px-3 rounded-full uppercase tracking-widest">Đại Sứ</span>
+</div>
+</div>
+<div class="p-stack-md flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Diving Experience</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md">Trở thành Đại sứ Coralume với chuyến tham quan thực tế hàng năm tại trung tâm Nha Trang.</p>
+<div class="space-y-stack-sm mb-stack-lg">
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-lg">
+<span class="font-label-sm text-on-surface-variant uppercase">Tham Quan</span>
+<span class="font-data-mono text-data-mono text-secondary">Hàng Năm</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-lg">
+<span class="font-label-sm text-on-surface-variant uppercase">Quyền Đại Sứ</span>
+<span class="material-symbols-outlined text-primary" data-icon="stars">stars</span>
+</div>
+</div>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-stack-md">
+<span class="font-data-mono text-headline-md text-primary">$850</span>
+<span class="font-label-sm text-on-surface-variant">/ Năm</span>
+</div>
+<a class="block w-full bg-secondary text-on-secondary text-center py-4 rounded-xl font-bold font-body-lg hover:opacity-90 transition-all shadow-lg shadow-secondary/20" href="/register">Adopt Now</a>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 border-t border-outline-variant/30">
+<h4 class="font-label-sm text-primary mb-2 uppercase tracking-tighter">Thông số kỹ thuật</h4>
+<ul class="text-[13px] font-body-md text-on-surface-variant space-y-1">
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-secondary rounded-full"></span> Lặn bình khí chuyên nghiệp</li>
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-secondary rounded-full"></span> Gắn thẻ tên cá nhân lên san hô</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Detailed Tech Specs Bento Grid -->
+<section class="py-32 bg-surface-container-low/50 mt-stack-lg">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<h2 class="font-display-lg text-display-lg-mobile md:text-headline-md text-primary mb-stack-lg text-center">Cam Kết Minh Bạch &amp; Công Nghệ</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-gutter h-auto md:h-[600px]">
+<div class="md:col-span-2 md:row-span-2 bg-white rounded-xl p-stack-lg shadow-sm flex flex-col border border-outline-variant/20">
+<span class="font-label-sm text-secondary mb-2 uppercase">Lõi Công Nghệ</span>
+<h3 class="font-headline-md text-primary mb-stack-md">Giám Sát Bằng Trí Tuệ Nhân Tạo</h3>
+<p class="font-body-md text-on-surface-variant mb-stack-lg">Chúng tôi sử dụng các thuật toán Computer Vision để phân tích tốc độ tăng trưởng, màu sắc và sự hiện diện của các loài cộng sinh xung quanh hệ thống san hô của bạn.</p>
+<div class="mt-auto relative overflow-hidden rounded-lg h-48 bg-primary-container">
+
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-data-mono text-on-primary-container text-label-sm bg-primary/40 backdrop-blur-md px-4 py-2 rounded">LIVE_FEED: NEURAL_NET_ACTIVE</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-2 bg-primary text-on-primary rounded-xl p-stack-md flex items-center gap-stack-lg">
+<div class="flex-1">
+<h4 class="font-headline-md mb-2">Báo Cáo Tác Động</h4>
+<p class="font-body-md opacity-80">Mỗi cổ đông nhận được báo cáo PDF hàng quý chi tiết về các chỉ số sinh học.</p>
+</div>
+<span class="material-symbols-outlined text-[64px] opacity-20" data-icon="analytics">analytics</span>
+</div>
+<div class="md:col-span-1 bg-secondary-container text-on-secondary-container rounded-xl p-stack-md flex flex-col justify-center items-center text-center">
+<span class="font-data-mono text-[32px] font-bold">120+</span>
+<span class="font-label-sm uppercase opacity-80">Loài được bảo tồn</span>
+</div>
+<div class="md:col-span-1 bg-white border border-outline-variant/30 rounded-xl p-stack-md flex flex-col justify-center items-center text-center">
+<span class="font-data-mono text-[32px] font-bold text-primary">98%</span>
+<span class="font-label-sm uppercase text-on-surface-variant">Tỉ lệ sống sót</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest w-full mt-stack-lg border-t border-outline-variant dark:border-outline">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div class="lg:col-span-1">
+<div class="font-display-lg text-headline-md text-primary mb-stack-md">Coralume</div>
+<p class="font-body-md text-on-surface-variant max-w-xs">Tái định nghĩa đầu tư bảo tồn biển thông qua công nghệ và sự minh bạch tuyệt đối.</p>
+</div>
+<div>
+<h5 class="font-label-sm text-primary uppercase mb-stack-md tracking-widest">Dự Án</h5>
+<ul class="space-y-stack-sm">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Impact Reports</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Nha Trang Center</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-sm text-primary uppercase mb-stack-md tracking-widest">Hỗ Trợ</h5>
+<ul class="space-y-stack-sm">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Contact Us</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-sm text-primary uppercase mb-stack-md tracking-widest">Pháp Lý</h5>
+<ul class="space-y-stack-sm">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto border-t border-outline-variant/30 text-center">
+<p class="font-body-md text-on-surface-variant opacity-60">© 2024 Coralume. Premium Stewardship &amp; Marine Conservation.</p>
+</div>
+</footer>
+<!-- FAB for quick contact - Suppressed on catalog page but included for demonstration of design system (Though prompt said Catalog, standard navigation shell rules apply) -->
+<button class="fixed bottom-8 right-8 bg-secondary text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-40">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+<script>
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple parallax on scroll for cards
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.card-buoyancy');
+            const speed = 0.05;
+            cards.forEach((card, index) => {
+                const shift = window.scrollY * speed * (index + 1) * 0.2;
+                // Subtle adjustment only if in viewport logic can be added, but keeping it simple
+            });
+        });
+    </script>
+</body></html>

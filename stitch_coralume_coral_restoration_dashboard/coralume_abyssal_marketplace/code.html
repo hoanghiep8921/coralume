@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Coralume | Abyssal Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "error": "#ffb4ab",
+                "surface-tint": "#00dce5",
+                "on-primary-container": "#006c71",
+                "on-secondary-container": "#ff9e9b",
+                "on-surface": "#dce3f0",
+                "tertiary-container": "#d6dcff",
+                "surface": "#0d141d",
+                "outline": "#849495",
+                "inverse-primary": "#00696e",
+                "surface-container": "#19202a",
+                "on-background": "#dce3f0",
+                "on-secondary": "#68000f",
+                "on-error": "#690005",
+                "surface-variant": "#2e353f",
+                "surface-container-high": "#242a34",
+                "on-primary": "#003739",
+                "secondary-fixed-dim": "#ffb3b0",
+                "error-container": "#93000a",
+                "surface-container-low": "#151c26",
+                "tertiary-fixed": "#dde1ff",
+                "secondary-fixed": "#ffdad8",
+                "on-tertiary-container": "#495caa",
+                "on-secondary-fixed-variant": "#8c1520",
+                "outline-variant": "#3a494a",
+                "secondary": "#ffb3b0",
+                "surface-container-highest": "#2e353f",
+                "background": "#0d141d",
+                "surface-container-lowest": "#080f18",
+                "on-primary-fixed-variant": "#004f53",
+                "tertiary-fixed-dim": "#b8c4ff",
+                "on-surface-variant": "#b9caca",
+                "on-secondary-fixed": "#410006",
+                "primary-container": "#00f5ff",
+                "primary-fixed-dim": "#00dce5",
+                "on-tertiary-fixed": "#001453",
+                "on-tertiary": "#112976",
+                "tertiary": "#fcf9ff",
+                "primary": "#e9feff",
+                "inverse-surface": "#dce3f0",
+                "surface-bright": "#333a44",
+                "on-tertiary-fixed-variant": "#2c418e",
+                "inverse-on-surface": "#2a313b",
+                "on-primary-fixed": "#002021",
+                "secondary-container": "#901822",
+                "surface-dim": "#0d141d",
+                "on-error-container": "#ffdad6",
+                "primary-fixed": "#63f7ff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "gutter": "32px",
+                "unit": "8px",
+                "margin-desktop": "80px",
+                "margin-mobile": "24px",
+                "section-gap": "160px"
+            },
+            "fontFamily": {
+                "headline-lg": ["Space Grotesk"],
+                "metric-xl": ["Space Mono"],
+                "body-md": ["Plus Jakarta Sans"],
+                "body-lg": ["Plus Jakarta Sans"],
+                "label-mono": ["Space Mono"],
+                "headline-md": ["Space Grotesk"],
+                "headline-lg-mobile": ["Space Grotesk"],
+                "headline-xl": ["Space Grotesk"]
+            },
+            "fontSize": {
+                "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "metric-xl": ["40px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "headline-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #080f18;
+            color: #dce3f0;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(0, 220, 229, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 220, 229, 0.5);
+            box-shadow: 0 0 30px rgba(0, 220, 229, 0.15);
+            transform: translateY(-8px);
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 220, 229, 0.6);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #00dce5;
+            border-radius: 10px;
+        }
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .neon-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 220, 229, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 220, 229, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 220, 229, 0); }
+        }
+        .modal-overlay {
+            background: rgba(8, 15, 24, 0.8);
+            backdrop-filter: blur(12px) saturate(150%);
+        }
+    </style>
+</head>
+<body class="font-body-md selection:bg-surface-tint selection:text-background">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 py-3 rounded-full mt-6 mx-auto w-[90%] max-w-7xl bg-white/5 backdrop-blur-3xl border border-surface-tint/50 shadow-[0_0_15px_rgba(0,220,229,0.2)]">
+<div class="font-headline-md text-headline-md font-bold text-surface-tint tracking-tighter">Coralume</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-surface-tint transition-colors duration-300" href="#">Ecosystems</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-surface-tint transition-colors duration-300" href="#">Research</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-surface-tint transition-colors duration-300" href="#">Live Feed</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-surface-tint transition-colors duration-300" href="#">Impact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-5 py-2 font-label-mono text-label-mono text-on-surface-variant hover:text-surface-tint transition-all">Login</button>
+<button class="px-6 py-2 bg-surface-tint text-background font-label-mono text-label-mono rounded-full font-bold hover:shadow-[0_0_20px_rgba(0,220,229,0.4)] active:scale-95 transition-all">Register</button>
+</div>
+</nav>
+<main class="relative pt-40 pb-20">
+<!-- Background Animation -->
+<div class="fixed inset-0 -z-10 opacity-30">
+
+</div>
+<!-- Hero Section -->
+<section class="px-margin-desktop max-w-7xl mx-auto mb-section-gap text-center md:text-left">
+<div class="inline-block px-4 py-1 mb-6 rounded-full border border-surface-tint/30 bg-surface-tint/10 text-surface-tint font-label-mono text-label-mono">
+                MARKETPLACE // V2.04 PROTOCOL
+            </div>
+<h1 class="font-headline-xl text-headline-xl mb-8 leading-tight">Adopt the <span class="text-surface-tint glow-text">Bioluminescence</span></h1>
+<p class="font-body-lg text-body-lg max-w-2xl text-on-surface-variant mb-12">
+                Invest in the future of our oceans through technical coral restoration. Each specimen is genetically cataloged, AI-monitored, and cryptographically verified.
+            </p>
+</section>
+<!-- Tier Grid -->
+<section class="px-margin-desktop max-w-7xl mx-auto mb-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Seed Coral -->
+<div class="glass-card flex flex-col p-8 rounded-3xl relative overflow-hidden group">
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-surface-tint/10 blur-3xl rounded-full"></div>
+<div class="mb-10">
+<div class="w-full h-64 rounded-2xl overflow-hidden mb-8 relative bg-surface-container-low group-hover:bg-surface-container transition-colors">
+<img class="w-full h-full object-cover mix-blend-screen opacity-70 group-hover:scale-110 transition-transform duration-700" data-alt="A macro photography shot of a single, vibrant glowing coral polyp in a high-tech glass laboratory container. The lighting is deep oceanic blue with sharp teal neon highlights reflecting off the glass. The aesthetic is clean, scientific, and futuristic, resembling a precious specimen stored in a futuristic vault." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMdaRyW340ZSBLr9zBgxbcPzBHzrfu9uwHluJbarbsvrIGf5N8DeKZZDSIc0XvhhyIe4vuSTdlA6wB5beZO7a9gdP6FQ4sjkL6eC4e544mkiAyyUOfmCnDjr5FVB9KuRSyvUdnzrNTa_qZeCw5TZmYHtcCAW3uGjxPPDo6PiU35Mrg1JTSDT8K9X8_qnhrtVoZspmZdL70ks1hSM6VJRf2ZIYxpUVSaHKIT331dr0Ch4zhKc1DBbRLivEEcpa6j9okgRQvGa_yGXo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Seed Coral</h3>
+<div class="font-label-mono text-label-mono text-surface-tint tracking-widest uppercase mb-6">Entry-Level Stewardship</div>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="text-on-surface-variant font-label-mono">Growth Potential</span>
+<span class="text-surface-tint font-label-mono">1.2x / Year</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="text-on-surface-variant font-label-mono">Impact Radius</span>
+<span class="text-surface-tint font-label-mono">2.5m²</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="text-on-surface-variant font-label-mono">Biolume Rating</span>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-surface-tint text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="material-symbols-outlined text-surface-tint/30 text-sm">bolt</span>
+<span class="material-symbols-outlined text-surface-tint/30 text-sm">bolt</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<div class="text-2xl font-metric-xl text-primary mb-6">$149.00 <span class="text-sm font-label-mono text-on-surface-variant">/ UNIT</span></div>
+<button class="w-full py-4 bg-transparent border border-surface-tint text-surface-tint font-bold rounded-xl hover:bg-surface-tint/10 transition-all flex items-center justify-center gap-2" onclick="toggleModal('login-modal')">
+                            Adopt Now <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Reef Guardian -->
+<div class="glass-card flex flex-col p-8 rounded-3xl relative overflow-hidden group border-surface-tint shadow-[0_0_40px_rgba(0,220,229,0.1)]">
+<div class="absolute top-4 right-4 z-10 px-3 py-1 bg-surface-tint text-background font-label-mono text-[10px] font-bold rounded-full">POPULAR</div>
+<div class="absolute -top-20 -left-20 w-64 h-64 bg-surface-tint/20 blur-3xl rounded-full"></div>
+<div class="mb-10">
+<div class="w-full h-64 rounded-2xl overflow-hidden mb-8 relative bg-surface-container-low group-hover:bg-surface-container transition-colors">
+<img class="w-full h-full object-cover mix-blend-screen opacity-70 group-hover:scale-110 transition-transform duration-700" data-alt="A sprawling network of interconnected bioluminescent coral structures underwater at night. High-tech AI sensors and floating drones are visible in the background, casting subtle red and blue data-light signals. The scene is immersive and advanced, showcasing a managed oceanic ecosystem under conservation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoAgP86X3a_Q7wIobuNWW91TJiF9G0EHjLeuCTrCYJN6wmmAruAhosDp8cu4laASQv1t4hKe5MQ2_jCbdil7gPv_0Kr3hdQOX7dLXkIPmvF1FmMkRzsR2hMVc45s9-vFYGpiG6WXyB8u7HPPT8495vAtkeDiEp4imgkP8LuK3K3HzRCyXKqCjaKw3AJKvl7blLzRdWSvtjHgFh3vJzvLmXXdD5A9loEX_sX34wjL6BiQIRKTIz87AWMP1JTMdOrY_0KcqQ-gfZSqk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Reef Guardian</h3>
+<div class="font-label-mono text-label-mono text-surface-tint tracking-widest uppercase mb-6">AI Monitoring System</div>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="text-on-surface-variant font-label-mono">Growth Potential</span>
+<span class="text-surface-tint font-label-mono">2.8x / Year</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="text-on-surface-variant font-label-mono">Impact Radius</span>
+<span class="text-surface-tint font-label-mono">15.0m²</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="text-on-surface-variant font-label-mono">Biolume Rating</span>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-surface-tint text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="material-symbols-outlined text-surface-tint text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="material-symbols-outlined text-surface-tint/30 text-sm">bolt</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<div class="text-2xl font-metric-xl text-primary mb-6">$899.00 <span class="text-sm font-label-mono text-on-surface-variant">/ QUARTERLY</span></div>
+<button class="w-full py-4 bg-surface-tint text-background font-bold rounded-xl hover:shadow-[0_0_20px_rgba(0,220,229,0.5)] transition-all flex items-center justify-center gap-2" onclick="toggleModal('login-modal')">
+                            Adopt Now <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Premium Tier -->
+<div class="glass-card flex flex-col p-8 rounded-3xl relative overflow-hidden group">
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-secondary/10 blur-3xl rounded-full"></div>
+<div class="mb-10">
+<div class="w-full h-64 rounded-2xl overflow-hidden mb-8 relative bg-surface-container-low group-hover:bg-surface-container transition-colors">
+<img class="w-full h-full object-cover mix-blend-screen opacity-70 group-hover:scale-110 transition-transform duration-700" data-alt="A first-person perspective of a deep-sea diver equipped with high-tech glowing gear exploring a massive coral reef restoration site. The lighting is dramatic and moody, featuring deep indigos and sharp coral pinks. The image captures the feeling of adventure, premium access, and advanced community leadership in marine conservation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmWJrJKxRZgBhVDPg24SWQ3xZcP-QKh-ZSMH2BW6g9aqmyUzVOFUntCs2Isa0-GXtQmOLcvPT-gnGIOH87jNWEkyNSHtgfnmAUEzVIYKIVBBOgVOLfgDHgxU4DMZmO10jXR5AF6ube6KGDx206_KSQliIWweDwefAZC5qNe574MvV1zir_WDlrpn6EWzIb4N25QBRs5AY3wthN2ki4eJhNVsqQe9_UiAaqxR9Rtb-rxSEKxDsNo1cF71kVYPez-iDztqygMv-OK7M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Diving Experience</h3>
+<div class="font-label-mono text-label-mono text-secondary tracking-widest uppercase mb-6">+ Referral Ambassador</div>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="text-on-surface-variant font-label-mono">Growth Potential</span>
+<span class="text-secondary font-label-mono">8.5x / Year</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="text-on-surface-variant font-label-mono">Impact Radius</span>
+<span class="text-secondary font-label-mono">120m²</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="text-on-surface-variant font-label-mono">Biolume Rating</span>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<div class="text-2xl font-metric-xl text-primary mb-6">$4,950 <span class="text-sm font-label-mono text-on-surface-variant">/ ANNUAL</span></div>
+<button class="w-full py-4 bg-transparent border border-secondary text-secondary font-bold rounded-xl hover:bg-secondary/10 transition-all flex items-center justify-center gap-2" onclick="toggleModal('login-modal')">
+                            Inquire Now <span class="material-symbols-outlined text-sm">contact_support</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Specs / Data Drift -->
+<section class="mb-section-gap">
+<div class="px-margin-desktop max-w-7xl mx-auto mb-12">
+<h2 class="font-headline-md text-headline-md mb-4">Genetic Inventory</h2>
+<p class="text-on-surface-variant font-body-md">Real-time data feeds from our abyssal nurseries.</p>
+</div>
+<div class="flex gap-8 overflow-x-auto custom-scrollbar pb-12 px-margin-desktop">
+<!-- Spec Card 1 -->
+<div class="min-w-[400px] glass-card p-6 rounded-2xl flex gap-6 items-start">
+<div class="w-24 h-24 bg-surface-container rounded-lg flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-surface-tint text-4xl">magnification_small</span>
+</div>
+<div>
+<div class="font-label-mono text-xs text-surface-tint mb-1">ID: CR-084-ALPHA</div>
+<h4 class="font-headline-md text-lg mb-2">Acropora Cervicornis</h4>
+<div class="space-y-1 text-sm font-label-mono text-on-surface-variant">
+<p>Temperature Tolerance: +2.4°C</p>
+<p>Symbiont Density: 94%</p>
+<p>Calcification Rate: High</p>
+</div>
+</div>
+</div>
+<!-- Spec Card 2 -->
+<div class="min-w-[400px] glass-card p-6 rounded-2xl flex gap-6 items-start">
+<div class="w-24 h-24 bg-surface-container rounded-lg flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-surface-tint text-4xl">water_drop</span>
+</div>
+<div>
+<div class="font-label-mono text-xs text-surface-tint mb-1">ID: CR-112-GAMMA</div>
+<h4 class="font-headline-md text-lg mb-2">Diploria Labyrinthiformis</h4>
+<div class="space-y-1 text-sm font-label-mono text-on-surface-variant">
+<p>Temperature Tolerance: +1.8°C</p>
+<p>Symbiont Density: 88%</p>
+<p>Calcification Rate: Moderate</p>
+</div>
+</div>
+</div>
+<!-- Spec Card 3 -->
+<div class="min-w-[400px] glass-card p-6 rounded-2xl flex gap-6 items-start">
+<div class="w-24 h-24 bg-surface-container rounded-lg flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-surface-tint text-4xl">biotech</span>
+</div>
+<div>
+<div class="font-label-mono text-xs text-surface-tint mb-1">ID: CR-992-SIGMA</div>
+<h4 class="font-headline-md text-lg mb-2">Montastraea Cavernosa</h4>
+<div class="space-y-1 text-sm font-label-mono text-on-surface-variant">
+<p>Temperature Tolerance: +3.1°C</p>
+<p>Symbiont Density: 97%</p>
+<p>Calcification Rate: Extreme</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="px-margin-desktop max-w-5xl mx-auto mb-section-gap">
+<div class="glass-card rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden">
+<div class="absolute inset-0 -z-10 opacity-20">
+
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-6">Scale Your Impact</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl mx-auto">
+                    Custom coral deployment for corporate ESG initiatives or large-scale ecological engineering available upon request.
+                </p>
+<button class="px-10 py-5 bg-surface-tint text-background font-bold rounded-2xl hover:shadow-[0_0_30px_rgba(0,220,229,0.6)] transition-all">
+                    Enterprise Solutions
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-10 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8 bg-surface-container-lowest border-t border-outline-variant/30">
+<div class="font-headline-md text-headline-md text-surface-tint">Coralume</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-y-[-2px]" href="#">Deep Sea Protocols</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-y-[-2px]" href="#">Open Data</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-y-[-2px]" href="#">Terms of Abyss</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-all duration-300 hover:translate-y-[-2px]" href="#">Contact Research</a>
+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant opacity-60">© 2024 Coralume. Bioluminescent Conservation.</div>
+</footer>
+<!-- Auth Modal -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6" id="login-modal">
+<div class="modal-overlay absolute inset-0" onclick="toggleModal('login-modal')"></div>
+<div class="glass-card w-full max-w-md p-10 rounded-3xl relative z-10 animate-in fade-in zoom-in duration-300">
+<button class="absolute top-6 right-6 text-on-surface-variant hover:text-white transition-colors" onclick="toggleModal('login-modal')">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="text-center mb-8">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-tint/20 text-surface-tint mb-6">
+<span class="material-symbols-outlined text-4xl">fingerprint</span>
+</div>
+<h2 class="font-headline-md text-headline-md mb-2">Authorization Required</h2>
+<p class="text-on-surface-variant text-sm">Establish a secure link to continue adoption.</p>
+</div>
+<form class="space-y-6">
+<div>
+<label class="block font-label-mono text-xs text-surface-tint mb-2 uppercase tracking-widest">Network Identity</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-surface-tint text-primary placeholder:text-outline/50 transition-all py-3" placeholder="email@protocol.com" type="email"/>
+</div>
+<div>
+<label class="block font-label-mono text-xs text-surface-tint mb-2 uppercase tracking-widest">Security Key</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-surface-tint text-primary placeholder:text-outline/50 transition-all py-3" placeholder="••••••••" type="password"/>
+</div>
+<button class="w-full py-4 bg-surface-tint text-background font-bold rounded-xl hover:shadow-[0_0_20px_rgba(0,220,229,0.4)] transition-all mt-4" type="submit">
+                    Continue to Checkout
+                </button>
+<div class="text-center">
+<span class="text-on-surface-variant text-sm">New researcher? </span>
+<a class="text-surface-tint font-bold hover:underline" href="#">Request Access</a>
+</div>
+</form>
+</div>
+</div>
+<script>
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Add subtle mouse-tracking glow to cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>

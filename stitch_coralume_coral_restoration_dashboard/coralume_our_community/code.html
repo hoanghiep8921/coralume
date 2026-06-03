@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Community - Coralume</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100..900&amp;family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#284a57",
+                        "surface-dim": "#dfdacb",
+                        "on-secondary-container": "#732100",
+                        "on-primary-container": "#87bbce",
+                        "on-surface-variant": "#40484b",
+                        "outline": "#70787c",
+                        "tertiary-fixed-dim": "#a9ccdc",
+                        "on-secondary-fixed-variant": "#802a08",
+                        "primary-fixed-dim": "#9acee1",
+                        "secondary": "#9f411e",
+                        "inverse-on-surface": "#f6f0e1",
+                        "surface-variant": "#e8e2d3",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#0f4c5c",
+                        "on-primary-fixed-variant": "#114d5d",
+                        "primary-fixed": "#b6ebfe",
+                        "on-tertiary-fixed": "#001f29",
+                        "primary": "#003441",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#96b9c8",
+                        "surface-container-high": "#eee8d9",
+                        "inverse-primary": "#9acee1",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#fe885f",
+                        "tertiary-fixed": "#c5e8f8",
+                        "on-secondary-fixed": "#390c00",
+                        "surface-bright": "#fff9ea",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#294b58",
+                        "surface-container": "#f3edde",
+                        "background": "#fff9ea",
+                        "on-background": "#1d1c13",
+                        "on-primary-fixed": "#001f28",
+                        "secondary-fixed": "#ffdbd0",
+                        "surface": "#fff9ea",
+                        "inverse-surface": "#333027",
+                        "secondary-fixed-dim": "#ffb59d",
+                        "outline-variant": "#c0c8cb",
+                        "surface-container-highest": "#e8e2d3",
+                        "surface-container-low": "#f9f3e4",
+                        "on-surface": "#1d1c13",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#306576",
+                        "tertiary": "#0e3340"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "margin-mobile": "20px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Lexend"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "display-lg-mobile": ["Lexend"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "data-mono": ["JetBrains Mono"],
+                        "display-lg": ["Lexend"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .buoyant:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 20px 40px rgba(15, 76, 92, 0.1);
+        }
+        .coral-gradient {
+            background: linear-gradient(135deg, #E87750 0%, #ff8c69 100%);
+        }
+    </style>
+</head>
+<body class="bg-white text-on-surface font-body-md selection:bg-secondary-fixed">
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl docked full-width top-0 sticky z-50 shadow-[0px_10px_30px_rgba(15,76,92,0.05)]">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md font-bold tracking-tight text-primary dark:text-primary-fixed" href="#">Coralume</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary dark:hover:text-primary-fixed transition-colors font-body-md text-body-md" href="#">Adopt</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary dark:hover:text-primary-fixed transition-colors font-body-md text-body-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary dark:hover:text-primary-fixed transition-colors font-body-md text-body-md" href="#">Nha Trang</a>
+<a class="text-primary dark:text-primary-fixed border-b-2 border-secondary font-medium font-body-md text-body-md" href="#">Community</a>
+</nav>
+<button class="bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-sm text-label-sm buoyant transition-all active:scale-95 duration-200">
+                Adopt Your Coral
+            </button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative h-[870px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Sunlight piercing through clear turquoise ocean water onto a vibrant, healthy coral reef ecosystem" class="w-full h-full object-cover" data-alt="A breathtaking wide-angle underwater photograph of a thriving coral reef in Nha Trang. Beams of ethereal sunlight pierce through the crystalline turquoise water surface, illuminating intricate coral structures in shades of orange, pink, and gold. Small tropical fish dart between the polyps, creating a sense of dynamic life. The mood is serene, awe-inspiring, and high-end, capturing the premium stewardship of a pristine marine sanctuary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwxlvg2Z1tF7qBn4ZUquhwwdTnH_KDBciupx5ohpy7L5NG5vGVgTv1sNspY49hhK_0H79rtLSTwmTnDYOXwlgZR8cCR0_rTvfWTl2fzF-WkjVFDTJGJljavDrm1f5e_ltS3gZP41F_h11SWRIhs87colHwdMkao4SUl8EdcEtM06RKdrEzX2GRrOPYrgAbyjtT5vpvPN9AsPzaIxAQLBeWar5ig13zj1HRYLG0isjphgR_oW75vNQBTW8cuYiCM1gUojBfpuuA_UE"/>
+<div class="absolute inset-0 bg-gradient-to-b from-primary/30 via-transparent to-white"></div>
+</div>
+<div class="relative z-10 w-full px-margin-desktop max-w-container-max mx-auto text-on-primary">
+<span class="inline-block px-4 py-1 rounded-full bg-primary-container/20 backdrop-blur-md border border-white/20 font-label-sm text-label-sm mb-stack-md uppercase tracking-widest">Our Journey</span>
+<h1 class="font-display-lg text-display-lg max-w-2xl mb-stack-md leading-tight">
+                    Preserving the Vitality of Our Oceans
+                </h1>
+<p class="font-body-lg text-body-lg max-w-xl text-white/90 mb-stack-lg">
+                    More than a sponsorship, Coralume is a movement of premium stewardship. Join us in rebuilding the "Rainforests of the Sea" through science-backed restoration.
+                </p>
+<div class="font-headline-md text-headline-md italic font-light opacity-90">
+                    "Gieo mầm cho đại dương"
+                </div>
+</div>
+</section>
+<!-- The Story of Nha Trang Center -->
+<section class="py-24 bg-white">
+<div class="px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
+<div class="md:col-span-5">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden shadow-2xl">
+<img alt="Scientist working at the Nha Trang Marine Institute with coral specimens" class="w-full h-full object-cover" data-alt="A clean, professional documentary-style portrait of a marine biologist working in the state-of-the-art Nha Trang Conservation Center. The scientist is carefully examining a young coral fragment in a glass nursery tank, illuminated by soft blue and white technical lighting. The laboratory setting is modern, minimalist, and clinical, emphasizing the data-driven precision of the project. The overall tone is sophisticated and trustworthy, reflecting a high-end scientific partnership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsMtIkZZMtt5g1ogrnBkRlH5C-wqbZTFgWeNYlJtimToq42S9vSGE4VgHGVrJ1p2i9-HDYX6hFZ1kWHQO9oKURnjsgA9Au5UxcU9xx2ju133SxIJcD_OWEvgrtkp6vkp_qZKtObblP2Tr8BjVEDN_JUFp3OVthy9Y--OeO8oXANyeku3Rw9cdgUTdSZt8yZPityMFROwylsNQZddI9dgIX_pdHZh4aXCM2zvU7vR1qewMKglNHZxK2mrmwZAfXaL09-qQF9KjFd-s"/>
+</div>
+</div>
+<div class="md:col-span-7">
+<div class="mb-stack-sm text-secondary font-label-sm text-label-sm tracking-widest uppercase">The Nha Trang Center</div>
+<h2 class="font-display-lg text-headline-md md:text-display-lg text-primary mb-stack-lg">Science Meets Stewardship</h2>
+<div class="space-y-stack-md text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                            Nestled in the heart of Vietnam's most celebrated marine reserve, the **Nha Trang Coral Stewardship Center** serves as the operational pulse of Coralume. In exclusive partnership with local oceanographers and the Marine Institute, we've established a sanctuary where technology and nature converge.
+                        </p>
+<p>
+                            Our mission is simple yet profound: to reverse decades of degradation through accelerated coral growth techniques. By merging AI-driven monitoring with community-led adoption, we ensure every fragment planted has a documented journey from nursery to thriving reef.
+                        </p>
+<p>
+                            Together with the people of Nha Trang, we aren't just planting coral; we are rebuilding local livelihoods and securing a blue heritage for generations to come.
+                        </p>
+</div>
+<!-- Impact Chips -->
+<div class="flex flex-wrap gap-stack-sm mt-stack-lg">
+<span class="px-4 py-2 bg-primary/5 text-primary rounded-full font-data-mono text-data-mono">Impact: 12,000+ Frags</span>
+<span class="px-4 py-2 bg-primary/5 text-primary rounded-full font-data-mono text-data-mono">Partners: Nha Trang Marine Inst.</span>
+<span class="px-4 py-2 bg-primary/5 text-primary rounded-full font-data-mono text-data-mono">Survival Rate: 94%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Divider -->
+<div class="w-full h-px bg-surface-dim"></div>
+<!-- Community Section -->
+<section class="py-24 bg-surface-bright">
+<div class="px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-display-lg text-display-lg text-primary mb-4">Meet Other Adopters</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl mx-auto">
+                        Join an elite circle of ocean stewards from across the globe who are making a measurable difference in Nha Trang.
+                    </p>
+</div>
+<!-- Bento-ish Grid for Testimonials -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-white p-8 rounded-xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)] buoyant transition-all flex flex-col justify-between border border-surface-container">
+<div>
+<div class="flex items-center gap-4 mb-stack-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
+<img alt="Portrait of an early adopter" class="w-full h-full object-cover" data-alt="A professional studio portrait of a woman in her 30s with a confident and warm expression, representing a premium brand ambassador. The lighting is soft and high-key, creating a modern and approachable aesthetic. The background is a minimalist soft beige, maintaining a clean light-mode feel. The style is high-end editorial, suggesting she is a successful professional and ocean steward." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCYfFGMdJLnYf8cPbzKCrWzGP5_Mrs7EMtc-gwe1a8R6kg84itDUPlDfMZq1GvV8g48dPHUpwsdfsfuxk_17C0xMHioRF343bUyxedtD0qUhUS3kvfqMTYL1uuYebN8yUF7z8iNTjMKp2a3ZEmxNQdc6nDeRo-xw2l0vgRpsXphVh0C7pZ69AC331M-430hcMxw-1tFe-eA0T7Grpcg0BiJAtnzywCgyc8bxC8RI-_AEFWp2uNZRZmd9YtB9_yu85neo4p_3rqZK8"/>
+</div>
+<div>
+<div class="font-headline-md text-body-md font-bold text-primary">Elena Rodriguez</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Global Stewardship Circle</div>
+</div>
+</div>
+<p class="italic text-on-surface-variant font-body-md text-body-md mb-stack-md">
+                                "Watching my coral grow through the monthly reports has been an incredibly personal journey. It’s not just a donation; it’s a living investment in our planet."
+                            </p>
+</div>
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+<span class="font-data-mono text-data-mono">Growing since 2022</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-primary text-on-primary p-8 rounded-xl shadow-xl buoyant transition-all flex flex-col justify-between md:scale-105 z-10">
+<div>
+<div class="flex items-center gap-4 mb-stack-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-white/10 p-1">
+<img alt="Portrait of a long-term community member" class="w-full h-full object-cover rounded-full" data-alt="A high-contrast black and white portrait of a man in his late 40s, exuding wisdom and a connection to nature. He has a subtle smile and kind eyes. The photography is crisp with shallow depth of field, focused intently on his expression. The aesthetic is premium and soulful, echoing the stewardship of the Coralume brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjgXtH9TSj8Hhs_P2kD2KjiiSrt3UAhwEZ_gv_6VNqmqUi6_mnTyMu25o8GpfMRFGT533EMaySZxKSZuHaAbrkFT4YpFmJTbd-G5HBi7e-3RAXAVZiiVTChKURp4DZysvGmZdgPir4Nzifg04WlmSAxuRHVvOQRk7JikYRrs5OwexqM3en8guEIGNEXFTTh6YqV_PBU3sWapyEYktltbAYHqr_57bj-r3lNlkFfbYFl51R-TUX0UP0FqbwsB0wTa7aGjEH2boMPmU"/>
+</div>
+<div>
+<div class="font-headline-md text-body-md font-bold">Marcus Thorne</div>
+<div class="text-label-sm font-label-sm text-on-primary/70">Heritage Donor</div>
+</div>
+</div>
+<p class="italic font-body-md text-body-lg leading-relaxed mb-stack-md">
+                                "The transparency of Coralume is unmatched. Seeing the exact coordinates of my coral in Nha Trang makes the impact feel tangible and real."
+                            </p>
+</div>
+<div class="flex items-center gap-2 text-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span class="font-data-mono text-data-mono">Nha Trang Sector 4</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white p-8 rounded-xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)] buoyant transition-all flex flex-col justify-between border border-surface-container">
+<div>
+<div class="flex items-center gap-4 mb-stack-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
+<img alt="Portrait of a young community advocate" class="w-full h-full object-cover" data-alt="A bright and vibrant portrait of a young woman in a seaside setting, with the soft blur of the ocean in the background. She has a genuine, joyful smile and is dressed in professional yet relaxed attire. The lighting is the golden hour sun, giving a warm and hopeful glow. The image style is modern, optimistic, and premium, representing the next generation of environmental stewards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChZxaZEUnKBztjujIZORwyx7G6rLQ9Who2NyjaCPGv7uVaOhzsPzDR6-suewGm_jeB8KBodCkS4eFy7k_YXKMExGUyXFIE6RIPSyiaJ2qL09lsU2wrNWjL3QPyYn2JVqiTXYXvHoYnBjEZnPJwtE7ojjQV5b7Q5jhx4DeLO2WfPqgrdzrB3BMHmA5fXOcXNzzZuiPPRIWAGU3FzEMukzD00wWIcFk9gv6wMou5UVG3yGdymxKWCXp05aMjtAJ-I94aJTCkggiToz0"/>
+</div>
+<div>
+<div class="font-headline-md text-body-md font-bold text-primary">Sarah Tan</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Community Advocate</div>
+</div>
+</div>
+<p class="italic text-on-surface-variant font-body-md text-body-md mb-stack-md">
+                                "Gieo mầm cho đại dương—this slogan resonates with me deeply. We are planting seeds for a future we might not see, but our children will."
+                            </p>
+</div>
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span class="font-data-mono text-data-mono">Adopter #4092</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="relative py-32 bg-primary overflow-hidden">
+<div class="absolute inset-0 opacity-20">
+<div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-fixed-dim/20 to-transparent"></div>
+</div>
+<div class="relative z-10 px-margin-desktop max-w-container-max mx-auto text-center">
+<h2 class="font-display-lg text-display-lg text-white mb-stack-md">Begin Your Legacy</h2>
+<p class="font-body-lg text-body-lg text-white/80 max-w-xl mx-auto mb-12">
+                    Every coral fragment you adopt is a step toward a resilient ocean. Join our community in Nha Trang today and start your growth report.
+                </p>
+<div class="flex flex-col md:flex-row justify-center items-center gap-stack-md">
+<button class="bg-secondary text-on-secondary px-10 py-4 rounded-full font-headline-md text-body-md buoyant transition-all">
+                        Adopt Your Coral
+                    </button>
+<button class="border border-white/30 text-white hover:bg-white/10 px-10 py-4 rounded-full font-headline-md text-body-md transition-all">
+                        View Nha Trang Map
+                    </button>
+</div>
+<div class="mt-16 font-data-mono text-label-sm text-white/40 tracking-[0.3em] uppercase">
+                    Sustainable · Transparent · Impactful
+                </div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-surface-container-lowest full-width py-stack-lg">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop w-full max-w-container-max mx-auto gap-stack-md">
+<div>
+<a class="font-headline-md text-headline-md text-on-primary dark:text-primary font-bold" href="#">Coralume</a>
+<p class="text-on-primary/60 dark:text-on-surface/60 font-label-sm text-label-sm mt-2">Premium Stewardship for Our Oceans.</p>
+</div>
+<nav class="flex gap-8">
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-container dark:hover:text-secondary transition-colors font-body-md text-body-md" href="#">Impact Report</a>
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-container dark:hover:text-secondary transition-colors font-body-md text-body-md" href="#">Privacy Policy</a>
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-container dark:hover:text-secondary transition-colors font-body-md text-body-md" href="#">Nha Trang Center</a>
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-container dark:hover:text-secondary transition-colors font-body-md text-body-md" href="#">Contact</a>
+</nav>
+<div class="text-on-primary/60 dark:text-on-surface/60 font-label-sm text-label-sm">
+                © 2024 Coralume. All rights reserved.
+            </div>
+</div>
+</footer>
+<script>
+        // Simple intersection observer for reveal animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

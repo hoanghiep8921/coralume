@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Coralume | Your Impact Dashboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#284a57",
+                    "surface-dim": "#dfdacb",
+                    "on-secondary-container": "#732100",
+                    "on-primary-container": "#87bbce",
+                    "on-surface-variant": "#40484b",
+                    "outline": "#70787c",
+                    "tertiary-fixed-dim": "#a9ccdc",
+                    "on-secondary-fixed-variant": "#802a08",
+                    "primary-fixed-dim": "#9acee1",
+                    "secondary": "#9f411e",
+                    "inverse-on-surface": "#f6f0e1",
+                    "surface-variant": "#e8e2d3",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0f4c5c",
+                    "on-primary-fixed-variant": "#114d5d",
+                    "primary-fixed": "#b6ebfe",
+                    "on-tertiary-fixed": "#001f29",
+                    "primary": "#003441",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#96b9c8",
+                    "surface-container-high": "#eee8d9",
+                    "inverse-primary": "#9acee1",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#fe885f",
+                    "tertiary-fixed": "#c5e8f8",
+                    "on-secondary-fixed": "#390c00",
+                    "surface-bright": "#fff9ea",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#294b58",
+                    "surface-container": "#f3edde",
+                    "background": "#fff9ea",
+                    "on-background": "#1d1c13",
+                    "on-primary-fixed": "#001f28",
+                    "secondary-fixed": "#ffdbd0",
+                    "surface": "#fff9ea",
+                    "inverse-surface": "#333027",
+                    "secondary-fixed-dim": "#ffb59d",
+                    "outline-variant": "#c0c8cb",
+                    "surface-container-highest": "#e8e2d3",
+                    "surface-container-low": "#f9f3e4",
+                    "on-surface": "#1d1c13",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#306576",
+                    "tertiary": "#0e3340"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "stack-lg": "48px",
+                    "container-max": "1280px",
+                    "margin-mobile": "20px",
+                    "stack-md": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Lexend"],
+                    "label-sm": ["Be Vietnam Pro"],
+                    "display-lg-mobile": ["Lexend"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "data-mono": ["JetBrains Mono"],
+                    "display-lg": ["Lexend"],
+                    "body-md": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .coral-growth-gradient {
+            background: linear-gradient(90deg, #E87750 0%, #ffb59d 100%);
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<!-- Top Navigation -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/80 glass-nav shadow-[0px_10px_30px_rgba(15,76,92,0.05)]">
+<nav class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold tracking-tight text-primary">Coralume</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Adopt</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-secondary font-medium" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Nha Trang</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Community</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider hover:scale-95 transition-transform duration-200">
+                Adopt Your Coral
+            </button>
+</nav>
+</header>
+<main class="pt-32 pb-stack-lg max-w-container-max mx-auto px-margin-desktop">
+<!-- Welcome & Hero Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center mb-24">
+<div class="lg:col-span-5">
+<div class="mb-4">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-label-sm text-label-sm">Active Steward</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary mb-6">Welcome back, Minh. Your coral is thriving.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-md">
+                    Specimen <span class="font-data-mono text-primary font-bold">#COR-8821</span> is showing exceptional resilience in the Nha Trang sanctuary. Your stewardship continues to drive measurable impact.
+                </p>
+<div class="flex gap-4">
+<button class="bg-[#E87750] text-white px-8 py-4 rounded-xl font-body-md font-semibold shadow-lg hover:shadow-xl hover:translate-y-[-2px] transition-all">
+                        View Growth Report
+                    </button>
+<button class="flex items-center gap-2 border border-outline px-8 py-4 rounded-xl font-body-md font-semibold text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+                        Share Impact
+                    </button>
+</div>
+</div>
+<div class="lg:col-span-7 relative h-[500px] rounded-3xl overflow-hidden bg-white shadow-[0px_10px_30px_rgba(15,76,92,0.05)]">
+<!-- Digital Twin Visualization -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary-fixed/20 to-transparent z-10"></div>
+<img alt="Your Coral Digital Twin" class="w-full h-full object-cover animate-float" data-alt="A cinematic, high-resolution underwater photograph of a vibrant Acropora coral specimen with glowing teal and orange tips. The coral is the central focus, sharply detailed against a soft-focus deep blue ocean background. The lighting is ethereal, with sunbeams filtering through the water surface creating a premium, clean aesthetic consistent with a high-end marine conservation brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBATT6SPokA3VCKN2nRmLriD8mLUY301yMbj8IjaZqCySS3XVY0pa9gA5YaJur_50Hf9Fi92bw2VPPVi6e_AZACLnd9SwBR-FEsNUGmh5rhtWVgjH-vAFfiOxDxE_w_TaNAxc6DerupC54g8sHgO6J8hALQ9cOXAjIJbYbF_ihaGtI2pthFdbxwAwmhUY3vaQwc1ZzTRLFCOnEWU9TgMWCFK-h5lC3MKvj5___RB4So_7n4dHwwFVQCTtRATHSN-RcMRRTA1GswC-w"/>
+<!-- Floating Info Card -->
+<div class="absolute bottom-8 right-8 z-20 glass-nav bg-white/70 p-6 rounded-2xl shadow-xl max-w-xs">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary" data-icon="water_drop">water_drop</span>
+<span class="font-label-sm text-label-sm text-primary uppercase">Current Status</span>
+</div>
+<p class="font-headline-md text-headline-md text-primary mb-1">Optimal Health</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Temperature: 27.4°C • Salinity: 35.2 ppt</p>
+</div>
+</div>
+</section>
+<!-- Stats Panel - Bento Grid Style -->
+<section class="mb-24">
+<h2 class="font-headline-md text-headline-md text-primary mb-8">Stewardship Metrics</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Metric 1 -->
+<div class="bg-white p-8 rounded-3xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)] border border-surface-container">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-primary/5 rounded-2xl">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_today">calendar_today</span>
+</div>
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded-lg font-data-mono text-[10px]">DAYS</span>
+</div>
+<p class="font-data-mono text-[40px] text-primary mb-2">248</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Days since adoption</p>
+</div>
+<!-- Metric 2 -->
+<div class="bg-white p-8 rounded-3xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)] border border-surface-container">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-secondary/5 rounded-2xl">
+<span class="material-symbols-outlined text-secondary" data-icon="trending_up">trending_up</span>
+</div>
+<span class="bg-secondary/10 text-secondary px-2 py-0.5 rounded-lg font-data-mono text-[10px]">+12.4%</span>
+</div>
+<p class="font-data-mono text-[40px] text-primary mb-2">8.2<span class="text-xl">cm</span></p>
+<p class="font-body-md text-body-md text-on-surface-variant">Growth recorded</p>
+<div class="mt-4 h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="coral-growth-gradient h-full w-[65%] rounded-full"></div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-white p-8 rounded-3xl shadow-[0px_10px_30px_rgba(15,76,92,0.05)] border border-surface-container">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-tertiary-container/5 rounded-2xl">
+<span class="material-symbols-outlined text-primary" data-icon="eco">eco</span>
+</div>
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded-lg font-data-mono text-[10px]">EST.</span>
+</div>
+<p class="font-data-mono text-[40px] text-primary mb-2">4.1<span class="text-xl">kg</span></p>
+<p class="font-body-md text-body-md text-on-surface-variant">CO2 Absorption</p>
+</div>
+<!-- Metric 4 -->
+<div class="bg-primary p-8 rounded-3xl shadow-xl flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-secondary-container text-4xl mb-4" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<p class="text-on-primary font-headline-md mb-2">Ocean Guardian</p>
+<p class="text-on-primary/70 text-body-md">You are in the top 5% of stewards this month.</p>
+</div>
+<a class="text-secondary-container font-label-sm text-label-sm uppercase flex items-center gap-2 mt-4 hover:gap-3 transition-all" href="#">
+                        View Ranking <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Live Feed & Interaction -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Live Feed -->
+<div class="lg:col-span-8">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-primary">Nha Trang Live Feed</h2>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Live Stream</span>
+</div>
+</div>
+<div class="aspect-video bg-surface-container-highest rounded-3xl overflow-hidden relative shadow-inner">
+<img alt="Coral Reef Sanctuary Live Feed" class="w-full h-full object-cover opacity-90" data-alt="A stunning live-feed perspective of a coral reef sanctuary in Nha Trang. The scene shows clear turquoise water, with various tropical fish swimming amongst diverse coral formations. The camera angle is slightly tilted downwards to show the depth and complexity of the reef. The lighting is bright and natural, suggesting a tropical morning sun casting soft shadows on the white sandy ocean floor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOLZM3w2sjOiiv0yn-Z4R0wSVoGKXk5jK_PPukWEfh178_7VE76i1WZ1M3F4udRZuzKHvUyx_jLRlSQ26jJcuUVgNk96ZttURUJ7DE7tnVaFjUnpDxQUDVIoN6G1EE-IFskSZE6K5TrbVydYJe5aZ9f_8iSH0JHI4obgcfp7CNyJ5aCrI-jhvP7IeEdTOd6J8RbQsCvOYpkZ-2qt0JJGnvcmNlvUneEhqVItWugdjFWZqnq5wbiFxFtxkTIv5fvVj2yc_NVTtjmdE"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<button class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Overlay Telemetry -->
+<div class="absolute top-6 left-6 flex flex-col gap-2">
+<div class="bg-black/40 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-xs font-data-mono">CAM_04 // SECTOR_G12</div>
+<div class="bg-black/40 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-xs font-data-mono">DEPTH: 12.5m</div>
+</div>
+</div>
+</div>
+<!-- Next Steps / CTA -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<div class="bg-surface-container-low p-8 rounded-3xl border border-surface-variant flex-1">
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Adopt another friend</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Enhance your impact by supporting a diverse ecosystem. Adopt a companion specimen for #COR-8821.</p>
+<img alt="Adopt another coral" class="w-full h-40 object-cover rounded-2xl mb-6 shadow-md" data-alt="Close up photography of a delicate, soft coral with translucent purple branches. The style is professional and scientific yet beautiful, using soft-focus and professional lighting. The color palette is calming and emphasizes high-end stewardship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1D_cyoUuokMGuoF1jyKA2OQCI3laGaVVBLbEj-RjLR34abFxUtc3Za_scJvtugIH3_b2b0XVFaQhSXuK63VDLW44nf9T3Y9p707CyT9CmgvPi8UH7SCdPHYsAEzj5QYPqjRSNzen2XVwU8Yn-6fCSpATuh30D3mq4CYneazIbso9x2z2cd7zkl8SinwIU-b9Y7ur-xQ89XDhiugboJG_sdbgxL4HoZAfqu5j3VBfw9FOngIh1VkCyKBbLdUb5tCb3JoZ6rDHT6Hw"/>
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl font-body-md font-semibold hover:bg-primary-container transition-colors">
+                        Browse Sanctuary
+                    </button>
+</div>
+<div class="bg-secondary-container/10 p-8 rounded-3xl border border-secondary-fixed flex-1">
+<h3 class="font-headline-md text-headline-md text-secondary mb-4">Community Impact</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">1,240 corals have been adopted in the Nha Trang region this month.</p>
+<div class="flex -space-x-4 mb-6">
+<div class="w-10 h-10 rounded-full border-2 border-white overflow-hidden bg-surface-dim">
+<img alt="Steward 1" data-alt="Profile portrait of a smiling steward" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGcq-XEuWcENQO4tu8GXzIivq6vV8GKOOz-jTdRBXIwpWQyHsq6T6-TLBWWY5jxkPdL5on974AnV7jGgCLmhFDZpS6SwWujUnkhj1NNaXoY5gFHRQ4vGnZ5o7UcsJzzEpWFmScDqeo6GNXyyP3nMvtc9yDDglo01pRuhA1sogmBOu0ITO0oXogvEjiPo-bFtz39UNQvogoSuusGZrig0FTzKMvHC2hAdpZWnwLQHJ5TqLzl2YpuJkpcAQC8yP389D8NR0HSrlbU2k"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white overflow-hidden bg-surface-dim">
+<img alt="Steward 2" data-alt="Profile portrait of a smiling steward" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRiHykKVm9894iRaOqRvhvrtRHvfVxX_3RSiyywaA-NvHKE0HQqy9i7h1pxW48DJCUYkMNpN6koRes43LCDIEt_lgkBaRptmRUk8WYPUyQpMDZ5OoCQz1mCagoeAnmU1xI5ySXIpKvHL7C2WFE9A0xyrdjFohiL9BkdU9-auGxMPAQ2kBQv7nxHKKGxmc3sOCpAMtblKBotJ-1lAfxmeIRicvdq48r5ePfpdynRnJdLLzlim8OqnhTjXMolAGh-vJDgv6O3X9je2M"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white overflow-hidden bg-surface-dim">
+<img alt="Steward 3" data-alt="Profile portrait of a smiling steward" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC46MmLcnU8IAPt5UacEm8BTRcZAU56jUDpffkEhgZeeYXZLFsmSgvad_qXOTPgYSx10AT_jtTG5i5p0T6jCWW_5mAn3OVWVUHskxQzVSsPJEYphDLXUCJmLDs6LYsPmntBbX9vIPyJylyF5LwnuE8tajRbCVG5SUNps_3D7sGN4F127oMHLAIIaYXxCoZoLDeQunexJIBEAZg1qD1RMEK20Tjlvcg9dFnNIuCWqTFaBudpwSpbtKjSZAW_8jaEvsVgKF3cB5wEQ2Y"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-secondary flex items-center justify-center text-[10px] text-white font-bold">+1.2k</div>
+</div>
+<button class="w-full bg-secondary text-on-secondary py-4 rounded-xl font-body-md font-semibold hover:opacity-90 transition-opacity">
+                        Join Discussion
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-surface-container-lowest mt-12">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-stack-lg w-full max-w-container-max mx-auto">
+<div class="mb-8 md:mb-0">
+<div class="font-headline-md text-headline-md text-on-primary mb-2">Coralume</div>
+<p class="font-body-md text-body-md text-on-primary/80">© 2024 Coralume. Premium Stewardship for Our Oceans.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-label-sm text-label-sm text-on-primary/80 hover:text-secondary-fixed transition-colors uppercase tracking-widest" href="#">Impact Report</a>
+<a class="font-label-sm text-label-sm text-on-primary/80 hover:text-secondary-fixed transition-colors uppercase tracking-widest" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-primary/80 hover:text-secondary-fixed transition-colors uppercase tracking-widest" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and simple data simulations
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Simple observer for scroll effects
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
+</body></html>
