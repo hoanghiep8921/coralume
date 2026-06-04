@@ -67,10 +67,11 @@
 - ✅ **Unit 07:** About page (Hero, Story, Partners, Team, CTA)
 - ✅ **Unit 08:** Admin panel core (layout, dashboard, users, corals, products)
 - ✅ **Unit 09:** Coral Portal (dashboard, update form, adopter list — mobile-first, no animation)
+- ✅ **Unit 10:** Blog (listing with 4 categories + pagination, detail with TOC + scroll progress)
   - 5 sections: AboutHeroSection, StorySection, PartnersSection, TeamSection, AboutCTASection
   - Stitch ref: coralume_our_story (light theme, Vietnamese)
   - Build: 0 errors
-- Unit 10 & 11: Blog, Leaderboard, Community
+- Unit 11: Leaderboard & Community
 
 ## Open Questions
 
@@ -291,19 +292,20 @@
   - [ ] TODO: Email notification (stub), bulk upload, image upload/drag-drop
 
 ### TASK-010: Blog
-- **Status**: planned
+- **Status**: done
 - **SRS**: 3.7 Blog
-- **Branch**: feature/TASK-010-blog
+- **Branch**: main
 - **Dependencies**: TASK-002
 - **Priority**: P2
-- **Description:** Xây dựng blog — listing (categories filter, article grid, pagination), detail page (TOC sticky, scroll progress), CMS qua admin panel.
+- **Description:** Xây dựng blog — listing (4 categories filter: bảo tồn, sinh thái, kinh tế xanh, câu chuyện), article grid 3 cols, pagination 12 bài/trang, detail page (TOC sticky, scroll progress bar), Schema.org Article.
 - **Requirements**: FR-060, FR-061, FR-062
 - **Acceptance Criteria**:
-  - [ ] Categories filter: 4 categories
-  - [ ] Article grid: thumbnail, title, excerpt, date, tag, reading time
-  - [ ] Pagination 12 bài/trang
-  - [ ] Detail: max-width 720px, TOC sticky, scroll progress
-  - [ ] SEO: meta, OG tags, Schema.org Article
+  - [x] Categories filter: 4 categories (ecology, conservation, green_economy, adopter_stories)
+  - [x] Article grid: thumbnail, title, excerpt, date, category badge, reading time
+  - [x] Pagination 12 bài/trang
+  - [x] Detail: max-width 720px, TOC sticky sidebar (desktop), scroll progress bar
+  - [x] SEO: meta + OG tags + Schema.org Article + dynamic generateMetadata
+  - [x] `npm run build` passes — 0 TypeScript errors
 
 ### TASK-011: Leaderboard & Community
 - **Status**: planned
@@ -356,5 +358,5 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 11 tasks | 9 done, 0 in-progress, 2 planned*
+*Tổng: 11 tasks | 10 done, 0 in-progress, 1 planned*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
