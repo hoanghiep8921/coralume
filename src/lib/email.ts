@@ -179,3 +179,36 @@ export async function sendCoralUpdateEmail(
     return false;
   }
 }
+
+/**
+ * Generic email sender — used for bulk emails and custom admin messages.
+ */
+export interface SendEmailParams {
+  to: string;
+  subject: string;
+  html: string;
+}
+
+export async function sendEmail(params: SendEmailParams): Promise<boolean> {
+  try {
+    const resend = getResend();
+    if (!resend) {
+      console.error('[Resend] No API key configured');
+      return false;
+    }
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: params.to,
+      subject: params.subject,
+      html: params.html,
+    });
+    if (error) {
+      console.error('[Resend] Failed to send email:', error);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error('[Resend] Error sending email:', error);
+    return false;
+  }
+}

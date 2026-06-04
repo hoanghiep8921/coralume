@@ -373,6 +373,25 @@
   - [x] Activity logging cho product updates (activate/deactivate/update/delete)
   - [x] `npm run build` passes — 0 TypeScript errors
 
+### TASK-015: Gap Closure — Priority 3 (Certificate PDF, Analytics, CSV Export, Bulk Email)
+- **Status**: done
+- **SRS**: AD-06 (Analytics), AD-07 (Reports), AD-10 (Bulk Ops), NFR-030 (Email)
+- **Branch**: main
+- **Dependencies**: TASK-008, TASK-014
+- **Priority**: P2
+- **Description:** Certificate PDF generation với jsPDF, Analytics endpoint + page, CSV export cho users table, bulk email admin + API.
+- **Acceptance Criteria**:
+  - [x] Certificate PDF: jsPDF A4 landscape với Coralume branding
+  - [x] API: `GET /api/v1/me/certificate/[adoptionId]/pdf` — PDF download
+  - [x] API: `GET /api/v1/admin/analytics` — overview, userGrowth, revenueByTier, adoptionStatus, monthlyTrend
+  - [x] API: `POST /api/v1/admin/bulk-email` — Gửi email hàng loạt theo role
+  - [x] UI: `/admin/analytics` — LineChart, BarChart, PieChart, overview cards
+  - [x] UI: `/admin/email` — Compose form (role, subject, HTML content)
+  - [x] UI: Users page — CSV export button (Blob download với BOM)
+  - [x] Sidebar: Analytics + Email links
+  - [x] lib/email.ts: `sendEmail()` generic function
+  - [x] `npm run build` passes — 0 TypeScript errors
+
 ---
 
 ## Session Notes
@@ -410,7 +429,7 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 14 tasks | 14 done ✅ — Phase 2 Complete!*
+*Tổng: 15 tasks | 15 done ✅ — Phase 2 Complete!*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
 
 ## Session Notes (2026-06-04)

@@ -20,6 +20,8 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
     { href: '/admin/products', label: 'Sản phẩm', icon: 'inventory_2', adminOnly: true },
     { href: '/admin/settings', label: 'Cài đặt', icon: 'settings', adminOnly: true },
     { href: '/admin/activity', label: 'Hoạt động', icon: 'history', adminOnly: true },
+    { href: '/admin/analytics', label: 'Thống kê', icon: 'monitoring', adminOnly: true },
+    { href: '/admin/email', label: 'Gửi email', icon: 'mail', adminOnly: true },
   ];
 
   const visibleLinks = links.filter((l) => !l.adminOnly || isAdmin);

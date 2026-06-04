@@ -114,6 +114,19 @@ export default function AdminUsersPage() {
     } catch { /* ignore */ } finally { setDetailLoading(false); }
   };
 
+  const downloadCsv = () => {
+    const header = 'Tên,Email,Role,Xác thực,Trạng thái,Nhận nuôi,Thanh toán,Ngày tham gia';
+    const rows = users.map((u) =>
+      [u.fullName, u.email, roleLabels[u.role] || u.role, u.isVerified ? 'Yes' : 'No', u.isActive ? 'Active' : 'Blocked', u._count.adoptions, u._count.payments, new Date(u.createdAt).toLocaleDateString('vi-VN')].join(',')
+    );
+    const csv = '﻿' + [header, ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `coralume-users-${new Date().toISOString().slice(0, 10)}.csv`; a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div>
       <h1 className="font-display text-display-lg-mobile text-primary mb-6">Quản lý người dùng</h1>
@@ -133,6 +146,14 @@ export default function AdminUsersPage() {
           className="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-container transition-colors"
         >
           Tìm
+        </button>
+        <button
+          onClick={downloadCsv}
+          disabled={users.length === 0}
+          className="bg-surface-container-low text-on-surface-variant px-4 py-2 rounded-lg text-sm font-medium hover:bg-surface-container transition-colors disabled:opacity-50 flex items-center gap-1.5"
+        >
+          <span className="material-symbols-outlined text-base">download</span>
+          Xuất CSV
         </button>
       </div>
 
