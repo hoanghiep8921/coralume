@@ -17,11 +17,11 @@
 
 ## Current Phase
 
-- Phase 2: Development — Unit 07 Complete
+- Phase 2: Development — Unit 08 Complete
 
 ## Current Goal
 
-- Unit 08: Admin panel
+- Unit 09: Coral Portal + Blog + Leaderboard + Community
 
 ## Completed
 
@@ -65,12 +65,12 @@
 ## Next Up
 
 - ✅ **Unit 07:** About page (Hero, Story, Partners, Team, CTA)
+- ✅ **Unit 08:** Admin panel core (layout, dashboard, users, corals, products)
   - 5 sections: AboutHeroSection, StorySection, PartnersSection, TeamSection, AboutCTASection
   - Stitch ref: coralume_our_story (light theme, Vietnamese)
   - Build: 0 errors
-- Unit 08: Admin panel
 - Unit 09: Coral portal
-- Unit 09: Blog, Leaderboard, Community
+- Unit 10 & 11: Blog, Leaderboard, Community
 
 ## Open Questions
 
@@ -253,26 +253,24 @@
   - [x] SEO metadata + Open Graph
   - [x] `npm run build` passes — 0 TypeScript errors
 
-### TASK-008: Admin Panel
-- **Status**: planned
+### TASK-008: Admin Panel (Core)
+- **Status**: done
 - **SRS**: 3.10 Admin Panel
-- **Branch**: feature/TASK-008-admin-panel
+- **Branch**: main
 - **Dependencies**: TASK-002
 - **Priority**: P1
-- **Description:** Xây dựng admin panel — dashboard overview, user management, product management, content CMS, coral management (assign), analytics, reports, staff management, activity log, role sub-types.
-- **Requirements**: FR-090, FR-091, FR-092, FR-093, FR-094, FR-095, FR-096, FR-097, FR-098
+- **Description:** Xây dựng admin panel core — layout + sidebar, dashboard stats, user management (search, block/unblock), coral management (pool, status update), product management (list, toggle active). Deferred: CMS, analytics, reports, refund, bulk ops.
+- **Requirements**: FR-090, FR-091, FR-092, FR-093, FR-094, FR-095
 - **Acceptance Criteria**:
-  - [ ] Admin route protection (role=admin)
-  - [ ] Dashboard: user count, revenue, coral count, conversion chart
-  - [ ] User CRUD: search, filter, block/unblock, export CSV
-  - [ ] Product CRUD: add/edit/delete packages, toggle active
-  - [ ] CMS: blog CRUD, text editing, image upload
-  - [ ] Coral management: pool, assign flow, status update
-  - [ ] Analytics: GA4 integration, charts
-  - [ ] Reports: CSV/PDF export
-  - [ ] Staff CRUD: create coral_staff accounts
-  - [ ] Activity log: immutable, full audit trail
-  - [ ] Role sub-types: Super Admin, Editor, Coral Center
+  - [x] Admin route protection (middleware + API guard)
+  - [x] Admin layout: sidebar nav + header + content area
+  - [x] Dashboard: user count, coral count, adoption count, revenue
+  - [x] User management: list, search, block/unblock
+  - [x] Coral management: pool list, filter by status, status update
+  - [x] Product management: list, toggle active/inactive
+  - [x] 7 API routes with requireAdmin() guard
+  - [x] `npm run build` passes — 0 TypeScript errors
+  - [ ] Deferred: CMS, analytics, reports CSV/PDF, refund, bulk ops, staff CRUD
 
 ### TASK-009: Coral Portal
 - **Status**: planned
@@ -358,5 +356,5 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 11 tasks | 7 done, 0 in-progress, 4 planned*
+*Tổng: 11 tasks | 8 done, 0 in-progress, 3 planned*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
