@@ -72,7 +72,7 @@ export function StatsSection() {
             </div>
             <div className="coral-progress-bar w-full">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-[#E87750] to-secondary-fixed-dim"
+                className="h-full rounded-full bg-gradient-to-r from-secondary to-secondary-fixed-dim"
                 style={{ width: '84%', height: '8px' }}
               />
             </div>

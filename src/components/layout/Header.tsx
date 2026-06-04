@@ -57,7 +57,7 @@ export function Header() {
         {/* CTA Button */}
         <Link
           href="/san-pham"
-          className="hidden md:inline-block bg-[#E87750] text-white px-6 py-2.5 rounded-full font-medium hover:scale-95 transition-transform duration-fast"
+          className="hidden md:inline-block bg-secondary text-on-secondary px-6 py-2.5 rounded-full font-medium hover:scale-95 transition-transform duration-fast"
         >
           Adopt Your Coral
         </Link>
@@ -95,7 +95,7 @@ export function Header() {
             ))}
             <Link
               href="/san-pham"
-              className="block text-center bg-[#E87750] text-white px-6 py-3 rounded-full font-medium hover:scale-95 transition-transform duration-fast"
+              className="block text-center bg-secondary text-on-secondary px-6 py-3 rounded-full font-medium hover:scale-95 transition-transform duration-fast"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Adopt Your Coral

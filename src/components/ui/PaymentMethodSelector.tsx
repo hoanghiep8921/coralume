@@ -9,10 +9,22 @@ interface PaymentMethod {
 
 const methods: PaymentMethod[] = [
   {
-    value: 'payos',
-    label: 'PayOS — VietQR / VNPay / MoMo',
-    description: 'Quét mã QR chuyển khoản qua 40+ ngân hàng, hoặc thanh toán qua VNPay, MoMo. Bảo mật & tự động xác nhận.',
-    icon: 'qr_code',
+    value: 'vnpay',
+    label: 'VNPay',
+    description: 'Thanh toán qua cổng VNPay — thẻ ATM nội địa, Visa, Mastercard. Bảo mật & nhanh chóng.',
+    icon: 'credit_card',
+  },
+  {
+    value: 'momo',
+    label: 'Ví MoMo',
+    description: 'Thanh toán qua ví điện tử MoMo — quét mã QR trong app. Tiện lợi & phổ biến.',
+    icon: 'smartphone',
+  },
+  {
+    value: 'bank_transfer',
+    label: 'Chuyển khoản ngân hàng (VietQR)',
+    description: 'Quét mã VietQR qua 40+ ngân hàng. Tự động xác nhận giao dịch.',
+    icon: 'account_balance',
   },
 ];
 

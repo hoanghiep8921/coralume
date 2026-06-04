@@ -36,7 +36,7 @@ export function CTABannerSection() {
           isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[30px]'
         }`}
         style={{
-          background: 'linear-gradient(135deg, #0F4C5C 0%, #5BA8B5 100%)',
+          background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-tertiary) 100%)',
         }}
       >
         <div className="container text-center px-4">

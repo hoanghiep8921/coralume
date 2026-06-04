@@ -59,6 +59,9 @@ function LoginForm() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
+          <div className="mx-auto w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mb-4">
+            <span className="material-symbols-outlined text-3xl text-on-primary">water_drop</span>
+          </div>
           <Link href="/" className="font-display text-3xl font-bold text-primary">
             Coralume
           </Link>
@@ -68,7 +71,7 @@ function LoginForm() {
         {/* Form */}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-surface-container-lowest rounded-xl shadow-card p-8 space-y-5"
+          className="bg-surface-container-low rounded-2xl shadow-[0px_10px_40px_rgba(15,76,92,0.08)] p-8 space-y-5"
           noValidate
         >
           {error && (

@@ -69,7 +69,7 @@ export function PartnerSection() {
       <div className="mt-16 flex justify-center">
         <Link
           href="/san-pham"
-          className="bg-[#E87750] text-white px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3 hover:gap-5 transition-all duration-normal hover:shadow-xl hover:-translate-y-1"
+          className="bg-secondary text-on-secondary px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3 hover:gap-5 transition-all duration-normal hover:shadow-xl hover:-translate-y-1"
         >
           Become a Steward{' '}
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

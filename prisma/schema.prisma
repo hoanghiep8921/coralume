@@ -43,7 +43,9 @@ enum AdoptionStatus {
 }
 
 enum PaymentMethod {
-  payos
+  vnpay
+  momo
+  bank_transfer
 }
 
 enum PaymentStatus {

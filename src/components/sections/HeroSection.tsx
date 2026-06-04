@@ -161,7 +161,7 @@ export function HeroSection() {
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <Link
             href="/san-pham"
-            className="bg-[#E87750] text-white px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-normal"
+            className="bg-secondary text-on-secondary px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-normal"
           >
             Adopt Your Coral →
           </Link>
