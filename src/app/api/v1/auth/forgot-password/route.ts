@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { forgotPasswordSchema } from '@/lib/validation';
 import { createResetToken } from '@/lib/auth';
+import { sendPasswordResetEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -26,9 +27,11 @@ export async function POST(request: Request) {
       });
     }
 
-    // 3. Create reset token
+    // 3. Create reset token & send via Resend
     const resetToken = await createResetToken(user.id, user.email);
-    // TODO: Send reset email with link: ${NEXT_PUBLIC_APP_URL}/quen-mat-khau?token=${resetToken}
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const resetUrl = `${baseUrl}/verify-email?resetToken=${resetToken}`;
+    await sendPasswordResetEmail(user.email, resetUrl);
 
     return NextResponse.json({
       data: { message: 'Nếu email tồn tại, bạn sẽ nhận được link đặt lại mật khẩu' },

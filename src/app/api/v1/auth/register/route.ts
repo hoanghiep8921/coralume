@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { registerSchema } from '@/lib/validation';
 import { hashPassword, createToken, createVerifyToken } from '@/lib/auth';
+import { sendVerificationEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -39,9 +40,11 @@ export async function POST(request: Request) {
       },
     });
 
-    // 4. Create email verification token
+    // 4. Create email verification token & send via Resend
     const verifyToken = await createVerifyToken(user.id, user.email);
-    // TODO: Send verification email with link: /verify-email?token=${verifyToken}
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const verifyUrl = `${baseUrl}/verify-email?token=${verifyToken}`;
+    await sendVerificationEmail(user.email, verifyUrl);
 
     // 5. Create JWT and set cookie
     const token = await createToken({
