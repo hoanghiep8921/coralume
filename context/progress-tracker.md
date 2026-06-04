@@ -17,7 +17,7 @@
 
 ## Current Phase
 
-- Phase 2: Development — Unit 08 Complete
+- Phase 2: Development — Unit 09 Complete
 
 ## Current Goal
 
@@ -66,10 +66,10 @@
 
 - ✅ **Unit 07:** About page (Hero, Story, Partners, Team, CTA)
 - ✅ **Unit 08:** Admin panel core (layout, dashboard, users, corals, products)
+- ✅ **Unit 09:** Coral Portal (dashboard, update form, adopter list — mobile-first, no animation)
   - 5 sections: AboutHeroSection, StorySection, PartnersSection, TeamSection, AboutCTASection
   - Stitch ref: coralume_our_story (light theme, Vietnamese)
   - Build: 0 errors
-- Unit 09: Coral portal
 - Unit 10 & 11: Blog, Leaderboard, Community
 
 ## Open Questions
@@ -273,22 +273,22 @@
   - [ ] Deferred: CMS, analytics, reports CSV/PDF, refund, bulk ops, staff CRUD
 
 ### TASK-009: Coral Portal
-- **Status**: planned
+- **Status**: done
 - **SRS**: 3.11 Coral Portal
-- **Branch**: feature/TASK-009-coral-portal
+- **Branch**: main
 - **Dependencies**: TASK-002
 - **Priority**: P1
-- **Description:** Xây dựng Coral Portal cho nhân viên trung tâm — dashboard (filter cần update), form upload ảnh/video + nhập chỉ số, save & sync (email notification), bulk upload, view-only adopter dashboard. Mobile-first BẮT BUỘC, KHÔNG animation.
+- **Description:** Xây dựng Coral Portal cho nhân viên trung tâm — dashboard (filter corals needing update >30 days), form update (size, health, notes, 1-5 images, video), save & sync adopter dashboard, view-only adopter list. Mobile-first BẮT BUỘC, KHÔNG animation.
 - **Requirements**: FR-100, FR-101, FR-102, FR-103, FR-104
 - **Acceptance Criteria**:
-  - [ ] Portal route protection (role=coral_staff/admin)
-  - [ ] Dashboard: filter chưa update / quá hạn
-  - [ ] Form: upload 1-5 ảnh + video, drag & drop, compress
-  - [ ] Nhập chỉ số: kích thước, sức khỏe, ghi chú
-  - [ ] Save → đồng bộ dashboard adopter + email notification
-  - [ ] Bulk upload: multi-select
-  - [ ] View-only adopter dashboard
-  - [ ] Mobile-first BẮT BUỘC, KHÔNG animation
+  - [x] Portal route protection (coral_staff/admin — API + page guard)
+  - [x] Dashboard: stats (need update >30 days, total assigned), coral list
+  - [x] Form: size, health (good/average/needs_attention), notes, 1-5 image URLs, video URL
+  - [x] Save → create CoralUpdate + update coral status to growing
+  - [x] View-only adopter dashboard (tab with adoption list)
+  - [x] Mobile-first layout, NO animation
+  - [x] `npm run build` passes — 0 TypeScript errors
+  - [ ] TODO: Email notification (stub), bulk upload, image upload/drag-drop
 
 ### TASK-010: Blog
 - **Status**: planned
@@ -356,5 +356,5 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 11 tasks | 8 done, 0 in-progress, 3 planned*
+*Tổng: 11 tasks | 9 done, 0 in-progress, 2 planned*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*

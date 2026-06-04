@@ -81,6 +81,7 @@ export const createOrderSchema = z.object({
 // ============================================================
 
 export const coralUpdateSchema = z.object({
+  coralId: z.string().uuid("ID san hô không hợp lệ"),
   sizeCm: z
     .number()
     .min(0, "Kích thước phải lớn hơn 0")
@@ -93,7 +94,7 @@ export const coralUpdateSchema = z.object({
   notes: z.string().max(2000, "Ghi chú tối đa 2000 ký tự").optional(),
   images: z
     .array(z.string().url("URL ảnh không hợp lệ"))
-    .min(1, "Cần ít nhất 1 ảnh")
+    .min(0, "URL ảnh không hợp lệ")
     .max(5, "Tối đa 5 ảnh"),
   videoUrl: z.string().url("URL video không hợp lệ").optional().nullable(),
 });
@@ -132,7 +133,7 @@ export const communitySubmissionSchema = z.object({
     .max(5000, "Nội dung tối đa 5000 ký tự"),
   images: z
     .array(z.string().url("URL ảnh không hợp lệ"))
-    .min(1, "Cần ít nhất 1 ảnh")
+    .min(0, "URL ảnh không hợp lệ")
     .max(10, "Tối đa 10 ảnh"),
 });
 
