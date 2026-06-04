@@ -98,7 +98,84 @@ export async function sendPasswordResetEmail(
     }
     return true;
   } catch (error) {
-    console.error('[Resend] Error sending email:', error);
+    console.error('[Resend] Error sending reset email:', error);
+    return false;
+  }
+}
+
+export interface CoralUpdateEmailData {
+  adopterName: string;
+  coralCode: string;
+  coralName?: string;
+  health: string;
+  sizeCm?: number;
+  notes?: string;
+  dashboardUrl: string;
+}
+
+export async function sendCoralUpdateEmail(
+  to: string,
+  data: CoralUpdateEmailData
+): Promise<boolean> {
+  try {
+    const resend = getResend();
+    if (!resend) {
+      console.error('[Resend] No API key configured');
+      return false;
+    }
+
+    const healthLabel =
+      data.health === 'good' ? '🟢 Tốt' :
+      data.health === 'average' ? '🟡 Trung bình' :
+      '🔴 Cần chú ý';
+
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to,
+      subject: `🌊 San hô ${data.coralCode} vừa được cập nhật`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
+          <h1 style="color: #003441; font-size: 24px;">San hô của bạn vừa được cập nhật 🌊</h1>
+          <p style="color: #40484b; font-size: 16px; line-height: 1.6;">
+            Chào ${data.adopterName},<br/><br/>
+            Nhân viên trung tâm san hô vừa cập nhật tình trạng cho san hô của bạn.
+          </p>
+          <div style="background-color: #f5f5f5; border-radius: 8px; padding: 16px; margin: 16px 0;">
+            <p style="color: #003441; font-weight: 600; margin: 0 0 8px;">
+              📋 ${data.coralCode}${data.coralName ? ` — ${data.coralName}` : ''}
+            </p>
+            <p style="color: #40484b; margin: 4px 0;">
+              <strong>Sức khoẻ:</strong> ${healthLabel}
+            </p>
+            ${data.sizeCm ? `<p style="color: #40484b; margin: 4px 0;"><strong>Kích thước:</strong> ${data.sizeCm} cm</p>` : ''}
+            ${data.notes ? `<p style="color: #40484b; margin: 4px 0;"><strong>Ghi chú:</strong> ${data.notes}</p>` : ''}
+          </div>
+          <a href="${data.dashboardUrl}"
+             style="display: inline-block; background-color: #9f411e; color: white;
+                    padding: 12px 32px; border-radius: 8px; text-decoration: none;
+                    font-weight: 600; margin: 16px 0;">
+            Xem Dashboard →
+          </a>
+          <p style="color: #70787c; font-size: 14px; margin-top: 24px;">
+            Bạn nhận được email này vì bạn là người nhận nuôi san hô này.<br/>
+            Bạn có thể tắt thông báo trong phần Cài đặt profile.
+          </p>
+          <hr style="border: none; border-top: 1px solid #c0c8cb; margin: 24px 0;" />
+          <p style="color: #70787c; font-size: 12px;">
+            Coralume — Nhận nuôi san hô, Gieo mầm cho đại dương<br/>
+            Nha Trang, Việt Nam
+          </p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error('[Resend] Failed to send coral update email:', error);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error('[Resend] Error sending coral update email:', error);
     return false;
   }
 }

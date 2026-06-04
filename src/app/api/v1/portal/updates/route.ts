@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth';
 import { coralUpdateSchema } from '@/lib/validation';
+import { sendCoralUpdateEmail } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
   try {
@@ -48,8 +49,40 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // TODO: Send email notification to adopter
-    // TODO: Sync to adopter dashboard (automatic via DB query)
+    // Fire-and-forget: send email notification to adopter
+    (async () => {
+      try {
+        const adoption = await prisma.adoption.findFirst({
+          where: { coralId, status: 'active' },
+          include: { user: { select: { id: true, fullName: true, email: true, emailNotify: true } } },
+        });
+
+        if (adoption?.user?.email && adoption.user.emailNotify !== false) {
+          const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+          await sendCoralUpdateEmail(adoption.user.email, {
+            adopterName: adoption.user.fullName,
+            coralCode: coral.code,
+            coralName: adoption.customName || undefined,
+            health: health,
+            sizeCm: sizeCm || undefined,
+            notes: notes || undefined,
+            dashboardUrl: `${baseUrl}/dashboard`,
+          });
+
+          // Log email
+          await prisma.emailLog.create({
+            data: {
+              userId: adoption.user.id,
+              type: 'coral_update',
+              subject: `San hô ${coral.code} vừa được cập nhật`,
+              status: 'sent',
+            },
+          }).catch(() => { /* log failure is non-critical */ });
+        }
+      } catch {
+        // Email failure is non-blocking
+      }
+    })();
 
     return NextResponse.json({ data: update }, { status: 201 });
   } catch {

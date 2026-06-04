@@ -20,6 +20,7 @@ interface CoralData {
       health: string;
       notes?: string | null;
       images: string[];
+      videoUrl?: string | null;
       createdAt: string;
     }>;
   } | null;
@@ -36,6 +37,29 @@ const healthLabels: Record<string, string> = {
   average: 'Trung bình',
   needs_attention: 'Cần chú ý',
 };
+
+const healthIcons: Record<string, string> = {
+  good: '🟢',
+  average: '🟡',
+  needs_attention: '🔴',
+};
+
+function formatDateVi(dateStr: string): string {
+  const date = new Date(dateStr);
+  const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+  const day = days[date.getDay()];
+  return `${day}, ${date.getDate()} tháng ${date.getMonth() + 1}, ${date.getFullYear()}`;
+}
+
+function getHealthTrend(current: string, previous?: string): 'up' | 'down' | 'stable' {
+  if (!previous) return 'stable';
+  const order = ['needs_attention', 'average', 'good'];
+  const currIdx = order.indexOf(current);
+  const prevIdx = order.indexOf(previous);
+  if (currIdx > prevIdx) return 'up';
+  if (currIdx < prevIdx) return 'down';
+  return 'stable';
+}
 
 /** FR-044: Coral Detail Modal */
 export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
@@ -151,33 +175,99 @@ export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
             </h3>
             {coralData?.updates && coralData.updates.length > 0 ? (
               <div className="space-y-0">
-                {coralData.updates.map((update, i) => (
-                  <div key={update.id} className="relative pl-8 pb-6 last:pb-0">
-                    {/* Timeline line */}
-                    {i < coralData.updates!.length - 1 && (
-                      <div className="absolute left-[11px] top-6 bottom-0 w-0.5 bg-outline-variant" />
-                    )}
-                    {/* Timeline dot */}
-                    <div className="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-surface-container-lowest border-2 border-secondary flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-full bg-secondary" />
-                    </div>
+                {coralData.updates.map((update, i) => {
+                  const prevUpdate = i < coralData.updates!.length - 1 ? coralData.updates![i + 1] : undefined;
+                  const sizeDelta =
+                    update.sizeCm && prevUpdate?.sizeCm
+                      ? update.sizeCm - prevUpdate.sizeCm
+                      : undefined;
+                  const trend = getHealthTrend(update.health, prevUpdate?.health);
+                  const thumbnail = update.images?.[0];
+                  const hasVideo = !!update.videoUrl;
 
-                    <div className="bg-surface-container-low rounded-xl p-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <span className="font-body-md font-medium text-on-surface">
-                          {update.notes || 'Cập nhật định kỳ'}
-                        </span>
-                        <span className="text-xs text-on-surface-variant">
-                          {new Date(update.createdAt).toLocaleDateString('vi-VN')}
-                        </span>
+                  return (
+                    <div key={update.id} className="relative pl-8 pb-6 last:pb-0">
+                      {/* Timeline line */}
+                      {i < coralData.updates!.length - 1 && (
+                        <div className="absolute left-[11px] top-6 bottom-0 w-0.5 bg-outline-variant" />
+                      )}
+                      {/* Timeline dot */}
+                      <div className={`absolute left-0 top-1.5 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        i === 0 ? 'bg-secondary-container border-secondary' : 'bg-surface-container-lowest border-outline-variant'
+                      }`}>
+                        <div className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-secondary' : 'bg-outline-variant'}`} />
                       </div>
-                      <div className="flex gap-4 text-sm text-on-surface-variant">
-                        {update.sizeCm && <span>Kích thước: {update.sizeCm}cm</span>}
-                        <span>Sức khoẻ: {healthLabels[update.health] || update.health}</span>
+
+                      <div className="bg-surface-container-low rounded-xl overflow-hidden">
+                        {/* Thumbnail image */}
+                        {thumbnail && (
+                          <div className="h-40 bg-surface-container flex items-center justify-center overflow-hidden">
+                            <img
+                              src={thumbnail}
+                              alt={`Ảnh cập nhật ${formatDateVi(update.createdAt)}`}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+
+                        {/* Video player */}
+                        {hasVideo && (
+                          <div className="bg-surface-container">
+                            <video
+                              controls
+                              preload="metadata"
+                              className="w-full max-h-64"
+                              poster={thumbnail}
+                            >
+                              <source src={update.videoUrl!} type="video/mp4" />
+                              Trình duyệt không hỗ trợ video.
+                            </video>
+                          </div>
+                        )}
+
+                        <div className="p-4">
+                          {/* Header with trend + date */}
+                          <div className="flex justify-between items-start mb-2">
+                            <div className="flex items-center gap-2">
+                              <span className="font-body-md font-medium text-on-surface">
+                                {update.notes || 'Cập nhật định kỳ'}
+                              </span>
+                              {i === 0 && (
+                                <span className="bg-secondary/10 text-secondary text-[10px] px-1.5 py-0.5 rounded-full font-medium">
+                                  Mới nhất
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-xs text-on-surface-variant whitespace-nowrap ml-3">
+                              {formatDateVi(update.createdAt)}
+                            </span>
+                          </div>
+
+                          {/* Metrics */}
+                          <div className="flex flex-wrap gap-3 text-sm text-on-surface-variant">
+                            {update.sizeCm && (
+                              <span className="inline-flex items-center gap-1">
+                                📏 Kích thước: <span className="font-mono font-medium text-on-surface">{update.sizeCm}cm</span>
+                                {sizeDelta !== undefined && sizeDelta !== 0 && (
+                                  <span className={`text-xs font-medium ${sizeDelta > 0 ? 'text-green-600' : 'text-error'}`}>
+                                    ({sizeDelta > 0 ? '+' : ''}{sizeDelta.toFixed(1)}cm)
+                                  </span>
+                                )}
+                              </span>
+                            )}
+                            <span className="inline-flex items-center gap-1">
+                              {healthIcons[update.health] || ''} Sức khoẻ:{' '}
+                              <span className="font-medium text-on-surface">{healthLabels[update.health] || update.health}</span>
+                              {trend === 'up' && <span className="text-green-600 text-xs">↑ Cải thiện</span>}
+                              {trend === 'down' && <span className="text-error text-xs">↓ Giảm</span>}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <div className="bg-surface-container-low rounded-xl p-6 text-center">

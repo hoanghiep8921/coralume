@@ -9,6 +9,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { verifyPayOSWebhook, isPayOSSuccess } from '@/lib/payment';
 
+// PayOS may send GET during webhook verification
+export async function GET() {
+  return NextResponse.json({ success: true });
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Parse body — handle both JSON and empty body gracefully

@@ -61,6 +61,7 @@ export async function GET() {
                 health: true,
                 notes: true,
                 images: true,
+                videoUrl: true,
                 createdAt: true,
               },
             },

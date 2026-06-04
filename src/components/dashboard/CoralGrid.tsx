@@ -22,6 +22,7 @@ interface CoralData {
       health: string;
       notes?: string | null;
       images: string[];
+      videoUrl?: string | null;
       createdAt: string;
     }>;
   } | null;
@@ -157,6 +158,18 @@ export function CoralGrid({ corals, onSelectCoral }: CoralGridProps) {
                     </span>
                   )}
                 </div>
+
+                {/* Last update */}
+                {coralData?.updates?.[0] && (
+                  <div className="mt-3 pt-3 border-t border-outline-variant">
+                    <span className="text-xs text-on-surface-variant">
+                      Cập nhật lần cuối:{' '}
+                      <span className="font-medium text-on-surface">
+                        {new Date(coralData.updates[0].createdAt).toLocaleDateString('vi-VN')}
+                      </span>
+                    </span>
+                  </div>
+                )}
               </div>
             </button>
           );
