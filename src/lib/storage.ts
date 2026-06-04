@@ -60,12 +60,22 @@ function createLocalStorageProvider(baseDir?: string): StorageProvider {
 // SINGLETON
 // ============================================================
 
+let _storage: StorageProvider | null = null;
+
+function getStorage(): StorageProvider {
+  if (!_storage) {
+    _storage = createLocalStorageProvider();
+  }
+  return _storage;
+}
+
 const provider = process.env.STORAGE_PROVIDER || 'local';
 
-export const storage: StorageProvider =
-  provider === 'local'
-    ? createLocalStorageProvider()
-    : createLocalStorageProvider(); // Default to local; swap for S3 later
+export const storage: StorageProvider = {
+  upload(file, key, contentType) { return getStorage().upload(file, key, contentType); },
+  delete(key) { return getStorage().delete(key); },
+  getPublicUrl(key) { return getStorage().getPublicUrl(key); },
+};
 
 // ============================================================
 // HELPERS
