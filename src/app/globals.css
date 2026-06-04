@@ -1,51 +1,56 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Coralume Design Tokens — Material Design 3 (from Stitch)
-   Nguồn: stitch_coralume_coral_restoration_dashboard/coralume_design_system/DESIGN.md
-   Updated: 2026-06-03
+   Coralume Design Tokens — matched to Coralume-Design-Spec.md
+   Updated: 2026-06-04 — Aligned with Design Spec color system
    ============================================================ */
 
 @theme inline {
-  /* === MATERIAL DESIGN 3 COLORS === */
-  --color-primary: #003441;
+  /* === CORE BRAND COLORS (from Design Spec §1.1) === */
+  --color-primary: #0F4C5C;        /* Navy Deep — headers, footer, text nhấn mạnh */
   --color-on-primary: #ffffff;
-  --color-primary-container: #0f4c5c;
-  --color-on-primary-container: #87bbce;
-  --color-primary-fixed: #b6ebfe;
-  --color-primary-fixed-dim: #9acee1;
-  --color-secondary: #9f411e;
+  --color-primary-container: #0F4C5C;
+  --color-on-primary-container: #B5D8E8;  /* Ocean Blue text on navy */
+  --color-primary-fixed: #B5D8E8;         /* Ocean Blue */
+  --color-primary-fixed-dim: #8ec1d4;     /* Ocean Blue dimmed */
+  --color-secondary: #E87750;             /* Coral Orange — CTA buttons ONLY */
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #fe885f;
-  --color-on-secondary-container: #732100;
-  --color-secondary-fixed: #ffdbd0;
-  --color-secondary-fixed-dim: #ffb59d;
-  --color-tertiary: #0e3340;
+  --color-secondary-container: #F4B89A;   /* Coral Light — hover states */
+  --color-on-secondary-container: #7a2e12;
+  --color-secondary-fixed: #F4B89A;
+  --color-secondary-fixed-dim: #f0a080;
+  --color-tertiary: #5BA8B5;              /* Teal Mid — sub-headers, accents */
   --color-on-tertiary: #ffffff;
-  --color-tertiary-container: #284a57;
-  --color-on-tertiary-container: #96b9c8;
-  --color-tertiary-fixed: #c5e8f8;
-  --color-tertiary-fixed-dim: #a9ccdc;
-  --color-surface: #fff9ea;
-  --color-surface-bright: #fff9ea;
-  --color-surface-dim: #dfdacb;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f9f3e4;
-  --color-surface-container: #f3edde;
-  --color-surface-container-high: #eee8d9;
-  --color-surface-container-highest: #e8e2d3;
-  --color-on-surface: #1d1c13;
-  --color-on-surface-variant: #40484b;
-  --color-inverse-surface: #333027;
-  --color-inverse-on-surface: #f6f0e1;
-  --color-inverse-primary: #9acee1;
-  --color-outline: #70787c;
-  --color-outline-variant: #c0c8cb;
+  --color-tertiary-container: #5BA8B5;
+  --color-on-tertiary-container: #1a4a52;
+  --color-tertiary-fixed: #B5D8E8;
+  --color-tertiary-fixed-dim: #8ec1d4;
+
+  /* === SURFACE / BACKGROUND (from Design Spec §1.2.3) === */
+  --color-surface: #B5D8E8;                      /* Ocean Blue — section backgrounds */
+  --color-surface-bright: #FFFFFF;                /* White — main background */
+  --color-surface-dim: #8ec1d4;
+  --color-surface-container-lowest: #FFFFFF;      /* White — cards, breathing room */
+  --color-surface-container-low: #F5EFE0;         /* Beige Sand — card bg alt */
+  --color-surface-container: #F5EFE0;             /* Beige Sand */
+  --color-surface-container-high: #E8DFC8;        /* Sand Dark — elevated */
+  --color-surface-container-highest: #E8DFC8;
+
+  /* === TEXT (from Design Spec §1.1) === */
+  --color-on-surface: #2C3E50;                    /* Text Dark — body, headings */
+  --color-on-surface-variant: #8A9BA8;            /* Text Gray — secondary, labels */
+  --color-inverse-surface: #0F4C5C;
+  --color-inverse-on-surface: #B5D8E8;
+  --color-inverse-primary: #B5D8E8;
+
+  /* === BORDERS & UTILITY === */
+  --color-outline: #8A9BA8;
+  --color-outline-variant: #E8DFC8;               /* Sand Dark — borders, dividers */
   --color-error: #ba1a1a;
   --color-on-error: #ffffff;
   --color-error-container: #ffdad6;
-  --color-background: #fff9ea;
-  --color-on-background: #1d1c13;
+  --color-background: #B5D8E8;                    /* Ocean Blue */
+  --color-on-background: #2C3E50;
 
   /* === FONTS === */
   --font-display: 'Lexend', sans-serif;
@@ -104,8 +109,8 @@ html {
 }
 
 body {
-  background: var(--color-surface);
-  color: var(--color-on-surface);
+  background: var(--color-surface-bright); /* White — main background per Design Spec */
+  color: var(--color-on-surface); /* Text Dark #2C3E50 */
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.5;
