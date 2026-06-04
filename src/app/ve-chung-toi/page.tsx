@@ -1,14 +1,43 @@
-export const metadata = {
-  title: 'Coming Soon',
+import type { Metadata } from 'next';
+import { AboutHeroSection } from '@/components/sections/AboutHeroSection';
+import { StorySection } from '@/components/sections/StorySection';
+import { PartnersSection } from '@/components/sections/PartnersSection';
+import { TeamSection } from '@/components/sections/TeamSection';
+import { AboutCTASection } from '@/components/sections/AboutCTASection';
+import { siteConfig } from '@/config/site';
+
+export const metadata: Metadata = {
+  title: 'Về Chúng Tôi — Coralume',
+  description:
+    'Coralume — Khi khoa học gặp gỡ sự tận tâm. Hành trình bảo tồn rạn san hô tại Nha Trang qua công nghệ và cộng đồng.',
+  openGraph: {
+    title: 'Coralume — Về Chúng Tôi',
+    description:
+      'Khám phá câu chuyện, sứ mệnh và đội ngũ của Coralume — nền tảng nhận nuôi san hô tại Nha Trang, Việt Nam.',
+    url: `${siteConfig.url}/ve-chung-toi`,
+    type: 'website',
+  },
 };
 
-export default function Page() {
+/**
+ * About Page — Coralume
+ * References Stitch: coralume_our_story/code.html
+ *
+ * Sections:
+ * 1. AboutHeroSection — full-height parallax hero with badge + headline
+ * 2. StorySection — 2-column (text + stat card | image + floating quote)
+ * 3. PartnersSection — 3 strategic partner cards
+ * 4. TeamSection — 4-column team grid with hover zoom
+ * 5. AboutCTASection — dark teal CTA banner with decorative blobs
+ */
+export default function AboutPage() {
   return (
-    <main className="flex-1 flex items-center justify-center min-h-[60vh]">
-      <div className="text-center">
-        <h1 className="font-display text-4xl font-bold text-navy mb-4">Coming Soon</h1>
-        <p className="text-text-secondary text-lg">Trang này đang được xây dựng.</p>
-      </div>
+    <main className="flex-1">
+      <AboutHeroSection />
+      <StorySection />
+      <PartnersSection />
+      <TeamSection />
+      <AboutCTASection />
     </main>
   );
 }

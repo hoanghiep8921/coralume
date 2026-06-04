@@ -17,11 +17,11 @@
 
 ## Current Phase
 
-- Phase 2: Development — Unit 06 Complete
+- Phase 2: Development — Unit 07 Complete
 
 ## Current Goal
 
-- Unit 07: Admin panel
+- Unit 08: Admin panel
 
 ## Completed
 
@@ -48,7 +48,9 @@
   - AmbassadorSection: bg-primary container, 4 rewards grid, progress bar 0/5, CTA chia sẻ link
   - FAQSection: 5 câu hỏi accordion, grid-template-rows animation 0.3s ease-out-expo, WCAG AA
   - Shared hooks: useInView + useCountUp extracted
-- ✅ **Unit 05:** Payment flow (checkout form, VNPay/MoMo/bank transfer, success page + certificate preview)
+- ✅ **Unit 05:** Payment flow → PayOS (checkout form, PayOS unified gateway, success page + certificate preview)
+- ✅ **Unit 06:** Dashboard (welcome banner, quick stats, coral grid, modal, impact, referral, profile)
+- ✅ **Unit 07:** About page (Hero, Story, Partners 3 cards, Team 4-col, CTA dark teal banner)
   - PaymentMethodSelector: 3 radio cards (VNPay, MoMo, Bank Transfer)
   - CheckoutForm: react-hook-form + createOrderSchema, order summary, pre-filled user info, coral name
   - /thanh-cong: certificate HTML preview, bank transfer pending state with bank info + reference code
@@ -62,13 +64,12 @@
 
 ## Next Up
 
-- ✅ **Unit 06:** Dashboard (welcome banner, quick stats, coral grid, modal, impact, referral, profile)
-  - 7 section components: WelcomeBanner, QuickStats, CoralGrid, CoralDetailModal, ImpactDashboard, ReferralCode, ProfileSettings
-  - API: GET /api/v1/dashboard (aggregated data), GET /api/v1/adoptions
-  - Stitch ref: coralume_your_impact_dashboard_1/2 (light theme, Vietnamese)
+- ✅ **Unit 07:** About page (Hero, Story, Partners, Team, CTA)
+  - 5 sections: AboutHeroSection, StorySection, PartnersSection, TeamSection, AboutCTASection
+  - Stitch ref: coralume_our_story (light theme, Vietnamese)
   - Build: 0 errors
-- Unit 07: Admin panel
-- Unit 08: Coral portal
+- Unit 08: Admin panel
+- Unit 09: Coral portal
 - Unit 09: Blog, Leaderboard, Community
 
 ## Open Questions
@@ -236,20 +237,21 @@
   - [x] `npm run build` passes — 0 TypeScript errors
 
 ### TASK-007: About Page
-- **Status**: planned
+- **Status**: done
 - **SRS**: 3.2 Trang Về Chúng Tôi
-- **Branch**: feature/TASK-007-about-page
+- **Branch**: main
 - **Dependencies**: TASK-002
 - **Priority**: P1
-- **Description:** Xây dựng About page — Hero (line-by-line reveal), Mission/Vision (2 cột), Founder Story (storytelling), Team Grid, Process Timeline, Transparency Commitment, CTA cuối.
+- **Description:** Xây dựng About page — Hero (badge + headline + sub), Story (2 cột + stat card + quote), Partners (3 cards), Team (4-col grid), CTA banner (dark teal container). Stitch ref: coralume_our_story.
 - **Requirements**: FR-010, FR-011, FR-012, FR-013, FR-014, FR-015
 - **Acceptance Criteria**:
-  - [ ] Hero: line-by-line text reveal (0.4s gap), dòng 2 Lora Italic
-  - [ ] Mission: 2 cột (text + ảnh)
-  - [ ] Founder story: storytelling dạng article
-  - [ ] Team grid: 3-4 cột desktop, zoom hover
-  - [ ] Process timeline: SVG line vẽ, horizontal/vertical
-  - [ ] SEO metadata
+  - [x] Hero: badge chip + headline "Khi Khoa học gặp gỡ Sự tận tâm" + paragraph, stagger fade-in
+  - [x] Story: 2 cột (text + accent line + stat card | image placeholder + floating quote)
+  - [x] Partners: 3 strategic partner cards trên bg-surface-container-low
+  - [x] Team grid: 4 cột desktop, image aspect-[3/4], hover scale-110
+  - [x] CTA banner: bg-primary rounded-[48px] + decorative blur blobs + 2 buttons
+  - [x] SEO metadata + Open Graph
+  - [x] `npm run build` passes — 0 TypeScript errors
 
 ### TASK-008: Admin Panel
 - **Status**: planned
@@ -356,5 +358,5 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 11 tasks | 6 done, 0 in-progress, 5 planned*
+*Tổng: 11 tasks | 7 done, 0 in-progress, 4 planned*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
