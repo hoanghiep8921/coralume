@@ -31,7 +31,7 @@ export function ReferralCode({ code, count, threshold }: ReferralCodeProps) {
   return (
     <section
       ref={ref}
-      className={`mb-12 bg-surface-container-lowest rounded-xl p-8 premium-shadow border border-surface-container transition-all duration-slow ${
+      className={`mb-12 bg-white rounded-2xl p-8 premium-shadow transition-all duration-slow ${
         isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
       }`}
     >

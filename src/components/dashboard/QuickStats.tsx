@@ -25,7 +25,7 @@ function StatCard({
   const current = useCountUp(value, 2000, isInView);
 
   return (
-    <div className="bg-surface-container-lowest rounded-xl p-6 premium-shadow border border-surface-container">
+    <div className="bg-white rounded-2xl p-8 premium-shadow">
       <span className="material-symbols-outlined text-secondary text-3xl mb-3 block" aria-hidden="true">
         {icon}
       </span>

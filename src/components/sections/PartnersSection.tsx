@@ -49,7 +49,7 @@ export function PartnersSection() {
           {partners.map((partner, i) => (
             <div
               key={partner.name}
-              className={`bg-surface-container-lowest p-10 rounded-3xl shadow-sm border border-outline-variant text-center flex flex-col items-center transition-all duration-500 hover:-translate-y-2 hover:shadow-card-hover ${
+              className={`bg-white p-10 rounded-3xl premium-shadow text-center flex flex-col items-center transition-all duration-500 hover:-translate-y-2 hover:shadow-card-hover ${
                 isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[30px]'
               }`}
               style={{ transitionDelay: isInView ? `${i * 100}ms` : '0ms' }}

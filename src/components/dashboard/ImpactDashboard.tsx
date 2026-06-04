@@ -28,7 +28,7 @@ function ImpactCard({
   const current = useCountUp(value, 2500, isInView);
 
   return (
-    <div className={`bg-surface-container-lowest rounded-xl p-6 premium-shadow border border-surface-container ${color}`}>
+    <div className={`bg-white rounded-2xl p-8 premium-shadow ${color}`}>
       <span className="material-symbols-outlined text-secondary text-3xl mb-3 block" aria-hidden="true">
         {icon}
       </span>

@@ -96,13 +96,16 @@ export function CoralGrid({ corals, onSelectCoral }: CoralGridProps) {
               key={coral.id}
               type="button"
               onClick={() => onSelectCoral(coral)}
-              className={`text-left bg-surface-container-lowest rounded-xl border border-outline-variant shadow-card overflow-hidden transition-all duration-normal hover:-translate-y-1.5 hover:shadow-card-hover ${
+              className={`text-left bg-white rounded-2xl overflow-hidden premium-shadow transition-all duration-500 hover:-translate-y-2 hover:shadow-card-hover ${
                 isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
               }`}
               style={{ transitionDelay: isInView ? `${i * 80}ms` : '0ms' }}
             >
-              {/* Image placeholder */}
-              <div className="h-48 bg-primary-fixed-dim/20 flex items-center justify-center relative">
+              {/* Image */}
+              <div className="h-56 bg-primary-fixed-dim/20 flex items-center justify-center relative overflow-hidden">
+                <span className="material-symbols-outlined text-6xl text-on-surface-variant/20 group-hover:scale-110 transition-transform duration-700" aria-hidden="true">
+                  water
+                </span>
                 <span className="material-symbols-outlined text-5xl text-on-surface-variant/30" aria-hidden="true">
                   image
                 </span>

@@ -21,7 +21,7 @@ function ProductDetailCard({
     <div
       className={`relative flex flex-col h-full bg-surface-container-lowest rounded-xl overflow-hidden border transition-all duration-500 hover:-translate-y-2 hover:shadow-card-hover ${
         tier.isFeatured
-          ? 'border-primary shadow-card lg:scale-105 lg:z-10'
+          ? 'border-2 border-primary shadow-[0px_20px_50px_rgba(15,76,92,0.1)] lg:scale-105 lg:z-10'
           : 'border-outline-variant shadow-premium'
       } ${
         isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[30px]'
@@ -38,7 +38,9 @@ function ProductDetailCard({
       )}
       {tier.badge && tier.badgePosition === 'top-left' && (
         <div className="absolute top-4 left-4 z-10">
-          <span className="bg-primary/90 backdrop-blur-md text-on-primary font-label-sm text-[10px] py-1 px-3 rounded-full uppercase tracking-widest">
+          <span className={`backdrop-blur-md text-on-primary font-label-sm text-[10px] py-1 px-3 rounded-full uppercase tracking-widest ${
+            tier.slug === 'diving-experience' ? 'bg-secondary/90' : 'bg-primary/90'
+          }`}>
             {tier.badge}
           </span>
         </div>
@@ -111,13 +113,13 @@ function ProductDetailCard({
                     </div>
                     <div className="h-1.5 w-full bg-outline-variant rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-secondary to-primary rounded-full"
+                        className="h-full bg-primary rounded-full transition-all duration-1000"
                         style={{ width: spec.value }}
                       />
                     </div>
                   </div>
                 ) : (
-                  <span className="font-mono text-sm text-primary">
+                  <span className="font-mono text-sm text-secondary font-medium">
                     {spec.value}
                   </span>
                 )}
@@ -162,10 +164,10 @@ function ProductDetailCard({
         {/* CTA */}
         <Link
           href={tier.ctaHref}
-          className={`block w-full text-center py-4 rounded-xl font-bold font-body-lg transition-all shadow-lg hover:-translate-y-0.5 ${
+          className={`block w-full text-center py-4 rounded-xl font-bold font-body-lg transition-all hover:-translate-y-0.5 ${
             tier.isFeatured
-              ? 'bg-primary text-on-primary hover:bg-primary/90'
-              : 'bg-secondary text-on-secondary hover:bg-secondary-container'
+              ? 'bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container shadow-xl shadow-primary/20'
+              : 'bg-secondary text-on-secondary hover:opacity-90 shadow-lg shadow-secondary/20'
           }`}
         >
           {tier.ctaLabel} →
