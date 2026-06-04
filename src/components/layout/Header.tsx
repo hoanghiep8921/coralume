@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { UserMenu } from './UserMenu';
 
 const NAV_LINKS = [
   { href: '/san-pham', label: 'Adopt' },
@@ -54,13 +55,8 @@ export function Header() {
           ))}
         </div>
 
-        {/* CTA Button */}
-        <Link
-          href="/san-pham"
-          className="hidden md:inline-block bg-secondary text-on-secondary px-6 py-2.5 rounded-full font-medium hover:scale-95 transition-transform duration-fast"
-        >
-          Adopt Your Coral
-        </Link>
+        {/* User Menu (CTA when not logged in, avatar+dropdown when logged in) */}
+        <UserMenu />
 
         {/* Mobile Menu Button */}
         <button

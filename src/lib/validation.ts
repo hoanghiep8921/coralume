@@ -93,10 +93,10 @@ export const coralUpdateSchema = z.object({
   }),
   notes: z.string().max(2000, "Ghi chú tối đa 2000 ký tự").optional(),
   images: z
-    .array(z.string().url("URL ảnh không hợp lệ"))
-    .min(0, "URL ảnh không hợp lệ")
+    .array(z.string().min(1, "URL ảnh không được để trống"))
+    .min(0)
     .max(5, "Tối đa 5 ảnh"),
-  videoUrl: z.string().url("URL video không hợp lệ").optional().nullable(),
+  videoUrl: z.string().min(1).optional().nullable(),
 });
 
 // ============================================================

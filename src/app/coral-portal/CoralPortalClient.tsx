@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 
 interface CoralItem {
@@ -42,6 +42,7 @@ export function CoralPortalClient({ data }: { data: DashboardData | null }) {
   const [corals, setCorals] = useState<CoralItem[]>([]);
   const [adoptions, setAdoptions] = useState<AdoptionItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<'all' | 'overdue' | 'recent'>('all');
 
   const fetchCorals = useCallback(async () => {
     setLoading(true);
@@ -66,17 +67,27 @@ export function CoralPortalClient({ data }: { data: DashboardData | null }) {
     else fetchAdoptions();
   }, [tab, fetchCorals, fetchAdoptions]);
 
+  // Client-side filter
+  const filteredCorals = useMemo(() => {
+    if (filter === 'all') return corals;
+    const now = Date.now();
+    const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+    return corals.filter((coral) => {
+      const lastUpdate = coral.updates?.[0];
+      const isOverdue = !lastUpdate || (now - new Date(lastUpdate.createdAt).getTime()) > thirtyDays;
+      if (filter === 'overdue') return isOverdue;
+      return !isOverdue;
+    });
+  }, [corals, filter]);
+
   return (
     <div className="max-w-[var(--spacing-container-max)] mx-auto px-[var(--spacing-margin-mobile)] md:px-[var(--spacing-margin-desktop)] py-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-display font-bold text-primary">Coral Portal</h1>
-          <p className="text-sm text-on-surface-variant">Mobile-first — không animation</p>
+          <p className="text-sm text-on-surface-variant">Cập nhật ảnh, video và chỉ số san hô</p>
         </div>
-        <Link href="/coral-portal/update" className="bg-secondary text-on-secondary px-4 py-2.5 rounded-lg text-sm font-semibold">
-          + Cập nhật san hô
-        </Link>
       </div>
 
       {/* Stats bar */}
@@ -121,15 +132,37 @@ export function CoralPortalClient({ data }: { data: DashboardData | null }) {
         </button>
       </div>
 
-      {/* Tab: Dashboard - Coral List */}
+      {/* Filter (coral tab only) */}
+      {tab === 'dashboard' && (
+        <div className="flex gap-2 mb-4 overflow-x-auto">
+          {([
+            { value: 'all', label: 'Tất cả' },
+            { value: 'overdue', label: `Quá hạn >30 ngày` },
+            { value: 'recent', label: 'Đã cập nhật gần đây' },
+          ] as const).map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setFilter(opt.value)}
+              className={`px-3 py-1.5 text-xs font-medium rounded-full whitespace-nowrap border transition-colors ${
+                filter === opt.value
+                  ? 'bg-primary-container text-on-primary-container border-primary'
+                  : 'border-outline-variant text-on-surface-variant hover:border-primary'
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       {tab === 'dashboard' && (
         <div className="space-y-3">
           {loading ? (
             <p className="text-on-surface-variant text-center py-8">Đang tải...</p>
-          ) : corals.length === 0 ? (
+          ) : filteredCorals.length === 0 ? (
             <p className="text-on-surface-variant text-center py-8">Không có san hô nào</p>
           ) : (
-            corals.map((coral) => {
+            filteredCorals.map((coral) => {
               const lastUpdate = coral.updates?.[0];
               const adopter = coral.adoptions?.[0];
 

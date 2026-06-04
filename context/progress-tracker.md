@@ -318,6 +318,27 @@
   - [x] Moderation: admin duyệt qua CommunitySubmission status (pending→approved/rejected)
   - [x] `npm run build` passes — 0 TypeScript errors
 
+### TASK-012: Phân quyền & Quản lý Blog (Admin)
+- **Status**: done
+- **SRS**: 3.10 Admin Panel, AD-04 (CMS), Phân quyền (Super Admin / Editor / Coral Center)
+- **Branch**: main
+- **Dependencies**: TASK-008, TASK-010
+- **Priority**: P1
+- **Description:** Thêm tính năng phân quyền (editor role được vào admin quản lý blog) và trang quản lý bài viết (CRUD blog posts) trong admin panel. Cập nhật middleware, admin-guard, layout để hỗ trợ role editor. Thêm role change dropdown trong Users page.
+- **Requirements**: FR-090, FR-091, FR-092
+- **Acceptance Criteria**:
+  - [x] `requireAdmin()` dùng `canAccess(user.role, 'editor')` — cho phép cả admin và editor
+  - [x] `requireAdminOnly()` mới — chỉ cho phép admin cho route nhạy cảm (users, products, corals, dashboard)
+  - [x] Middleware cho phép editor vào `/admin`
+  - [x] Admin layout chấp nhận editor role, truyền role xuống sidebar
+  - [x] AdminSidebar: hiển thị link theo role (admin: tất cả 5 links, editor: chỉ Dashboard + Bài viết)
+  - [x] 7 API route nhạy cảm chuyển sang dùng `requireAdminOnly()`
+  - [x] API CRUD blog: GET list (search, pagination), POST create (auto slug, auto readingTime), GET detail, PUT update, DELETE
+  - [x] Trang `/admin/blog`: table posts, search, modal tạo/sửa (title, slug, category, tags, excerpt, content HTML, featuredImage, status), toggle status, xóa với confirm
+  - [x] Users page: role change dropdown (select) thay thế static badge — 6 roles
+  - [x] Tất cả label tiếng Việt
+  - [x] `npm run build` passes — 0 TypeScript errors
+
 ---
 
 ## Session Notes
@@ -355,5 +376,18 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 11 tasks | 11 done ✅ — Phase 2 Complete!*
+*Tổng: 12 tasks | 12 done ✅ — Phase 2 Complete!*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
+
+## Session Notes (2026-06-04)
+
+- **TASK-012 (Unit 12): Phân quyền & Quản lý Blog hoàn chỉnh — 11 files**
+  - Role system: `admin-guard.ts` — `requireAdmin()` dùng `canAccess(user.role, 'editor')` + `requireAdminOnly()` mới
+  - Middleware + layout: cho phép editor vào `/admin`, truyền role xuống sidebar
+  - Sidebar: role-conditional links (5 cho admin, 2 cho editor — Dashboard + Bài viết), role badge
+  - 7 API route nhạy cảm: chuyển sang `requireAdminOnly()`
+  - Blog API: 2 routes mới — list+create (`/api/v1/admin/blog`) + detail+update+delete (`/api/v1/admin/blog/[id]`)
+  - Auto slugify tiếng Việt + auto readingTime (content words / 200)
+  - UI: `/admin/blog` — table, search, modal tạo/sửa (title, slug, category, tags, excerpt, content HTML, featuredImage, status), toggle status, delete confirm
+  - Users page: role change select dropdown (6 roles) thay static badge
+  - Build: 0 TypeScript errors

@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { FileUpload } from '@/components/ui/FileUpload';
+import { useFileUpload } from '@/hooks/useFileUpload';
 
 interface CoralUpdateFormProps {
   coral: {
@@ -18,34 +20,45 @@ export function UpdateForm({ coral }: CoralUpdateFormProps) {
   const [sizeCm, setSizeCm] = useState('');
   const [health, setHealth] = useState('good');
   const [notes, setNotes] = useState('');
-  const [imageUrls, setImageUrls] = useState<string[]>(['']);
-  const [videoUrl, setVideoUrl] = useState('');
+  const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const { upload, uploading, error: uploadError } = useFileUpload();
 
   const adopter = coral.adoptions?.[0]?.user?.fullName || 'Chưa có';
-
-  const addImageField = () => {
-    if (imageUrls.length < 5) setImageUrls([...imageUrls, '']);
-  };
-  const updateImage = (i: number, val: string) => {
-    const updated = [...imageUrls];
-    updated[i] = val;
-    setImageUrls(updated);
-  };
-  const removeImage = (i: number) => {
-    if (imageUrls.length > 1) setImageUrls(imageUrls.filter((_, idx) => idx !== i));
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setSubmitting(true);
 
-    const images = imageUrls.filter((u) => u.trim());
-
     try {
+      // Step 1: Upload files if any
+      let imageUrls: string[] = [];
+      let videoUrl: string | undefined;
+
+      if (files.length > 0) {
+        const imageFiles = files.filter((f) => f.type.startsWith('image/'));
+        const videoFiles = files.filter((f) => f.type.startsWith('video/'));
+
+        const uploadedImageUrls = imageFiles.length > 0
+          ? await upload(imageFiles, 'coral')
+          : [];
+        if (uploadError && imageFiles.length > 0) {
+          setError(uploadError);
+          setSubmitting(false);
+          return;
+        }
+        imageUrls = uploadedImageUrls;
+
+        if (videoFiles.length > 0) {
+          const uploadedVideoUrls = await upload(videoFiles, 'coral');
+          videoUrl = uploadedVideoUrls[0];
+        }
+      }
+
+      // Step 2: Create the coral update record
       const res = await fetch('/api/v1/portal/updates', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -54,8 +67,8 @@ export function UpdateForm({ coral }: CoralUpdateFormProps) {
           sizeCm: sizeCm ? parseFloat(sizeCm) : undefined,
           health,
           notes: notes || undefined,
-          images,
-          videoUrl: videoUrl || undefined,
+          images: imageUrls,
+          videoUrl,
         }),
       });
 
@@ -68,9 +81,9 @@ export function UpdateForm({ coral }: CoralUpdateFormProps) {
       setSuccess(true);
       setTimeout(() => {
         router.push('/coral-portal');
-      }, 1500);
+      }, 2000);
     } catch {
-      setError('Không thể kết nối');
+      setError('Không thể kết nối đến server');
     } finally {
       setSubmitting(false);
     }
@@ -85,7 +98,10 @@ export function UpdateForm({ coral }: CoralUpdateFormProps) {
           </svg>
         </div>
         <h2 className="font-headline-md text-primary mb-2">Đã cập nhật!</h2>
-        <p className="text-on-surface-variant text-sm">Đang chuyển về trang chính...</p>
+        <p className="text-on-surface-variant text-sm">
+          San hô đã được cập nhật. Adopter sẽ nhận được thông báo qua email.
+        </p>
+        <p className="text-on-surface-variant text-xs mt-2">Đang chuyển về trang chính...</p>
       </div>
     );
   }
@@ -93,7 +109,7 @@ export function UpdateForm({ coral }: CoralUpdateFormProps) {
   return (
     <div>
       <Link href="/coral-portal" className="text-sm text-on-tertiary-container mb-4 inline-block">
-        ← Quay lại
+        ← Quay lại Coral Portal
       </Link>
 
       <h1 className="text-xl font-display font-bold text-primary mb-6">Cập nhật san hô</h1>
@@ -107,8 +123,18 @@ export function UpdateForm({ coral }: CoralUpdateFormProps) {
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {error && (
-          <div className="bg-error-container text-error text-sm px-4 py-3 rounded-lg" role="alert">{error}</div>
+          <div className="bg-error-container text-error text-sm px-4 py-3 rounded-lg" role="alert">
+            {error}
+          </div>
         )}
+
+        {/* File Upload — Ảnh & Video */}
+        <FileUpload
+          maxFiles={5}
+          value={files}
+          onChange={setFiles}
+          disabled={submitting}
+        />
 
         {/* Size */}
         <div>
@@ -119,6 +145,7 @@ export function UpdateForm({ coral }: CoralUpdateFormProps) {
             id="size"
             type="number"
             step="0.1"
+            inputMode="decimal"
             value={sizeCm}
             onChange={(e) => setSizeCm(e.target.value)}
             className="block w-full rounded-lg border border-outline-variant px-3 py-2.5 text-base outline-none focus:border-primary"
@@ -140,7 +167,9 @@ export function UpdateForm({ coral }: CoralUpdateFormProps) {
                 type="button"
                 onClick={() => setHealth(opt.value)}
                 className={`flex-1 px-3 py-2.5 rounded-lg text-sm font-medium border transition-colors ${
-                  health === opt.value ? opt.color + ' border-2' : 'border-outline-variant bg-surface-container-lowest'
+                  health === opt.value
+                    ? opt.color + ' border-2'
+                    : 'border-outline-variant bg-surface-container-lowest'
                 }`}
               >
                 {opt.label}
@@ -164,60 +193,17 @@ export function UpdateForm({ coral }: CoralUpdateFormProps) {
           />
         </div>
 
-        {/* Images */}
-        <div>
-          <label className="block text-sm font-medium text-on-surface mb-1">
-            Ảnh ({imageUrls.length}/5)
-          </label>
-          <div className="space-y-2">
-            {imageUrls.map((url, i) => (
-              <div key={i} className="flex gap-2">
-                <input
-                  type="url"
-                  value={url}
-                  onChange={(e) => updateImage(i, e.target.value)}
-                  className="flex-1 rounded-lg border border-outline-variant px-3 py-2.5 text-sm outline-none focus:border-primary"
-                  placeholder={`URL ảnh ${i + 1} (S3 hoặc CDN)`}
-                />
-                {imageUrls.length > 1 && (
-                  <button type="button" onClick={() => removeImage(i)} className="text-error px-2 text-sm">Xoá</button>
-                )}
-              </div>
-            ))}
-          </div>
-          {imageUrls.length < 5 && (
-            <button type="button" onClick={addImageField} className="text-secondary text-sm mt-2 font-medium">
-              + Thêm ảnh
-            </button>
-          )}
-        </div>
-
-        {/* Video */}
-        <div>
-          <label htmlFor="video" className="block text-sm font-medium text-on-surface mb-1">
-            Video URL (tuỳ chọn)
-          </label>
-          <input
-            id="video"
-            type="url"
-            value={videoUrl}
-            onChange={(e) => setVideoUrl(e.target.value)}
-            className="block w-full rounded-lg border border-outline-variant px-3 py-2.5 text-sm outline-none focus:border-primary"
-            placeholder="URL video (S3 hoặc CDN)"
-          />
-        </div>
-
         {/* Submit */}
         <button
           type="submit"
-          disabled={submitting}
-          className="w-full bg-secondary text-on-secondary font-semibold py-3 px-4 rounded-lg disabled:opacity-50"
+          disabled={submitting || uploading}
+          className="w-full bg-secondary text-on-secondary font-semibold py-3 px-4 rounded-lg disabled:opacity-50 transition-opacity"
         >
-          {submitting ? 'Đang lưu...' : 'Lưu cập nhật'}
+          {submitting || uploading ? 'Đang lưu...' : 'Lưu cập nhật'}
         </button>
 
         <p className="text-xs text-on-surface-variant text-center">
-          Lưu sẽ đồng bộ với dashboard người nhận nuôi
+          Lưu sẽ đồng bộ với dashboard người nhận nuôi và gửi email thông báo
         </p>
       </form>
     </div>
