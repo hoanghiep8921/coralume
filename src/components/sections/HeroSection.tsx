@@ -163,13 +163,13 @@ export function HeroSection() {
             href="/san-pham"
             className="bg-[#E87750] text-white px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-normal"
           >
-            Nhận nuôi ngay →
+            Adopt Your Coral →
           </Link>
           <Link
-            href="/ve-chung-toi"
+            href="/dashboard"
             className="bg-white/30 backdrop-blur-md border border-white/40 text-primary px-10 py-4 rounded-full font-bold text-lg hover:bg-white/50 transition-all duration-normal"
           >
-            Tìm hiểu thêm
+            Growth Report
           </Link>
         </div>
       </div>

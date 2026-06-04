@@ -17,7 +17,7 @@ export function Footer() {
             Coralume
           </Link>
           <p className="text-on-primary/80 font-body-md text-center md:text-left max-w-xs">
-            © 2026 Coralume. Premium Stewardship for Our Oceans.
+            © 2024 Coralume. Premium Stewardship for Our Oceans.
           </p>
         </div>
 

@@ -1,6 +1,10 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY || '');
+function getResend(): Resend | null {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return null;
+  return new Resend(apiKey);
+}
 
 const FROM_EMAIL = 'Coralume <onboarding@resend.dev>';
 
@@ -9,6 +13,11 @@ export async function sendVerificationEmail(
   verifyUrl: string
 ): Promise<boolean> {
   try {
+    const resend = getResend();
+    if (!resend) {
+      console.error('[Resend] No API key configured');
+      return false;
+    }
     const { error } = await resend.emails.send({
       from: FROM_EMAIL,
       to,
@@ -54,6 +63,11 @@ export async function sendPasswordResetEmail(
   resetUrl: string
 ): Promise<boolean> {
   try {
+    const resend = getResend();
+    if (!resend) {
+      console.error('[Resend] No API key configured');
+      return false;
+    }
     const { error } = await resend.emails.send({
       from: FROM_EMAIL,
       to,

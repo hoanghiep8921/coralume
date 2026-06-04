@@ -50,7 +50,7 @@ export function StatsSection() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Stat Card 1: Corals Adopted */}
-        <div className="bg-surface-container-lowest p-8 rounded-xl premium-shadow border border-surface-container">
+        <div className="bg-white p-8 rounded-xl premium-shadow border border-surface-container">
           <div className="flex justify-between items-start mb-6">
             <span className="material-symbols-outlined text-secondary text-4xl" aria-hidden="true">
               water_drop
@@ -70,17 +70,17 @@ export function StatsSection() {
               <span>Restoration Target</span>
               <span>84%</span>
             </div>
-            <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+            <div className="coral-progress-bar w-full">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-secondary to-secondary-fixed"
-                style={{ width: '84%' }}
+                className="h-full rounded-full bg-gradient-to-r from-[#E87750] to-secondary-fixed-dim"
+                style={{ width: '84%', height: '8px' }}
               />
             </div>
           </div>
         </div>
 
         {/* Stat Card 2: Adopters Worldwide */}
-        <div className="bg-surface-container-lowest p-8 rounded-xl premium-shadow border border-surface-container">
+        <div className="bg-white p-8 rounded-xl premium-shadow border border-surface-container">
           <div className="flex justify-between items-start mb-6">
             <span className="material-symbols-outlined text-secondary text-4xl" aria-hidden="true">
               public
@@ -107,7 +107,7 @@ export function StatsSection() {
         </div>
 
         {/* Stat Card 3: Survival Rate */}
-        <div className="bg-surface-container-lowest p-8 rounded-xl premium-shadow border border-surface-container">
+        <div className="bg-white p-8 rounded-xl premium-shadow border border-surface-container">
           <div className="flex justify-between items-start mb-6">
             <span className="material-symbols-outlined text-secondary text-4xl" aria-hidden="true">
               eco
