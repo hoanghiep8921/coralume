@@ -9,12 +9,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { verifyPayOSWebhook, isPayOSSuccess } from '@/lib/payment';
 
-// PayOS may send GET during webhook verification
-export async function GET() {
-  return NextResponse.json({ success: true });
-}
+// PayOS may call with various HTTP methods during verification
+// We accept ALL methods and always return 200 OK
+export async function GET() { return NextResponse.json({ success: true }); }
+export async function POST(request: NextRequest) { return handleWebhook(request); }
+export async function PUT(request: NextRequest) { return handleWebhook(request); }
+export async function PATCH(request: NextRequest) { return handleWebhook(request); }
+export async function DELETE() { return NextResponse.json({ success: true }); }
+export async function HEAD() { return new NextResponse(null, { status: 200 }); }
+export async function OPTIONS() { return new NextResponse(null, { status: 200 }); }
 
-export async function POST(request: NextRequest) {
+async function handleWebhook(request: NextRequest) {
   try {
     // Parse body — handle both JSON and empty body gracefully
     let body: Record<string, unknown> = {};
