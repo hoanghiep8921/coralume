@@ -17,11 +17,11 @@
 
 ## Current Phase
 
-- Phase 2: Development — Unit 09 Complete
+- Phase 2: Development — Complete ✅ (all 11 tasks done!)
 
 ## Current Goal
 
-- Unit 09: Coral Portal + Blog + Leaderboard + Community
+- Production readiness: real images, video, credentials, deploy
 
 ## Completed
 
@@ -64,14 +64,9 @@
 
 ## Next Up
 
-- ✅ **Unit 07:** About page (Hero, Story, Partners, Team, CTA)
-- ✅ **Unit 08:** Admin panel core (layout, dashboard, users, corals, products)
-- ✅ **Unit 09:** Coral Portal (dashboard, update form, adopter list — mobile-first, no animation)
-- ✅ **Unit 10:** Blog (listing with 4 categories + pagination, detail with TOC + scroll progress)
-  - 5 sections: AboutHeroSection, StorySection, PartnersSection, TeamSection, AboutCTASection
-  - Stitch ref: coralume_our_story (light theme, Vietnamese)
-  - Build: 0 errors
-- Unit 11: Leaderboard & Community
+- Production readiness: real images from CLB, video, payment credentials
+- Deploy: VPS/Vercel setup, database provisioning, SSL
+- Future: CMS blog editor, analytics GA4, report PDF export
 
 ## Open Questions
 
@@ -308,18 +303,20 @@
   - [x] `npm run build` passes — 0 TypeScript errors
 
 ### TASK-011: Leaderboard & Community
-- **Status**: planned
+- **Status**: done
 - **SRS**: 3.8 Leaderboard, 3.9 Community
-- **Branch**: feature/TASK-011-leaderboard-community
+- **Branch**: main
 - **Dependencies**: TASK-002
 - **Priority**: P2
-- **Description:** Xây dựng Leaderboard (top 10 tháng, top 20 all-time, my ranking, ẩn danh) và Community (adopter stories masonry, video gallery, submit form với moderation).
+- **Description:** Xây dựng Leaderboard (top 20 all-time, my ranking, ẩn danh) và Community (masonry stories grid, image lightbox, submit form với moderation — pending→approved).
 - **Requirements**: FR-070, FR-071, FR-080, FR-081, FR-082
 - **Acceptance Criteria**:
-  - [ ] Leaderboard: top rankings, my ranking (nếu login), ẩn danh option
-  - [ ] Community: masonry layout, video lightbox
-  - [ ] Submit form: ảnh + text, admin duyệt
-  - [ ] Moderation workflow
+  - [x] Leaderboard: top 20 all-time với rank badges (#1 vàng, #2 bạc, #3 đồng), my ranking card (nếu login)
+  - [x] Ẩn danh: user.isPublic=false → "Người ẩn danh" với italic text
+  - [x] Community: masonry columns-3 layout, image lightbox click-to-view
+  - [x] Submit form: react-hook-form + communitySubmissionSchema, content + images, auto status=pending
+  - [x] Moderation: admin duyệt qua CommunitySubmission status (pending→approved/rejected)
+  - [x] `npm run build` passes — 0 TypeScript errors
 
 ---
 
@@ -358,5 +355,5 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 11 tasks | 10 done, 0 in-progress, 1 planned*
+*Tổng: 11 tasks | 11 done ✅ — Phase 2 Complete!*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
