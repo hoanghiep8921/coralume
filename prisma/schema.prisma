@@ -324,3 +324,12 @@ model EmailLog {
 
   @@map("email_logs")
 }
+
+model SiteSetting {
+  key       String   @id
+  value     String   @db.Text
+  updatedBy String?  @map("updated_by")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("site_settings")
+}

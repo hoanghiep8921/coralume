@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/admin-guard';
+import { logActivity } from '@/lib/activity-log';
 
 // ============================================================
 // HELPERS
@@ -112,6 +113,15 @@ export async function POST(request: NextRequest) {
         publishedAt: isPublished ? new Date() : null,
       },
       include: { author: { select: { id: true, fullName: true } } },
+    });
+
+    // Log activity
+    logActivity({
+      adminId: user.userId,
+      action: 'create_post',
+      targetType: 'blog_post',
+      targetId: post.id,
+      details: { title: body.title, slug },
     });
 
     return NextResponse.json({ data: post }, { status: 201 });

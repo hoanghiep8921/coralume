@@ -357,6 +357,22 @@
   - [x] Admin dashboard: recharts LineChart (adoptions) + BarChart (revenue) theo 6 tháng
   - [x] `npm run build` passes — 0 TypeScript errors
 
+### TASK-014: Gap Closure — Priority 2 (User Detail, Product CRUD, Delete Endpoints)
+- **Status**: done
+- **SRS**: AD-02 (User Management), AD-03 (Product Management), AD-09 (Activity Log)
+- **Branch**: main
+- **Dependencies**: TASK-008, TASK-012
+- **Priority**: P1
+- **Description:** Đóng gap ưu tiên 2: user detail endpoint với payment history, product CRUD UI (create/edit/delete), delete endpoints cho users + products, activity logging cho product routes.
+- **Acceptance Criteria**:
+  - [x] `GET /api/v1/admin/users/[id]` — User detail với payments + adoptions
+  - [x] `DELETE /api/v1/admin/users/[id]` — Soft delete user (isActive=false) + log
+  - [x] `DELETE /api/v1/admin/products/[id]` — Delete product + log
+  - [x] Products page: modal tạo/sửa (name, slug, tier, pricing, description, benefits) + nút xóa
+  - [x] Users page: "Chi tiết" button → modal hiển thị user info + payment history + adoptions
+  - [x] Activity logging cho product updates (activate/deactivate/update/delete)
+  - [x] `npm run build` passes — 0 TypeScript errors
+
 ---
 
 ## Session Notes
@@ -394,7 +410,7 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 13 tasks | 13 done ✅ — Phase 2 Complete!*
+*Tổng: 14 tasks | 14 done ✅ — Phase 2 Complete!*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
 
 ## Session Notes (2026-06-04)
@@ -415,4 +431,10 @@
   - UI: Leaderboard monthly tabs (API ?type=monthly filter), Community video gallery (YouTube lightbox)
   - UI: Admin dashboard charts (recharts — LineChart adoptions + BarChart revenue 6 tháng)
   - npm install recharts
+  - Build: 0 TypeScript errors
+- **TASK-014 (Unit 14): Gap Closure Priority 2 hoàn chỉnh — 6 files**
+  - API: GET /api/v1/admin/users/[id] (detail + payments + adoptions), DELETE handlers (users + products)
+  - Activity logging: logActivity thêm vào product PUT/DELETE routes
+  - UI: Products page — create/edit modal (name, slug, tier, pricing, benefits) + delete button
+  - UI: Users page — "Chi tiết" button → modal với user info + payment history table + adoption list
   - Build: 0 TypeScript errors

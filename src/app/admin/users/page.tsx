@@ -14,10 +14,66 @@ interface User {
   _count: { adoptions: number; payments: number };
 }
 
+interface UserDetail {
+  id: string;
+  fullName: string;
+  email: string;
+  phone?: string;
+  role: string;
+  isVerified: boolean;
+  isActive: boolean;
+  isPublic: boolean;
+  emailNotify: boolean;
+  createdAt: string;
+  updatedAt: string;
+  _count: { adoptions: number; payments: number };
+  payments: {
+    id: string;
+    amount: number;
+    method: string;
+    status: string;
+    gatewayTxnId: string | null;
+    createdAt: string;
+    adoption: { id: string; customName: string | null } | null;
+  }[];
+  adoptions: {
+    id: string;
+    customName: string | null;
+    status: string;
+    adoptedAt: string | null;
+    assignedAt: string | null;
+    coral: { id: string; code: string; species: string | null } | null;
+    product: { id: string; name: string } | null;
+  }[];
+}
+
+const roleLabels: Record<string, string> = {
+  visitor: 'Visitor', adopter: 'Adopter', ambassador: 'Ambassador',
+  admin: 'Admin', editor: 'Editor', coral_staff: 'Coral Staff',
+};
+
+const methodLabels: Record<string, string> = {
+  payos: 'PayOS', vnpay: 'VNPay', momo: 'MoMo', bank_transfer: 'Chuyển khoản',
+};
+
+const statusColors: Record<string, string> = {
+  completed: 'bg-green-100 text-green-700',
+  pending: 'bg-amber-100 text-amber-700',
+  failed: 'bg-error-container text-error',
+  refunded: 'bg-blue-100 text-blue-700',
+};
+
+function formatDate(dateStr?: string | null): string {
+  if (!dateStr) return '—';
+  return new Date(dateStr).toLocaleDateString('vi-VN', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  const [detailUser, setDetailUser] = useState<UserDetail | null>(null);
+  const [detailLoading, setDetailLoading] = useState(false);
 
   const fetchUsers = useCallback(async (q?: string) => {
     setLoading(true);
@@ -49,9 +105,13 @@ export default function AdminUsersPage() {
     fetchUsers(search);
   };
 
-  const roleLabels: Record<string, string> = {
-    visitor: 'Visitor', adopter: 'Adopter', ambassador: 'Ambassador',
-    admin: 'Admin', editor: 'Editor', coral_staff: 'Coral Staff',
+  const viewDetail = async (id: string) => {
+    setDetailLoading(true);
+    try {
+      const res = await fetch(`/api/v1/admin/users/${id}`);
+      const json = await res.json();
+      setDetailUser(json.data || null);
+    } catch { /* ignore */ } finally { setDetailLoading(false); }
   };
 
   return (
@@ -118,16 +178,24 @@ export default function AdminUsersPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <button
-                        onClick={() => toggleBlock(user.id, user.isActive)}
-                        className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${
-                          user.isActive
-                            ? 'bg-error-container text-error hover:bg-error/20'
-                            : 'bg-green-100 text-green-700 hover:bg-green-200'
-                        }`}
-                      >
-                        {user.isActive ? 'Block' : 'Unblock'}
-                      </button>
+                      <div className="flex items-center justify-end gap-1">
+                        <button
+                          onClick={() => viewDetail(user.id)}
+                          className="text-xs font-medium px-2.5 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                        >
+                          Chi tiết
+                        </button>
+                        <button
+                          onClick={() => toggleBlock(user.id, user.isActive)}
+                          className={`text-xs font-medium px-2.5 py-1.5 rounded-lg transition-colors ${
+                            user.isActive
+                              ? 'bg-error-container text-error hover:bg-error/20'
+                              : 'bg-green-100 text-green-700 hover:bg-green-200'
+                          }`}
+                        >
+                          {user.isActive ? 'Block' : 'Unblock'}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -136,6 +204,140 @@ export default function AdminUsersPage() {
           </table>
         </div>
       </div>
+
+      {/* User Detail Modal */}
+      {detailUser && (
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-[5vh] bg-black/40 backdrop-blur-sm overflow-y-auto"
+          onClick={(e) => { if (e.target === e.currentTarget) setDetailUser(null); }}
+        >
+          <div className="bg-surface-container-lowest rounded-2xl shadow-[0px_10px_40px_rgba(15,76,92,0.12)] w-full max-w-2xl my-8 animate-[slideUp_0.3s_var(--ease-out-expo)]">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant">
+              <h2 className="font-display text-headline-md text-primary">Chi tiết người dùng</h2>
+              <button
+                onClick={() => setDetailUser(null)}
+                className="w-8 h-8 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors"
+              >
+                <span className="material-symbols-outlined text-xl">close</span>
+              </button>
+            </div>
+
+            <div className="px-6 py-4 space-y-5 max-h-[65vh] overflow-y-auto">
+              {detailLoading ? (
+                <p className="text-center text-on-surface-variant py-8">Đang tải...</p>
+              ) : (
+                <>
+                  {/* User Info */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <span className="text-xs text-on-surface-variant">Tên</span>
+                      <p className="font-medium text-on-surface">{detailUser.fullName}</p>
+                    </div>
+                    <div>
+                      <span className="text-xs text-on-surface-variant">Email</span>
+                      <p className="font-medium text-on-surface">{detailUser.email}</p>
+                    </div>
+                    <div>
+                      <span className="text-xs text-on-surface-variant">SĐT</span>
+                      <p className="font-medium text-on-surface">{detailUser.phone || '—'}</p>
+                    </div>
+                    <div>
+                      <span className="text-xs text-on-surface-variant">Role</span>
+                      <p className="font-medium text-on-surface">
+                        <span className="bg-primary/10 text-primary font-label-sm px-2 py-0.5 rounded-full text-xs">
+                          {roleLabels[detailUser.role] || detailUser.role}
+                        </span>
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-xs text-on-surface-variant">Trạng thái</span>
+                      <p className="flex gap-2 mt-0.5">
+                        <span className={`font-label-sm text-xs px-2 py-0.5 rounded-full ${detailUser.isActive ? 'bg-green-100 text-green-700' : 'bg-error-container text-error'}`}>
+                          {detailUser.isActive ? 'Active' : 'Blocked'}
+                        </span>
+                        <span className={`font-label-sm text-xs px-2 py-0.5 rounded-full ${detailUser.isVerified ? 'bg-green-100 text-green-700' : 'bg-surface-container-low text-on-surface-variant'}`}>
+                          {detailUser.isVerified ? 'Verified' : 'Chưa xác thực'}
+                        </span>
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-xs text-on-surface-variant">Ngày tham gia</span>
+                      <p className="font-medium text-on-surface text-sm">{formatDate(detailUser.createdAt)}</p>
+                    </div>
+                  </div>
+
+                  {/* Adoptions */}
+                  <div>
+                    <h3 className="font-label-sm text-sm text-on-surface mb-2">
+                      Nhận nuôi ({detailUser._count.adoptions})
+                    </h3>
+                    {detailUser.adoptions.length === 0 ? (
+                      <p className="text-sm text-on-surface-variant">Chưa có nhận nuôi nào</p>
+                    ) : (
+                      <div className="space-y-2">
+                        {detailUser.adoptions.map((a) => (
+                          <div key={a.id} className="flex items-center justify-between bg-surface-container-low rounded-lg px-3 py-2 text-xs">
+                            <div>
+                              <span className="font-medium text-on-surface">{a.customName || 'Không tên'}</span>
+                              <span className="text-on-surface-variant ml-2">
+                                {a.product?.name || '—'} · {a.coral?.code || 'Chưa gán'}
+                              </span>
+                            </div>
+                            <span className={`font-label-sm px-2 py-0.5 rounded-full text-xs ${
+                              a.status === 'active' ? 'bg-green-100 text-green-700' :
+                              a.status === 'pending' ? 'bg-amber-100 text-amber-700' :
+                              'bg-surface-container text-on-surface-variant'
+                            }`}>
+                              {a.status === 'active' ? 'Active' : a.status === 'pending' ? 'Pending' : a.status}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Payment History */}
+                  <div>
+                    <h3 className="font-label-sm text-sm text-on-surface mb-2">
+                      Lịch sử thanh toán ({detailUser._count.payments})
+                    </h3>
+                    {detailUser.payments.length === 0 ? (
+                      <p className="text-sm text-on-surface-variant">Chưa có thanh toán nào</p>
+                    ) : (
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs">
+                          <thead>
+                            <tr className="border-b border-outline-variant/50">
+                              <th className="text-left py-2 font-label-sm text-on-surface-variant">Ngày</th>
+                              <th className="text-left py-2 font-label-sm text-on-surface-variant">Số tiền</th>
+                              <th className="text-left py-2 font-label-sm text-on-surface-variant">PP</th>
+                              <th className="text-left py-2 font-label-sm text-on-surface-variant">Trạng thái</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {detailUser.payments.map((p) => (
+                              <tr key={p.id} className="border-b border-outline-variant/30">
+                                <td className="py-2 text-on-surface">{formatDate(p.createdAt)}</td>
+                                <td className="py-2 text-on-surface font-mono">{p.amount.toLocaleString('vi-VN')}đ</td>
+                                <td className="py-2 text-on-surface-variant">{methodLabels[p.method] || p.method}</td>
+                                <td className="py-2">
+                                  <span className={`font-label-sm px-1.5 py-0.5 rounded-full text-xs ${statusColors[p.status] || 'bg-surface-container text-on-surface-variant'}`}>
+                                    {p.status === 'completed' ? '✅' : p.status === 'pending' ? '⏳' : '❌'} {p.status}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -13,16 +13,22 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
 
   const links = [
     { href: '/admin', label: 'Dashboard', icon: 'dashboard', adminOnly: false },
+    { href: '/admin/blog', label: 'Bài viết', icon: 'article', adminOnly: false },
     { href: '/admin/users', label: 'Người dùng', icon: 'group', adminOnly: true },
+    { href: '/admin/staff', label: 'Nhân viên', icon: 'badge', adminOnly: true },
     { href: '/admin/corals', label: 'San hô', icon: 'water_drop', adminOnly: true },
     { href: '/admin/products', label: 'Sản phẩm', icon: 'inventory_2', adminOnly: true },
-    { href: '/admin/blog', label: 'Bài viết', icon: 'article', adminOnly: false },
+    { href: '/admin/settings', label: 'Cài đặt', icon: 'settings', adminOnly: true },
+    { href: '/admin/activity', label: 'Hoạt động', icon: 'history', adminOnly: true },
   ];
 
   const visibleLinks = links.filter((l) => !l.adminOnly || isAdmin);
 
   return (
-    <aside className="w-64 min-h-screen bg-primary flex-shrink-0 hidden lg:block">
+    <aside
+      id="admin-sidebar"
+      className="w-64 min-h-screen bg-primary flex-shrink-0 hidden lg:block"
+    >
       <div className="p-6">
         <Link href="/admin" className="font-display text-xl font-bold text-on-primary">
           Coralume Admin
@@ -40,6 +46,13 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
             <Link
               key={link.href}
               href={link.href}
+              onClick={() => {
+                // Close mobile sidebar on navigation
+                const sidebar = document.getElementById('admin-sidebar');
+                if (sidebar && window.innerWidth < 1024) {
+                  sidebar.classList.add('hidden');
+                }
+              }}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-body-md transition-colors duration-fast ${
                 isActive
                   ? 'bg-on-primary/15 text-on-primary font-medium'

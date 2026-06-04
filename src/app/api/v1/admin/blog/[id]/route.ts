@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/admin-guard';
+import { logActivity } from '@/lib/activity-log';
 
 // ============================================================
 // HELPERS
@@ -48,7 +49,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAdmin();
+    const user = await requireAdmin();
     const { id } = await params;
     const body = await request.json();
 
@@ -85,6 +86,17 @@ export async function PUT(
       include: { author: { select: { id: true, fullName: true } } },
     });
 
+    // Log activity
+    const isPublishing = body.status === 'published' && current.status !== 'published';
+    const isUnpublishing = body.status === 'draft' && current.status === 'published';
+    logActivity({
+      adminId: user.userId,
+      action: isPublishing ? 'publish_post' : isUnpublishing ? 'unpublish_post' : 'update_post',
+      targetType: 'blog_post',
+      targetId: post.id,
+      details: { title: post.title },
+    });
+
     return NextResponse.json({ data: post });
   } catch (error) {
     if (error instanceof Error) {
@@ -104,13 +116,22 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAdmin();
+    const user = await requireAdmin();
     const { id } = await params;
 
-    const existing = await prisma.blogPost.findUnique({ where: { id }, select: { id: true } });
+    const existing = await prisma.blogPost.findUnique({ where: { id }, select: { id: true, title: true } });
     if (!existing) return NextResponse.json({ error: 'Không tìm thấy bài viết' }, { status: 404 });
 
     await prisma.blogPost.delete({ where: { id } });
+
+    logActivity({
+      adminId: user.userId,
+      action: 'delete_post',
+      targetType: 'blog_post',
+      targetId: id,
+      details: { title: existing.title },
+    });
+
     return NextResponse.json({ data: { success: true } });
   } catch (error) {
     if (error instanceof Error) {
