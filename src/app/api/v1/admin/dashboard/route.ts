@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
-import { requireAdmin } from '@/lib/admin-guard';
+import { requireAdminOnly } from '@/lib/admin-guard';
 
 export async function GET() {
   try {
-    await requireAdmin();
+    await requireAdminOnly();
 
     const [userCount, coralCount, adoptionCount, revenue] = await Promise.all([
       prisma.user.count(),

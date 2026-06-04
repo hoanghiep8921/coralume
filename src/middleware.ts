@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { verifyToken, canAccess } from '@/lib/auth';
 
 // ============================================================
 // ROUTE PROTECTION PATTERNS
@@ -70,7 +70,7 @@ export async function middleware(request: NextRequest) {
     if (!user) {
       return NextResponse.redirect(new URL('/dang-nhap', request.url));
     }
-    if (user.role !== 'admin') {
+    if (!canAccess(user.role, 'editor')) {
       return NextResponse.redirect(new URL('/dashboard', request.url));
     }
     return NextResponse.next();

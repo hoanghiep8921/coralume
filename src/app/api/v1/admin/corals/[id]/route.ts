@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
-import { requireAdmin } from '@/lib/admin-guard';
+import { requireAdminOnly } from '@/lib/admin-guard';
 
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAdmin();
+    await requireAdminOnly();
     const { id } = await params;
     const body = await request.json();
 

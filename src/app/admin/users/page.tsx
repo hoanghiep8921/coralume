@@ -40,6 +40,15 @@ export default function AdminUsersPage() {
     fetchUsers(search);
   };
 
+  const changeRole = async (id: string, newRole: string) => {
+    await fetch(`/api/v1/admin/users/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ role: newRole }),
+    });
+    fetchUsers(search);
+  };
+
   const roleLabels: Record<string, string> = {
     visitor: 'Visitor', adopter: 'Adopter', ambassador: 'Ambassador',
     admin: 'Admin', editor: 'Editor', coral_staff: 'Coral Staff',
@@ -92,9 +101,15 @@ export default function AdminUsersPage() {
                     <td className="px-4 py-3 font-medium text-on-surface">{user.fullName}</td>
                     <td className="px-4 py-3 text-on-surface-variant">{user.email}</td>
                     <td className="px-4 py-3">
-                      <span className="bg-primary/10 text-primary font-label-sm px-2 py-0.5 rounded-full text-xs">
-                        {roleLabels[user.role] || user.role}
-                      </span>
+                      <select
+                        value={user.role}
+                        onChange={(e) => changeRole(user.id, e.target.value)}
+                        className="text-xs border border-outline-variant rounded-lg px-2 py-1.5 bg-surface-container-lowest outline-none focus:border-primary cursor-pointer"
+                      >
+                        {Object.entries(roleLabels).map(([val, label]) => (
+                          <option key={val} value={val}>{label}</option>
+                        ))}
+                      </select>
                     </td>
                     <td className="px-4 py-3 text-center font-mono text-primary">{user._count.adoptions}</td>
                     <td className="px-4 py-3 text-center">

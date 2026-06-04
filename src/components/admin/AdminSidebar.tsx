@@ -3,15 +3,23 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const links = [
-  { href: '/admin', label: 'Dashboard', icon: 'dashboard' },
-  { href: '/admin/users', label: 'Người dùng', icon: 'group' },
-  { href: '/admin/corals', label: 'San hô', icon: 'water_drop' },
-  { href: '/admin/products', label: 'Sản phẩm', icon: 'inventory_2' },
-];
+interface AdminSidebarProps {
+  role?: string;
+}
 
-export function AdminSidebar() {
+export function AdminSidebar({ role }: AdminSidebarProps) {
   const pathname = usePathname();
+  const isAdmin = role === 'admin';
+
+  const links = [
+    { href: '/admin', label: 'Dashboard', icon: 'dashboard', adminOnly: false },
+    { href: '/admin/users', label: 'Người dùng', icon: 'group', adminOnly: true },
+    { href: '/admin/corals', label: 'San hô', icon: 'water_drop', adminOnly: true },
+    { href: '/admin/products', label: 'Sản phẩm', icon: 'inventory_2', adminOnly: true },
+    { href: '/admin/blog', label: 'Bài viết', icon: 'article', adminOnly: false },
+  ];
+
+  const visibleLinks = links.filter((l) => !l.adminOnly || isAdmin);
 
   return (
     <aside className="w-64 min-h-screen bg-primary flex-shrink-0 hidden lg:block">
@@ -19,9 +27,14 @@ export function AdminSidebar() {
         <Link href="/admin" className="font-display text-xl font-bold text-on-primary">
           Coralume Admin
         </Link>
+        {role && (
+          <p className="text-on-primary/60 text-xs mt-1 font-label-sm capitalize">
+            {role === 'admin' ? 'Super Admin' : role === 'editor' ? 'Editor' : role}
+          </p>
+        )}
       </div>
       <nav className="px-3 space-y-1">
-        {links.map((link) => {
+        {visibleLinks.map((link) => {
           const isActive = pathname === link.href || (link.href !== '/admin' && pathname.startsWith(link.href));
           return (
             <Link

@@ -12,12 +12,16 @@ import { verifyPayOSWebhook, isPayOSSuccess } from '@/lib/payment';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const receivedSignature = body['signature'] as string | undefined;
-    const data = body['data'];
 
-    if (!receivedSignature || !data) {
-      return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
+    // PayOS sends a test ping when verifying the webhook URL.
+    // This test has minimal data — accept it to pass verification.
+    const data = body['data'];
+    if (!data || !data['orderCode']) {
+      console.log('[PayOS webhook] Test ping received — returning 200 OK');
+      return NextResponse.json({ success: true });
     }
+
+    const receivedSignature = body['signature'] as string | undefined;
 
     console.log('[PayOS webhook]', {
       orderCode: data['orderCode'],

@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
-import { requireAdmin } from '@/lib/admin-guard';
+import { requireAdminOnly } from '@/lib/admin-guard';
 
 export async function GET(request: NextRequest) {
   try {
-    await requireAdmin();
+    await requireAdminOnly();
 
     const { searchParams } = request.nextUrl;
     const search = searchParams.get('search') || '';
