@@ -207,9 +207,9 @@
   - [x] SSL enforced (Next.js production)
   - [x] KHÔNG lưu thông tin thẻ (PCI compliance)
   - [x] `npm run build` passes — 0 TypeScript errors
-  - [ ] TODO: Certificate PDF generation (stub, chờ chọn PDF library)
-  - [ ] TODO: Email confirmation (stub, chờ email infra — Resend/SES)
-  - [ ] TODO: VNPay/MoMo real credentials (đang dùng sandbox placeholders)
+  - [x] Certificate PDF generation (jsPDF — resolved by TASK-015)
+  - [x] Email confirmation (Resend — resolved by TASK-015)
+  - [ ] TODO: PayOS real credentials (đang dùng sandbox placeholders — cần CLB cung cấp)
 
 ### TASK-006: Dashboard (Coral Grid, Modal Detail, Impact)
 - **Status**: done
@@ -266,7 +266,7 @@
   - [x] Product management: list, toggle active/inactive
   - [x] 7 API routes with requireAdmin() guard
   - [x] `npm run build` passes — 0 TypeScript errors
-  - [ ] Deferred: CMS, analytics, reports CSV/PDF, refund, bulk ops, staff CRUD
+  - [ ] Deferred (gốc): CMS ✅ blog (TASK-012), analytics ✅ (TASK-015), CSV export ✅ (TASK-015), staff CRUD ✅ (TASK-014), bulk email ✅ (TASK-015), refund ❌, CMS page text/images ❌
 
 ### TASK-009: Coral Portal
 - **Status**: done

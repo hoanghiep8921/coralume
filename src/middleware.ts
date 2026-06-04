@@ -68,7 +68,9 @@ export async function middleware(request: NextRequest) {
   // 3. Admin routes — require admin role
   if (ADMIN_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
     if (!user) {
-      return NextResponse.redirect(new URL('/dang-nhap', request.url));
+      const loginUrl = new URL('/dang-nhap', request.url);
+      loginUrl.searchParams.set('callbackUrl', pathname);
+      return NextResponse.redirect(loginUrl);
     }
     if (!canAccess(user.role, 'editor')) {
       return NextResponse.redirect(new URL('/dashboard', request.url));
@@ -79,7 +81,9 @@ export async function middleware(request: NextRequest) {
   // 4. Coral portal routes — require coral_staff or admin role
   if (PORTAL_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
     if (!user) {
-      return NextResponse.redirect(new URL('/dang-nhap', request.url));
+      const loginUrl = new URL('/dang-nhap', request.url);
+      loginUrl.searchParams.set('callbackUrl', pathname);
+      return NextResponse.redirect(loginUrl);
     }
     if (user.role !== 'coral_staff' && user.role !== 'admin') {
       return NextResponse.redirect(new URL('/dashboard', request.url));
