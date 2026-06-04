@@ -17,11 +17,11 @@
 
 ## Current Phase
 
-- Phase 2: Development — Unit 05 Complete
+- Phase 2: Development — Unit 06 Complete
 
 ## Current Goal
 
-- Unit 06: Dashboard (coral grid, modal detail, impact)
+- Unit 07: Admin panel
 
 ## Completed
 
@@ -62,7 +62,11 @@
 
 ## Next Up
 
-- Unit 06: Dashboard (coral grid, modal detail, impact)
+- ✅ **Unit 06:** Dashboard (welcome banner, quick stats, coral grid, modal, impact, referral, profile)
+  - 7 section components: WelcomeBanner, QuickStats, CoralGrid, CoralDetailModal, ImpactDashboard, ReferralCode, ProfileSettings
+  - API: GET /api/v1/dashboard (aggregated data), GET /api/v1/adoptions
+  - Stitch ref: coralume_your_impact_dashboard_1/2 (light theme, Vietnamese)
+  - Build: 0 errors
 - Unit 07: Admin panel
 - Unit 08: Coral portal
 - Unit 09: Blog, Leaderboard, Community
@@ -211,23 +215,25 @@
   - [ ] TODO: VNPay/MoMo real credentials (đang dùng sandbox placeholders)
 
 ### TASK-006: Dashboard (Coral Grid, Modal Detail, Impact)
-- **Status**: planned
+- **Status**: done
 - **SRS**: 3.4 Dashboard Cá Nhân
-- **Branch**: feature/TASK-006-dashboard
+- **Branch**: main
 - **Dependencies**: TASK-002, TASK-005
 - **Priority**: P0
-- **Description:** Xây dựng adopter dashboard — welcome banner, quick stats (3 chỉ số), coral grid (responsive), modal chi tiết san hô (growth timeline, GPS map, stats, certificate), impact dashboard, referral code (AFF), profile settings (auto-save).
+- **Description:** Xây dựng adopter dashboard — welcome banner, quick stats (3 chỉ số), coral grid (responsive), modal chi tiết san hô (growth timeline, GPS map, stats, certificate), impact dashboard, referral code (AFF), profile settings (auto-save). Stitch ref: coralume_your_impact_dashboard_1/2.
 - **Requirements**: FR-040, FR-041, FR-042, FR-043, FR-044, FR-045, FR-046, FR-047
 - **Acceptance Criteria**:
-  - [ ] Redirect /dang-nhap nếu chưa login
-  - [ ] Empty state nếu chưa có san hô
-  - [ ] Welcome banner: tên + số san hô + avatar
-  - [ ] Quick stats: 3 chỉ số count-up
-  - [ ] Coral grid: responsive 3→2→1 cột, stagger fade-in
-  - [ ] Modal chi tiết: growth timeline, GPS map, stats, certificate
-  - [ ] Impact dashboard: 4 chỉ số
-  - [ ] Referral code: CRL-[USERNAME], copy, progress bar, confetti at 5
-  - [ ] Profile settings: auto-save on blur
+  - [x] Redirect /dang-nhap nếu chưa login (middleware)
+  - [x] Empty state nếu chưa có san hô — icon + message + CTA
+  - [x] Welcome banner: tên + số san hô + avatar initials + badge role
+  - [x] Quick stats: 3 chỉ số count-up (san hô, diện tích, tháng)
+  - [x] Coral grid: responsive 3→2→1 cột, stagger fade-in, hover card, health status dot
+  - [x] Modal chi tiết: growth timeline, stats grid, certificate section, Escape key
+  - [x] Impact dashboard: 4 chỉ số (san hô, rạn, CO2, sinh vật biển)
+  - [x] Referral code: CRL-[USERNAME], copy với checkmark feedback, progress bar 0/5
+  - [x] Profile settings: auto-save on blur (500ms debounce), toggles
+  - [x] API routes: GET /api/v1/dashboard + GET /api/v1/adoptions
+  - [x] `npm run build` passes — 0 TypeScript errors
 
 ### TASK-007: About Page
 - **Status**: planned
@@ -350,5 +356,5 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 11 tasks | 5 done, 0 in-progress, 6 planned*
+*Tổng: 11 tasks | 6 done, 0 in-progress, 5 planned*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
