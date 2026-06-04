@@ -22,17 +22,21 @@ interface LeaderData {
   _count: { adoptions: number };
 }
 
-async function fetchLeaderboard() {
+async function fetchLeaderboard(type: string) {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/v1/leaderboard`, { cache: 'no-store' });
+    const res = await fetch(`${baseUrl}/api/v1/leaderboard?type=${type}`, { cache: 'no-store' });
     if (!res.ok) return null;
-    return (await res.json()).data as { allTime: LeaderData[]; myRanking: LeaderData | null };
+    const json = await res.json();
+    return json.data as { rankings: LeaderData[]; myRanking: (LeaderData & { rank: number }) | null };
   } catch { return null; }
 }
 
 export default async function LeaderboardPage() {
-  const data = await fetchLeaderboard();
+  const [monthlyData, allTimeData] = await Promise.all([
+    fetchLeaderboard('monthly'),
+    fetchLeaderboard('allTime'),
+  ]);
 
   return (
     <main className="flex-1 bg-surface pt-24 pb-16 px-[var(--spacing-margin-mobile)] md:px-[var(--spacing-margin-desktop)]">
@@ -42,7 +46,7 @@ export default async function LeaderboardPage() {
           <h1 className="font-display text-display-lg-mobile md:text-display-lg text-primary mb-4">Bảng Xếp Hạng</h1>
           <p className="font-body-lg text-on-surface-variant">Top những người nhận nuôi san hô tích cực nhất</p>
         </div>
-        <LeaderboardClient data={data} />
+        <LeaderboardClient monthlyData={monthlyData} allTimeData={allTimeData} />
       </div>
     </main>
   );

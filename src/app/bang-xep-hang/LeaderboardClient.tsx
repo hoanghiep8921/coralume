@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 interface LeaderData {
   id: string;
   rank: number;
@@ -21,15 +23,50 @@ function getDisplayName(user: LeaderData, isMyRank?: boolean): string {
   return user.fullName || 'Người ẩn danh';
 }
 
-export function LeaderboardClient({ data }: { data: { allTime: LeaderData[]; myRanking: (LeaderData & { rank: number }) | null } | null }) {
+interface Props {
+  monthlyData: { rankings: LeaderData[]; myRanking: (LeaderData & { rank: number }) | null } | null;
+  allTimeData: { rankings: LeaderData[]; myRanking: (LeaderData & { rank: number }) | null } | null;
+}
+
+export function LeaderboardClient({ monthlyData, allTimeData }: Props) {
+  const [tab, setTab] = useState<'monthly' | 'allTime'>('allTime');
+
+  const data = tab === 'monthly' ? monthlyData : allTimeData;
+
   if (!data) {
     return <p className="text-center text-on-surface-variant py-8">Đang tải...</p>;
   }
 
-  const { allTime, myRanking } = data;
+  const { rankings, myRanking } = data;
+
+  const tabLabel = tab === 'monthly' ? 'Top 10 tháng này' : 'Top 20 tất cả thời gian';
 
   return (
     <div>
+      {/* Tabs */}
+      <div className="flex gap-2 mb-6 justify-center">
+        <button
+          onClick={() => setTab('monthly')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            tab === 'monthly'
+              ? 'bg-primary text-on-primary'
+              : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container'
+          }`}
+        >
+          Tháng này
+        </button>
+        <button
+          onClick={() => setTab('allTime')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            tab === 'allTime'
+              ? 'bg-primary text-on-primary'
+              : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container'
+          }`}
+        >
+          Tất cả thời gian
+        </button>
+      </div>
+
       {/* My Ranking */}
       {myRanking && (
         <div className="bg-secondary/5 border-2 border-secondary/20 rounded-xl p-6 mb-10">
@@ -54,42 +91,48 @@ export function LeaderboardClient({ data }: { data: { allTime: LeaderData[]; myR
         </div>
       )}
 
-      {/* Top 20 All-Time */}
-      <h2 className="font-headline-md text-headline-md text-primary mb-4">Top 20 tất cả thời gian</h2>
-      <div className="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
-        {allTime.map((user) => (
-          <div
-            key={user.id}
-            className="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/50 last:border-b-0 hover:bg-surface-container-low transition-colors"
-          >
-            {/* Rank */}
+      {/* Rankings */}
+      <h2 className="font-headline-md text-headline-md text-primary mb-4">{tabLabel}</h2>
+      {rankings.length === 0 ? (
+        <div className="text-center py-16">
+          <p className="text-on-surface-variant">Chưa có dữ liệu cho tháng này</p>
+        </div>
+      ) : (
+        <div className="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
+          {rankings.map((user) => (
             <div
-              className={`w-9 h-9 rounded-full border flex items-center justify-center flex-shrink-0 ${
-                rankColors[user.rank] || 'bg-surface-container text-on-surface-variant border-outline-variant'
-              }`}
+              key={user.id}
+              className="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/50 last:border-b-0 hover:bg-surface-container-low transition-colors"
             >
-              <span className="font-mono text-sm font-bold">{user.rank}</span>
-            </div>
+              {/* Rank */}
+              <div
+                className={`w-9 h-9 rounded-full border flex items-center justify-center flex-shrink-0 ${
+                  rankColors[user.rank] || 'bg-surface-container text-on-surface-variant border-outline-variant'
+                }`}
+              >
+                <span className="font-mono text-sm font-bold">{user.rank}</span>
+              </div>
 
-            {/* Name + Badge */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <span className={`font-medium truncate ${!user.isPublic ? 'text-on-surface-variant italic' : 'text-on-surface'}`}>
-                  {getDisplayName(user)}
-                </span>
-                {user.role === 'ambassador' && <span className="text-xs">🌟</span>}
-                {!user.isPublic && <span className="text-xs text-on-surface-variant">(ẩn danh)</span>}
+              {/* Name + Badge */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className={`font-medium truncate ${!user.isPublic ? 'text-on-surface-variant italic' : 'text-on-surface'}`}>
+                    {getDisplayName(user)}
+                  </span>
+                  {user.role === 'ambassador' && <span className="text-xs">🌟</span>}
+                  {!user.isPublic && <span className="text-xs text-on-surface-variant">(ẩn danh)</span>}
+                </div>
+              </div>
+
+              {/* Adoptions count */}
+              <div className="text-right flex-shrink-0">
+                <span className="font-mono text-lg text-primary font-bold">{user._count.adoptions}</span>
+                <span className="text-xs text-on-surface-variant ml-1">san hô</span>
               </div>
             </div>
-
-            {/* Adoptions count */}
-            <div className="text-right flex-shrink-0">
-              <span className="font-mono text-lg text-primary font-bold">{user._count.adoptions}</span>
-              <span className="text-xs text-on-surface-variant ml-1">san hô</span>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       <p className="text-xs text-on-surface-variant text-center mt-6">
         Bảng xếp hạng cập nhật theo thời gian thực. Người dùng có thể chọn ẩn danh trong cài đặt.

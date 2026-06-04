@@ -6,7 +6,7 @@ export async function GET() {
   try {
     await requireAdminOnly();
 
-    const [userCount, coralCount, adoptionCount, revenue] = await Promise.all([
+    const [userCount, coralCount, adoptionCount, revenue, activeAdoptions, pendingPayments] = await Promise.all([
       prisma.user.count(),
       prisma.coral.count(),
       prisma.adoption.count(),
@@ -14,10 +14,39 @@ export async function GET() {
         _sum: { amount: true },
         where: { status: 'completed' },
       }),
+      prisma.adoption.count({ where: { status: 'active' } }),
+      prisma.payment.count({ where: { status: 'pending' } }),
     ]);
 
-    const activeAdoptions = await prisma.adoption.count({ where: { status: 'active' } });
-    const pendingPayments = await prisma.payment.count({ where: { status: 'pending' } });
+    // Build monthly trend for last 6 months
+    const now = new Date();
+    const monthlyTrend: { month: string; adoptions: number; revenue: number }[] = [];
+
+    for (let i = 5; i >= 0; i--) {
+      const year = now.getFullYear();
+      const month = now.getMonth() - i;
+      const startOfMonth = new Date(year, month, 1);
+      const endOfMonth = new Date(year, month + 1, 1);
+
+      const [monthAdoptions, monthRevenue] = await Promise.all([
+        prisma.adoption.count({
+          where: { createdAt: { gte: startOfMonth, lt: endOfMonth } },
+        }),
+        prisma.payment.aggregate({
+          _sum: { amount: true },
+          where: {
+            status: 'completed',
+            createdAt: { gte: startOfMonth, lt: endOfMonth },
+          },
+        }),
+      ]);
+
+      monthlyTrend.push({
+        month: `${startOfMonth.getFullYear()}-${String(startOfMonth.getMonth() + 1).padStart(2, '0')}`,
+        adoptions: monthAdoptions,
+        revenue: monthRevenue._sum.amount || 0,
+      });
+    }
 
     return NextResponse.json({
       data: {
@@ -27,6 +56,7 @@ export async function GET() {
         activeAdoptions,
         revenue: revenue._sum.amount || 0,
         pendingPayments,
+        monthlyTrend,
       },
     });
   } catch (error) {

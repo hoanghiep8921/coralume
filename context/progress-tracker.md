@@ -339,6 +339,24 @@
   - [x] Tất cả label tiếng Việt
   - [x] `npm run build` passes — 0 TypeScript errors
 
+### TASK-013: Gap Closure — Priority 1 API Endpoints & UI (SRS Compliance)
+- **Status**: done
+- **SRS**: Coralume-SRS.md §3.6/3.8/3.9/3.10, SRS.md FR-070/FR-081/FR-090/FR-094
+- **Branch**: main
+- **Dependencies**: TASK-008, TASK-012
+- **Priority**: P0 (go-live blockers from gap analysis)
+- **Description:** Đóng các gap ưu tiên cao từ SRS gap analysis: 4 API endpoints (coral creation, adoption assignment, impact totals, contact form) + 3 UI features (monthly leaderboard tabs, community video gallery, admin dashboard charts với recharts).
+- **Requirements**: FR-070, FR-081, FR-090, FR-094, AD-01, AD-05
+- **Acceptance Criteria**:
+  - [x] `POST /api/v1/admin/corals` — Tạo coral mới, auto-generate code CRL-2026-XXXX
+  - [x] `POST /api/v1/admin/adoptions/[id]/assign` — Gán san hô (validate pending + available, transaction)
+  - [x] `GET /api/v1/impact/totals` — Public impact metrics (reefArea, co2Absorbed, marineLife)
+  - [x] `POST /api/v1/contact` — Contact form API dùng contactSchema từ validation.ts
+  - [x] Leaderboard: API `?type=monthly` filter adoptions theo tháng + UI tabs Tháng này/Tất cả
+  - [x] Community: Video gallery section với YouTube embed + lightbox player
+  - [x] Admin dashboard: recharts LineChart (adoptions) + BarChart (revenue) theo 6 tháng
+  - [x] `npm run build` passes — 0 TypeScript errors
+
 ---
 
 ## Session Notes
@@ -376,7 +394,7 @@
   - TODO: Certificate PDF (chờ PDF lib), email confirmation (chờ email infra), PayOS real creds (CLB)
   - TODO Unit 03: Hero video (cần CLB cung cấp), Material Icons, actual images
 
-*Tổng: 12 tasks | 12 done ✅ — Phase 2 Complete!*
+*Tổng: 13 tasks | 13 done ✅ — Phase 2 Complete!*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
 
 ## Session Notes (2026-06-04)
@@ -390,4 +408,11 @@
   - Auto slugify tiếng Việt + auto readingTime (content words / 200)
   - UI: `/admin/blog` — table, search, modal tạo/sửa (title, slug, category, tags, excerpt, content HTML, featuredImage, status), toggle status, delete confirm
   - Users page: role change select dropdown (6 roles) thay static badge
+  - Build: 0 TypeScript errors
+- **TASK-013 (Unit 13): Gap Closure Priority 1 hoàn chỉnh — 4 APIs + 3 UI features**
+  - API: POST /api/v1/admin/corals (auto-generate code), POST /api/v1/admin/adoptions/[id]/assign (transaction)
+  - API: GET /api/v1/impact/totals (public metrics), POST /api/v1/contact (contactSchema reuse)
+  - UI: Leaderboard monthly tabs (API ?type=monthly filter), Community video gallery (YouTube lightbox)
+  - UI: Admin dashboard charts (recharts — LineChart adoptions + BarChart revenue 6 tháng)
+  - npm install recharts
   - Build: 0 TypeScript errors

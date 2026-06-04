@@ -22,9 +22,8 @@ export async function GET() {
       }),
       prisma.coral.findMany({
         where: {
-          status: { in: ['assigned', 'growing'] },
+          status: { in: ['assigned', 'growing', 'available'] },
           adoptions: { some: { status: 'active' } },
-          updates: { some: {} },
         },
         include: {
           updates: { orderBy: { createdAt: 'desc' }, take: 1 },

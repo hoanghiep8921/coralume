@@ -5,6 +5,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { communitySubmissionSchema, type CommunitySubmissionInput } from '@/lib/validation';
 
+const GALLERY_VIDEOS = [
+  { id: '1', title: 'Hành trình trồng san hô tại Nha Trang', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', thumbnail: '' },
+  { id: '2', title: 'Coralume — Gieo mầm cho đại dương', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', thumbnail: '' },
+  { id: '3', title: 'Một ngày cùng đội ngũ Coralume', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', thumbnail: '' },
+];
+
 interface Submission {
   id: string;
   content: string;
@@ -19,6 +25,7 @@ export function CommunityClient({ submissions }: { submissions: Submission[] }) 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [activeVideo, setActiveVideo] = useState<{ title: string; url: string } | null>(null);
 
   const {
     register,
@@ -148,6 +155,32 @@ export function CommunityClient({ submissions }: { submissions: Submission[] }) 
         </div>
       )}
 
+      {/* Video Gallery */}
+      <section className="mt-16">
+        <h2 className="font-headline-md text-headline-md text-primary mb-6 text-center">Video Gallery</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {GALLERY_VIDEOS.map((video) => (
+            <button
+              key={video.id}
+              type="button"
+              onClick={() => setActiveVideo(video)}
+              className="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden hover:shadow-card transition-shadow text-left group"
+            >
+              <div className="aspect-video bg-surface-container flex items-center justify-center relative">
+                <div className="w-14 h-14 rounded-full bg-primary/80 flex items-center justify-center group-hover:bg-secondary transition-colors">
+                  <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="p-4">
+                <p className="text-sm font-medium text-on-surface">{video.title}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
+
       {/* Image Lightbox */}
       {previewImage && (
         <div
@@ -163,6 +196,32 @@ export function CommunityClient({ submissions }: { submissions: Submission[] }) 
             ✕
           </button>
           <img src={previewImage} alt="" className="max-w-full max-h-[90vh] rounded-lg object-contain" />
+        </div>
+      )}
+
+      {/* Video Lightbox */}
+      {activeVideo && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setActiveVideo(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setActiveVideo(null)}
+            className="absolute top-4 right-4 text-white text-2xl hover:text-secondary transition-colors"
+            aria-label="Đóng video"
+          >
+            ✕
+          </button>
+          <div className="w-full max-w-4xl aspect-video" onClick={(e) => e.stopPropagation()}>
+            <iframe
+              src={activeVideo.url}
+              title={activeVideo.title}
+              className="w-full h-full rounded-lg"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
         </div>
       )}
     </div>

@@ -40,3 +40,38 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Lỗi server' }, { status: 500 });
   }
 }
+
+// ============================================================
+// POST — create a new coral
+// ============================================================
+
+export async function POST(request: NextRequest) {
+  try {
+    await requireAdminOnly();
+    const body = await request.json();
+
+    // Auto-generate code CRL-2026-XXXX
+    const year = new Date().getFullYear();
+    const count = await prisma.coral.count();
+    const code = body.code || `CRL-${year}-${String(count + 1).padStart(4, '0')}`;
+
+    const coral = await prisma.coral.create({
+      data: {
+        code,
+        species: body.species || null,
+        locationZone: body.locationZone || null,
+        locationGps: body.locationGps || null,
+        status: body.status || 'available',
+        productTier: body.productTier || 'standard',
+      },
+    });
+
+    return NextResponse.json({ data: coral }, { status: 201 });
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message === 'UNAUTHORIZED') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      if (error.message === 'FORBIDDEN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+    return NextResponse.json({ error: 'Lỗi server' }, { status: 500 });
+  }
+}
