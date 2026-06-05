@@ -14,11 +14,15 @@ export const registerSchema = z.object({
     .string()
     .min(8, "Mật khẩu tối thiểu 8 ký tự")
     .max(128, "Mật khẩu tối đa 128 ký tự"),
+  confirmPassword: z.string(),
   phone: z
     .string()
     .regex(/^[0-9+\-\s()]{7,20}$/, "Số điện thoại không hợp lệ")
     .optional(),
   agreeTerms: z.boolean().refine((val) => val === true, "Bạn phải đồng ý điều khoản"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Mật khẩu xác nhận không khớp",
+  path: ["confirmPassword"],
 });
 
 export const loginSchema = z.object({
@@ -94,7 +98,7 @@ export const coralUpdateSchema = z.object({
   notes: z.string().max(2000, "Ghi chú tối đa 2000 ký tự").optional(),
   images: z
     .array(z.string().min(1, "URL ảnh không được để trống"))
-    .min(0)
+    .min(1, "Cần ít nhất 1 ảnh")
     .max(5, "Tối đa 5 ảnh"),
   videoUrl: z.string().min(1).optional().nullable(),
 });

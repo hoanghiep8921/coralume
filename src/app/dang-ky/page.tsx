@@ -3,6 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema, type RegisterInput } from '@/lib/validation';
+import { PasswordInput } from '@/components/ui/PasswordInput';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -24,9 +25,11 @@ export default function RegisterPage() {
       fullName: '',
       email: '',
       password: '',
+      confirmPassword: '',
       phone: '',
       agreeTerms: false,
     },
+    mode: 'onChange', // ← Real-time validation
   });
 
   const password = watch('password', '');
@@ -177,7 +180,45 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* Phone */}
+          {/* Password with visibility toggle + strength meter (SRS AU-02: before confirmPassword) */}
+          <div className="space-y-1">
+            <PasswordInput
+              id="password"
+              label="Mật khẩu"
+              autoComplete="new-password"
+              placeholder="Tối thiểu 8 ký tự"
+              error={errors.password?.message}
+              {...register('password')}
+            />
+            {/* Password strength meter */}
+            {password && (
+              <div className="space-y-1 pt-1">
+                <div className="flex gap-1">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className={`h-1 flex-1 rounded-full transition-colors duration-fast ${
+                        i <= strength.level ? strength.color : 'bg-outline-variant'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <p className="text-xs text-on-surface-variant">Độ mạnh: {strength.label}</p>
+              </div>
+            )}
+          </div>
+
+          {/* Confirm Password */}
+          <PasswordInput
+            id="confirmPassword"
+            label="Xác nhận mật khẩu"
+            autoComplete="new-password"
+            placeholder="Nhập lại mật khẩu"
+            error={errors.confirmPassword?.message}
+            {...register('confirmPassword')}
+          />
+
+          {/* Phone (SRS AU-02: tuỳ chọn) */}
           <div className="space-y-1">
             <label htmlFor="phone" className="block text-sm font-medium text-on-surface">
               Số điện thoại <span className="text-on-surface-variant">(tuỳ chọn)</span>
@@ -201,49 +242,6 @@ export default function RegisterPage() {
               <p id="phone-error" className="text-sm text-error" role="alert">
                 {errors.phone.message}
               </p>
-            )}
-          </div>
-
-          {/* Password */}
-          <div className="space-y-1">
-            <label htmlFor="password" className="block text-sm font-medium text-on-surface">
-              Mật khẩu
-            </label>
-            <input
-              id="password"
-              type="password"
-              autoComplete="new-password"
-              {...register('password')}
-              className={`block w-full rounded-lg border px-3 py-2.5 text-base font-body transition-colors duration-fast
-                ${errors.password
-                  ? 'border-error focus:border-error'
-                  : 'border-outline-variant focus:border-primary'
-                }
-                outline-none focus:ring-2 focus:ring-secondary/20`}
-              placeholder="Tối thiểu 8 ký tự"
-              aria-invalid={!!errors.password}
-              aria-describedby={errors.password ? 'password-error' : undefined}
-            />
-            {errors.password && (
-              <p id="password-error" className="text-sm text-error" role="alert">
-                {errors.password.message}
-              </p>
-            )}
-            {/* Password strength meter */}
-            {password && (
-              <div className="space-y-1">
-                <div className="flex gap-1">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className={`h-1 flex-1 rounded-full transition-colors duration-fast ${
-                        i <= strength.level ? strength.color : 'bg-outline-variant'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <p className="text-xs text-on-surface-variant">Độ mạnh: {strength.label}</p>
-              </div>
             )}
           </div>
 

@@ -3,8 +3,11 @@
 import { useInView } from '@/hooks/useInView';
 
 /**
- * About Hero Section — full-height parallax hero
- * Stitch ref: coralume_our_story lines 141-153
+ * SRS A-01: About Hero Section
+ *
+ * Headline: "Chúng tôi không phải tổ chức từ thiện.
+ *            Chúng tôi là một cách khác để bảo vệ đại dương."
+ * With line-by-line reveal animation (Design Spec 4.3.15)
  */
 export function AboutHeroSection() {
   const { ref, isInView } = useInView(0.1);
@@ -29,25 +32,36 @@ export function AboutHeroSection() {
           Sứ mệnh của chúng tôi
         </span>
 
-        <h1
-          className={`font-display text-display-lg-mobile md:text-display-lg text-primary mb-6 transition-all duration-slow ${
-            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
-          }`}
-          style={{ transitionDelay: '150ms' }}
-        >
-          Khi Khoa học{' '}
-          <span className="md:block">gặp gỡ Sự tận tâm</span>
+        {/* Line-by-line reveal (SRS A-01, Design Spec 4.3.15) */}
+        <h1 className="font-heading-serif text-display-lg-mobile md:text-display-lg text-primary mb-6 leading-tight">
+          <span
+            className={`block transition-all duration-slow ${
+              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
+            }`}
+            style={{ transitionDelay: '150ms' }}
+          >
+            Chúng tôi không phải tổ chức từ thiện.
+          </span>
+          <span
+            className={`block mt-2 transition-all duration-slow ${
+              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
+            }`}
+            style={{ transitionDelay: '400ms' }}
+          >
+            Chúng tôi là một cách khác để{' '}
+            <span className="text-secondary italic">bảo vệ đại dương.</span>
+          </span>
         </h1>
 
         <p
           className={`font-body-lg text-body-lg text-on-surface-variant opacity-90 max-w-2xl mx-auto transition-all duration-slow ${
             isInView ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-[20px]'
           }`}
-          style={{ transitionDelay: '300ms' }}
+          style={{ transitionDelay: '650ms' }}
         >
-          Tại Coralume, chúng tôi không chỉ bảo tồn; chúng tôi kiến tạo một tương lai
-          bền vững cho đại dương thông qua sự kết hợp giữa dữ liệu chính xác và niềm
-          đam mê bản địa.
+          Tại Coralume, chúng tôi kết hợp dữ liệu khoa học chính xác với niềm đam mê
+          bản địa — tạo ra một mô hình bảo tồn nơi mỗi người đều có thể tham gia và
+          nhìn thấy tác động thực sự của mình.
         </p>
       </div>
     </section>

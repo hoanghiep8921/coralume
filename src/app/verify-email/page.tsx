@@ -78,15 +78,22 @@ function VerifyEmailContent() {
         {status === 'error' && 'Xác thực không thành công'}
       </h2>
 
-      <p className="text-on-surface-variant mb-6">{message}</p>
+      {status !== 'success' && (
+        <p className="text-on-surface-variant mb-6">{message}</p>
+      )}
 
       {status === 'success' && (
-        <Link
-          href="/dashboard"
-          className="inline-block bg-secondary hover:bg-secondary-container text-on-secondary font-semibold py-3 px-6 rounded-lg transition-all duration-normal hover:-translate-y-0.5 shadow-button"
-        >
-          Vào Dashboard
-        </Link>
+        <>
+          <p className="text-on-surface-variant mb-6">
+            Tài khoản của bạn đã được kích hoạt.
+          </p>
+          <Link
+            href="/dang-nhap"
+            className="inline-block bg-secondary hover:bg-secondary-container text-on-secondary font-semibold py-3 px-6 rounded-lg transition-all duration-normal hover:-translate-y-0.5 shadow-button"
+          >
+            Đăng nhập
+          </Link>
+        </>
       )}
 
       {status === 'error' && (

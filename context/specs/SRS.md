@@ -248,46 +248,49 @@ Third-party: VNPay/MoMo, Email (Resend/SES), Maps, GA4
 ### 3.4 Auth — Đăng Nhập / Đăng Ký
 
 #### FR-030: Register
-- **Mô tả:** Form đăng ký — họ tên, email, mật khẩu, SĐT, đồng ý điều khoản
+- **Mô tả:** Form đăng ký — họ tên, email, mật khẩu, xác nhận mật khẩu, SĐT, đồng ý điều khoản
 - **Acceptance Criteria:**
-  - [ ] Họ tên: tối thiểu 2 ký tự
-  - [ ] Email: format hợp lệ, uniqueness check
-  - [ ] Mật khẩu: tối thiểu 8 ký tự, strength meter
-  - [ ] SĐT: tuỳ chọn, format Việt Nam
-  - [ ] Checkbox đồng ý điều khoản (bắt buộc)
-  - [ ] Submit → Gửi email verify
-  - [ ] Success state: "Kiểm tra email của bạn"
-  - [ ] Google OAuth (tuỳ chọn)
+  - [x] Họ tên: tối thiểu 2 ký tự
+  - [x] Email: format hợp lệ, uniqueness check
+  - [x] Mật khẩu: tối thiểu 8 ký tự, strength meter (4 levels: Yếu → Mạnh)
+  - [x] Xác nhận mật khẩu: Zod refinement check khớp với password
+  - [x] SĐT: tuỳ chọn, format Việt Nam
+  - [x] Checkbox đồng ý điều khoản (bắt buộc)
+  - [x] Submit → Gửi email verify
+  - [x] Success state: "Kiểm tra email của bạn"
 
 #### FR-031: Login
-- **Mô tả:** Form đăng nhập — email, mật khẩu
+- **Mô tả:** Form đăng nhập — email, mật khẩu, Google OAuth
 - **Acceptance Criteria:**
-  - [ ] Email + mật khẩu
-  - [ ] Link "Quên mật khẩu?"
-  - [ ] Link "Đăng ký mới"
-  - [ ] Remember-me 30 ngày
+  - [x] Email + mật khẩu
+  - [x] Link "Quên mật khẩu?"
+  - [x] Link "Đăng ký mới"
+  - [x] Google OAuth button với "hoặc" divider
+  - [x] Remember-me 30 ngày (cookie maxAge mặc định)
+  - [x] OAuth error handling: 7 error codes → Vietnamese messages
+  - [x] Validation realtime (react-hook-form + zod)
 
 #### FR-032: Forgot Password
 - **Mô tả:** Nhập email → Nhận link reset
 - **Acceptance Criteria:**
-  - [ ] Không reveal email tồn tại (anti-enumeration)
-  - [ ] Link reset expiry: 15 phút
+  - [x] Không reveal email tồn tại (anti-enumeration)
+  - [x] Link reset expiry: 15 phút
 
 #### FR-033: Email Verification
 - **Mô tả:** BẮT BUỘC verify email trước khi thanh toán
 - **Acceptance Criteria:**
-  - [ ] Click link verify → Auto verify
-  - [ ] Token expiry: 24h
-  - [ ] Success → Redirect dashboard
-  - [ ] Error → Hướng dẫn đăng ký lại
+  - [x] Click link verify → Auto verify
+  - [x] Token expiry: 24h
+  - [x] Success → Text "Tài khoản của bạn đã được kích hoạt. [Đăng nhập]"
+  - [x] Error → Hướng dẫn đăng ký lại
 
 #### FR-034: Session Management
 - **Mô tả:** JWT httpOnly cookie, remember-me 30 ngày
 - **Acceptance Criteria:**
-  - [ ] Token lưu trong httpOnly cookie (KHÔNG localStorage)
-  - [ ] Secure flag trong production
-  - [ ] SameSite: lax
-  - [ ] Expiry: 30d
+  - [x] Token lưu trong httpOnly cookie (KHÔNG localStorage)
+  - [x] Secure flag trong production
+  - [x] SameSite: lax
+  - [x] Expiry: 30d
 
 ---
 
@@ -568,59 +571,69 @@ Third-party: VNPay/MoMo, Email (Resend/SES), Maps, GA4
 #### FR-110: POST /api/v1/auth/register
 - **Mô tả:** Đăng ký tài khoản mới
 - **Acceptance Criteria:**
-  - [ ] Validate: fullName, email, password, phone, agreeTerms
-  - [ ] Check email uniqueness
-  - [ ] Hash password (bcrypt, 12 rounds)
-  - [ ] Create user (role=adopter, isVerified=false)
-  - [ ] Create email verification token (24h expiry)
-  - [ ] Create JWT, set httpOnly cookie (30d)
-  - [ ] Response: user data (không trả password hash)
-  - [ ] 409 nếu email đã tồn tại
+  - [x] Validate: fullName, email, password, confirmPassword, phone, agreeTerms
+  - [x] Check email uniqueness
+  - [x] Hash password (bcrypt, 12 rounds)
+  - [x] Create user (role=adopter, isVerified=false)
+  - [x] Create email verification token (24h expiry)
+  - [x] Create JWT, set httpOnly cookie (30d)
+  - [x] Response: user data (không trả password hash)
+  - [x] 409 nếu email đã tồn tại
 
 #### FR-111: POST /api/v1/auth/login
 - **Mô tả:** Đăng nhập
 - **Acceptance Criteria:**
-  - [ ] Validate: email, password
-  - [ ] Find user + verify password
-  - [ ] 401 nếu sai credentials hoặc account không active
-  - [ ] Create JWT, set httpOnly cookie
-  - [ ] Response: user data + role + isVerified
+  - [x] Validate: email, password
+  - [x] Find user + verify password
+  - [x] 401 nếu sai credentials hoặc account không active
+  - [x] Create JWT, set httpOnly cookie
+  - [x] Response: user data + role + isVerified
 
 #### FR-112: POST /api/v1/auth/logout
 - **Mô tả:** Đăng xuất
 - **Acceptance Criteria:**
-  - [ ] Clear token cookie (maxAge=0)
+  - [x] Clear token cookie (maxAge=0)
 
 #### FR-113: POST /api/v1/auth/verify-email
 - **Mô tả:** Xác thực email
 - **Acceptance Criteria:**
-  - [ ] Validate verify token (24h expiry)
-  - [ ] Update user.isVerified = true
-  - [ ] Create new JWT with isVerified=true
-  - [ ] 400 nếu token hết hạn/không hợp lệ
+  - [x] Validate verify token (24h expiry)
+  - [x] Update user.isVerified = true
+  - [x] Create new JWT with isVerified=true
+  - [x] 400 nếu token hết hạn/không hợp lệ
 
 #### FR-114: POST /api/v1/auth/forgot-password
 - **Mô tả:** Gửi link reset password
 - **Acceptance Criteria:**
-  - [ ] Validate email
-  - [ ] Create reset token (15m expiry)
-  - [ ] KHÔNG reveal email tồn tại (anti-enumeration)
-  - [ ] Luôn trả về: "Nếu email tồn tại, bạn sẽ nhận được link..."
+  - [x] Validate email
+  - [x] Create reset token (15m expiry)
+  - [x] KHÔNG reveal email tồn tại (anti-enumeration)
+  - [x] Luôn trả về: "Nếu email tồn tại, bạn sẽ nhận được link..."
 
 #### FR-115: POST /api/v1/auth/reset-password
 - **Mô tả:** Đặt lại mật khẩu
 - **Acceptance Criteria:**
-  - [ ] Validate reset token (15m expiry)
-  - [ ] Validate new password (min 8 chars)
-  - [ ] Hash + update password
-  - [ ] 400 nếu token hết hạn
+  - [x] Validate reset token (15m expiry)
+  - [x] Validate new password (min 8 chars)
+  - [x] Hash + update password
+  - [x] 400 nếu token hết hạn
 
 #### FR-116: GET / PUT /api/v1/me
 - **Mô tả:** Lấy/cập nhật profile người dùng hiện tại
 - **Acceptance Criteria:**
-  - [ ] GET: Return user data (không password hash)
-  - [ ] PUT: Validate input, update profile
-  - [ ] 401 nếu chưa đăng nhập
+  - [x] GET: Return user data (không password hash)
+  - [x] PUT: Validate input, update profile
+  - [x] 401 nếu chưa đăng nhập
+
+#### FR-117: GET /api/v1/auth/google + GET /api/v1/auth/google/callback
+- **Mô tả:** Google OAuth 2.0 — redirect sang Google + callback xử lý
+- **Acceptance Criteria:**
+  - [x] GET /api/v1/auth/google → Redirect Google OAuth consent screen
+  - [x] GET /api/v1/auth/google/callback → Exchange code, fetch user info
+  - [x] Find or create user (auto-verify nếu Google email_verified=true)
+  - [x] Block nếu user.isActive=false
+  - [x] Set JWT cookie + redirect /dashboard
+  - [x] 501 nếu GOOGLE_CLIENT_ID chưa cấu hình
 
 ---
 
@@ -756,9 +769,12 @@ Third-party: VNPay/MoMo, Email (Resend/SES), Maps, GA4
 | GET | /api/v1/impact/totals | No | Impact tổng hợp |
 | POST | /api/v1/auth/register | No | Đăng ký |
 | POST | /api/v1/auth/login | No | Đăng nhập |
+| POST | /api/v1/auth/logout | No | Đăng xuất |
 | POST | /api/v1/auth/forgot-password | No | Quên mật khẩu |
 | POST | /api/v1/auth/reset-password | No | Reset mật khẩu |
-| GET | /api/v1/auth/verify-email/:token | No | Verify email |
+| POST | /api/v1/auth/verify-email | No | Verify email (token trong body) |
+| GET | /api/v1/auth/google | No | Google OAuth — redirect |
+| GET | /api/v1/auth/google/callback | No | Google OAuth — callback |
 | POST | /api/v1/contact | No | Form liên hệ |
 
 ### 6.2 Authenticated Endpoints (Adopter)

@@ -1,33 +1,36 @@
 import Link from 'next/link';
 
+/** SRS H-21: Ve chung toi, San pham, Blog, Cong dong, Lien he */
 const FOOTER_LINKS = [
-  { href: '/ve-chung-toi', label: 'Impact Report' },
-  { href: '#', label: 'Privacy Policy' },
-  { href: '/ve-chung-toi', label: 'Nha Trang Center' },
-  { href: 'mailto:hello@coralume.vn', label: 'Contact' },
+  { href: '/ve-chung-toi', label: 'Về chúng tôi' },
+  { href: '/san-pham', label: 'Sản phẩm' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/cong-dong', label: 'Cộng đồng' },
+  { href: 'mailto:hello@coralume.vn', label: 'Liên hệ' },
 ];
 
 export function Footer() {
   return (
     <footer className="bg-primary py-[var(--spacing-stack-lg)] mt-24">
       <div className="flex flex-col md:flex-row justify-between items-center px-[var(--spacing-margin-mobile)] md:px-[var(--spacing-margin-desktop)] w-full max-w-[var(--spacing-container-max)] mx-auto gap-8">
-        {/* Left: Logo + Copyright */}
+        {/* Left: Logo + Slogan */}
         <div className="flex flex-col items-center md:items-start gap-4">
           <Link href="/" className="font-headline-md text-headline-md text-on-primary font-bold tracking-tight">
             Coralume
           </Link>
+          {/* SRS H-20 */}
           <p className="text-on-primary/80 font-body-md text-center md:text-left max-w-xs">
-            © 2024 Coralume. Premium Stewardship for Our Oceans.
+            Nhận nuôi san hô — Gieo mầm cho đại dương
           </p>
         </div>
 
-        {/* Center: Links */}
+        {/* Center: Links (SRS H-21) */}
         <div className="flex flex-wrap justify-center gap-8">
           {FOOTER_LINKS.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="text-on-primary/80 hover:text-secondary-fixed transition-colors duration-fast font-label-sm uppercase tracking-wider"
+              className="text-on-primary/80 hover:text-secondary-fixed transition-colors duration-fast font-label-sm"
             >
               {link.label}
             </Link>
@@ -68,6 +71,13 @@ export function Footer() {
             </svg>
           </a>
         </div>
+      </div>
+
+      {/* Copyright (SRS H-23) */}
+      <div className="text-center mt-8 px-[var(--spacing-margin-mobile)]">
+        <p className="text-on-primary/60 font-body-sm text-sm">
+          © 2026 Coralume. Đối tác: Trung tâm san hô Nha Trang
+        </p>
       </div>
     </footer>
   );

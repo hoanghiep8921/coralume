@@ -1,7 +1,12 @@
 'use client';
 
 /**
- * FR-003: How It Works — "Your Stewardship Journey" from Stitch
+ * SRS FR-003: How It Works — "Cách Coralume hoạt động" (SRS H-10)
+ *
+ * 3 steps (SRS H-11, H-12, H-13):
+ * 1. Chọn san hô của bạn
+ * 2. Đặt tên và nhận chứng nhận
+ * 3. Theo dõi hành trình phát triển
  *
  * 2-column layout (desktop):
  * - Left: 3 steps with numbered circles
@@ -13,21 +18,21 @@ export function HowItWorksSection() {
   const steps = [
     {
       number: '01',
-      title: 'Select Your Coral',
+      title: 'Chọn san hô của bạn',
       description:
-        'Browse our active nursery beds and choose a specimen that resonates with you. Each coral has a unique biological profile.',
+        'Duyệt qua các vườn ươm đang hoạt động của chúng tôi và chọn một mẫu san hô phù hợp. Mỗi san hô có một hồ sơ sinh học riêng biệt.',
     },
     {
       number: '02',
-      title: 'Name & Dedicate',
+      title: 'Đặt tên và nhận chứng nhận',
       description:
-        'Make it personal. Give your coral a name and dedicate it to a loved one or a significant moment in your life.',
+        'Cá nhân hóa trải nghiệm. Đặt tên cho san hô của bạn và nhận chứng nhận kỹ thuật số. Một món quà ý nghĩa cho người thân yêu.',
     },
     {
       number: '03',
-      title: 'Track Personal Growth',
+      title: 'Theo dõi hành trình phát triển',
       description:
-        'Receive quarterly 3D scans and high-resolution growth reports of your specific coral, directly from our Nha Trang divers.',
+        'Nhận báo cáo tăng trưởng và hình ảnh độ phân giải cao của san hô, trực tiếp từ đội ngũ thợ lặn của chúng tôi tại Nha Trang.',
     },
   ];
 
@@ -37,10 +42,11 @@ export function HowItWorksSection() {
         {/* Left: Steps */}
         <div>
           <span className="text-secondary font-label-sm uppercase tracking-widest mb-2 block">
-            The Experience
+            Quy trình
           </span>
+          {/* SRS H-10 */}
           <h2 className="font-heading-serif text-display-lg-mobile md:text-display-lg text-primary mb-8">
-            Your Stewardship Journey
+            Cách Coralume hoạt động
           </h2>
           <div className="space-y-12">
             {steps.map((step) => (
@@ -75,11 +81,11 @@ export function HowItWorksSection() {
 
           {/* Testimonial Card Overlay */}
           <div className="absolute -bottom-4 md:-bottom-8 -left-0 md:-left-8 bg-surface-container-lowest p-6 rounded-2xl premium-shadow border border-surface-container max-w-xs">
-            <p className="text-secondary font-label-sm uppercase mb-2">Live Update</p>
+            <p className="text-secondary font-label-sm uppercase mb-2">Cập nhật mới nhất</p>
             <p className="font-heading-serif italic text-primary">
-              &ldquo;My coral, &apos;Aurora&apos;, has grown 2.4cm in just three months! Seeing the data makes it so real.&rdquo;
+              &ldquo;San hô &apos;Hải Đăng&apos; của tôi đã phát triển được 2.4cm chỉ trong ba tháng! Nhìn thấy dữ liệu thật tuyệt vời.&rdquo;
             </p>
-            <p className="font-label-sm text-on-surface-variant mt-4">— Sarah J., Adopter since 2023</p>
+            <p className="font-label-sm text-on-surface-variant mt-4">— Minh Anh, nhận nuôi từ 2024</p>
           </div>
         </div>
       </div>

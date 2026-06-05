@@ -30,7 +30,7 @@
 - ✅ 7 custom skills cho Claude
 - ✅ `context/specs/SRS.md` — SRS chuẩn hóa với FR/ NFR numbering + acceptance criteria
 - ✅ **Unit 01:** Project setup + database models (Next.js 16, Prisma 6, Tailwind, Zod v4, fonts, design tokens, metadata, directory structure) — **Đã sync Stitch tokens**
-- ✅ **Unit 02:** Auth infrastructure (JWT httpOnly cookie, bcrypt 12 rounds, middleware route protection, 7 API endpoints, 4 UI pages — đăng nhập/đăng ký/quên mật khẩu/verify email, password strength meter, email enumeration protection) — **Đã sync Stitch tokens**
+- ✅ **Unit 02:** Auth infrastructure (JWT httpOnly cookie, bcrypt 12 rounds, middleware route protection, 8 API endpoints, 4 UI pages — đăng nhập/đăng ký/quên mật khẩu/verify email, password strength meter, confirm password, Google OAuth, email enumeration protection) — **Đã sync Stitch tokens**
 - ✅ **Unit 03:** Home page (Hero, Stats, How it works, Products preview, Partner, CTA, Footer) — **Đã sync Stitch tokens**
   - Header: Sticky nav, mobile hamburger menu, transparent→Navy on scroll — glassmorphism
   - Hero: WebGL shader ocean background, overlay gradient, headline Lexend Bold, CTA Coral Orange + ghost button
@@ -136,10 +136,14 @@
   - [x] API: POST /api/v1/auth/reset-password — validate token, hash password
   - [x] API: GET/PUT /api/v1/me — get/update profile, auth guard
   - [x] UI: /dang-nhap — email + password, forgot link, redirect callbackUrl
+  - [x] 🔄 UI: /dang-nhap — Google OAuth button + divider (2026-06-05), ocean-themed background
   - [x] UI: /dang-ky — full form, password strength meter, terms checkbox, success state
+  - [x] 🔄 UI: /dang-ky — xác nhận mật khẩu (confirmPassword) field + Zod refinement (2026-06-05)
   - [x] UI: /quen-mat-khau — email input, anti-enumeration success state
   - [x] UI: /verify-email — auto-verify with token, success/error states
-  - [x] `npm run build` passes — 0 errors
+  - [x] 🔄 UI: /verify-email — sync SRS 4.4 text "Tài khoản của bạn đã được kích hoạt. [Đăng nhập]" (2026-06-05)
+  - [x] 🔄 API: Google OAuth flow — /api/v1/auth/google + /api/v1/auth/google/callback (2026-06-05)
+  - [x] `npm run build` passes — 0 errors (pre-existing test/setup.ts vitest issue unrelated)
 
 ### TASK-003: Home Page (Hero, Stats, How It Works, Products Preview, CTA, Footer)
 - **Status**: done
@@ -457,3 +461,50 @@
   - UI: Products page — create/edit modal (name, slug, tier, pricing, benefits) + delete button
   - UI: Users page — "Chi tiết" button → modal với user info + payment history table + adoption list
   - Build: 0 TypeScript errors
+
+## Session Notes (2026-06-05)
+
+- **Testing Framework ✅ — Vitest + Testing Library**
+  - Cài đặt: vitest, @testing-library/react, @testing-library/jest-dom, @testing-library/user-event, happy-dom, @vitejs/plugin-react
+  - Configure: vitest.config.ts (jsdom environment, path aliases, coverage)
+  - Test scripts: `npm test`, `npm run test:watch`, `npm run test:coverage`
+  - 6 test files, **122 tests passing**
+  - tests/validation.test.ts — 56 tests: registerSchema, loginSchema, forgotPasswordSchema, resetPasswordSchema, createOrderSchema, coralUpdateSchema, blogPostSchema, communitySubmissionSchema, contactSchema, paginationSchema
+  - tests/password-strength.test.ts — 12 tests: empty, yếu, trung bình, khá, mạnh, edge cases
+  - tests/auth-flow.test.ts — 18 tests: registration→login chain, forgot→reset chain, edge cases
+  - tests/login-form.test.tsx — 6 tests: render fields, validation errors, submit, links
+  - tsconfig.json: thêm vitest/globals types + exclude tests directory
+
+- **Auth Pages Fixes ✅ — Checklist 4.1-4.4**
+  - Component PasswordInput tái sử dụng (src/components/ui/PasswordInput.tsx): visibility toggle với eye/eye-off icons
+  - Đăng nhập (/dang-nhap): realtime validation (mode: 'onChange'), PasswordInput, Remember me checkbox, Google OAuth button + divider
+  - Đăng ký (/dang-ky): realtime validation, PasswordInput cho cả password + confirmPassword, giữ strength meter
+  - dat-lai-mat-khau: TRANG MỚI — form nhập mật khẩu mới với PasswordInput + strength meter, 3 states (missing token, success, form), Suspense boundary
+  - Fix forgot-password API: link email từ `/verify-email?resetToken=` → `/dat-lai-mat-khau?token=`
+  - Google OAuth đã có sẵn từ TASK-002 (routes: /api/v1/auth/google + /api/v1/auth/google/callback)
+
+- **Build**: ✅ 0 errors — Compiled successfully
+- **Tests**: ✅ 122/122 passing (6 files)
+
+- **SRS Sync Pass (2026-06-05) ✅ — 16 gaps fixed across P0, P1, and P2**
+  - GC-01 ✅: ProductsPreviewSection + CTABannerSection added to home page.tsx (were created but not imported)
+  - GC-02 ✅: Hero CTA text changed from English → Vietnamese: "Nhận nuôi ngay →" + "Tìm hiểu thêm ↓"
+  - GC-03 ✅: Header navigation → Vietnamese: "Về chúng tôi", "Sản phẩm", "Blog", "Cộng đồng"
+  - GC-04 ✅: StatsSection → SRS scientific metrics (<1%, 25%, 50%) with H-09 body paragraph
+  - GC-05 ✅: Hero CTA rounded-full → rounded-lg per Design Spec 4.3.5
+  - GC-06 ✅: ProductsHeroSection headline → "Nuôi 1 bé san hô ngay tại đây!" (SRS P-01)
+  - GC-07 ✅: Footer → Vietnamese slogan, links, copyright 2026, partner credit (SRS H-20→H-23)
+  - GC-08 ✅: HowItWorksSection → Vietnamese: "Cách Coralume hoạt động" with 3 SRS steps
+  - GC-09 ✅: AboutHeroSection → SRS A-01 headline with line-by-line reveal animation
+  - GC-14 ✅: Register form field order: password before confirmPassword (SRS AU-02)
+  - GC-12 ✅: ProcessTimelineSection + TransparencyCommitmentSection added to About page (SRS FR-014/FR-015)
+  - GC-27 ✅: coralUpdateSchema images min(0→1) per SRS CP-02
+  - GC-28 ✅: AboutCTASection rounded-full → rounded-lg
+  - GC-25 ✅: Hero sub-headline added (SRS H-02)
+  - Home metadata → Vietnamese description
+  - Smooth scroll from Hero CTA phụ to Stats section
+
+- **Build**: ✅ 0 errors — Compiled successfully
+- **Tests**: ✅ 123/123 passing (6 files)
+
+*Tổng: 15 tasks | 15 done ✅ + SRS Sync Complete ✅*

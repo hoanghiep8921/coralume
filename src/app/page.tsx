@@ -2,16 +2,18 @@ import type { Metadata } from 'next';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { StatsSection } from '@/components/sections/StatsSection';
 import { HowItWorksSection } from '@/components/sections/HowItWorksSection';
+import { ProductsPreviewSection } from '@/components/sections/ProductsPreviewSection';
 import { PartnerSection } from '@/components/sections/PartnerSection';
+import { CTABannerSection } from '@/components/sections/CTABannerSection';
 
 export const metadata: Metadata = {
   title: 'Coralume — Nhận nuôi san hô, Gieo mầm cho đại dương',
   description:
-    'Premium Coral Stewardship — Adopt a coral in Nha Trang, Vietnam. Track growth, get quarterly reports. Your coral. Your story. Your impact.',
+    'Nhận nuôi san hô tại Nha Trang, Việt Nam. Theo dõi sự phát triển, nhận báo cáo hàng quý. San hô của bạn. Hành trình của bạn. Tác động của bạn.',
   openGraph: {
-    title: 'Coralume — Premium Coral Stewardship',
+    title: 'Coralume — Nhận nuôi san hô, Gieo mầm cho đại dương',
     description:
-      'Adopt a coral in Nha Trang, Vietnam. Track growth, get quarterly reports. Your coral. Your story. Your impact.',
+      'Nhận nuôi san hô tại Nha Trang, Việt Nam. Theo dõi sự phát triển, nhận báo cáo hàng quý.',
     url: 'https://coralume.vn',
     type: 'website',
   },
@@ -19,13 +21,16 @@ export const metadata: Metadata = {
 
 /**
  * Home Page — Coralume
- * Matches Stitch design: coralume_home_1/code.html
+ * SRS FR-001 → FR-007: 6 sections
  *
  * Sections:
  * 1. Hero (WebGL shader + gradient overlay + 2 CTAs)
- * 2. Stats ("Real Impact, Real Data" — 3 metric cards)
- * 3. How It Works ("Your Stewardship Journey" — 2-column)
- * 4. From Nha Trang with Love (masonry + CTA)
+ * 2. Stats (SRS FR-002: 3 scientific metrics)
+ * 3. How It Works (SRS FR-003: 3 steps)
+ * 4. Products Preview (SRS FR-004: 3 tier cards)
+ * 5. Partners (SRS FR-005: strategic partners)
+ * 6. CTA Banner (SRS FR-006: gradient + pulse)
+ * Footer in layout.tsx (SRS FR-007)
  */
 export default function HomePage() {
   return (
@@ -33,7 +38,9 @@ export default function HomePage() {
       <HeroSection />
       <StatsSection />
       <HowItWorksSection />
+      <ProductsPreviewSection />
       <PartnerSection />
+      <CTABannerSection />
     </main>
   );
 }

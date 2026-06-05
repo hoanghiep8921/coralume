@@ -77,7 +77,7 @@ Coralume là dự án "nhận nuôi san hô" theo mô hình behavioral economics
 | 5 | Blog / Kiến thức san hô | Education + SEO + credibility | Bài viết, infographic về san hô, biển, hệ sinh thái | Cần xây dựng |
 | 6 | Bảng xếp hạng (Leaderboard) | Gamification | Top adopter theo số san hô, theo tháng và toàn thời gian | Cần xây dựng |
 | 7 | Cộng đồng (Community) | Social proof, tăng cảm xúc | Ảnh/video adopter chia sẻ, feedback | Cần xây dựng |
-| 8 | Đăng nhập / Đăng ký | Xác thực người dùng | Login, Register, Forgot Password, Email Verification | Cần xây dựng |
+| 8 | Đăng nhập / Đăng ký | Xác thực người dùng | Login, Register, Forgot Password, Email Verification, Google OAuth | ✅ Đã xây dựng |
 | 9 | Trang thanh toán | Bước thanh toán sau chọn gói | Thông tin gói, form adopter, đặt tên san hô, chọn phương thức | Cần xây dựng |
 | 10 | Trang xác nhận / Cảm ơn | Sau thanh toán thành công | Certificate, link tải, CTA vào dashboard, email xác nhận | Cần xây dựng |
 | 11 | Admin Panel | Quản trị hệ thống | Quản lý user, sản phẩm, nội dung, doanh thu, analytics, báo cáo | Cần xây dựng |
@@ -616,11 +616,11 @@ Coralume là dự án "nhận nuôi san hô" theo mô hình behavioral economics
 
 | Hạng mục | Yêu cầu |
 |----------|---------|
-| Phương thức | Email + mật khẩu (bắt buộc), Google OAuth (nếu được), Facebook Login (tuỳ chọn) |
+| Phương thức | Email + mật khẩu (bắt buộc), Google OAuth (đã implement), Facebook Login (deferred — chưa triển khai) |
 | Email verification | BẮT BUỘC verify email trước khi cho phép thanh toán |
 | Forgot password | Flow chuẩn: nhập email → nhận link reset → đặt mật khẩu mới |
-| Session | JWT hoặc session cookie. Remember-me 30 ngày |
-| 2FA | Tuỳ chọn cho admin và nhân viên trung tâm (khuyến nghị bắt buộc cho admin) |
+| Session | JWT httpOnly cookie. Remember-me 30 ngày |
+| 2FA | Deferred — tuỳ chọn cho admin và nhân viên trung tâm (chưa triển khai) |
 
 ### 6.5 Email System
 
@@ -904,11 +904,13 @@ GET    /api/v1/impact/totals                     # Số liệu impact tổng h�
 POST   /api/v1/newsletter/subscribe              # Đăng ký newsletter
 POST   /api/v1/auth/register                     # Đăng ký
 POST   /api/v1/auth/login                        # Đăng nhập
+POST   /api/v1/auth/logout                       # Đăng xuất
 POST   /api/v1/auth/forgot-password              # Quên mật khẩu
 POST   /api/v1/auth/reset-password               # Reset mật khẩu
-GET    /api/v1/auth/verify-email/:token           # Verify email
-GET    /api/v1/auth/google/callback               # Google OAuth callback
-POST   /api/v1/contact                            # Form liên hệ
+POST   /api/v1/auth/verify-email                 # Verify email (token gửi trong body)
+GET    /api/v1/auth/google                       # Google OAuth — redirect
+GET    /api/v1/auth/google/callback              # Google OAuth — callback
+POST   /api/v1/contact                           # Form liên hệ
 ```
 
 ### 9.2 Authenticated API Endpoints (Adopter)

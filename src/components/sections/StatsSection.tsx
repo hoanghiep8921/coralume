@@ -1,138 +1,118 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import { useInView } from '@/hooks/useInView';
 import { useCountUp } from '@/hooks/useCountUp';
 
 function AnimatedNumber({
   target,
   suffix = '',
+  prefix = '',
   isInView,
+  decimals = 0,
 }: {
   target: number;
   suffix?: string;
+  prefix?: string;
   isInView: boolean;
+  decimals?: number;
 }) {
   const current = useCountUp(target, 2000, isInView);
   return (
     <span className="font-mono font-medium">
-      {current.toLocaleString('vi-VN')}
+      {prefix}
+      {current.toLocaleString('vi-VN', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}
       {suffix}
     </span>
   );
 }
 
 /**
- * FR-002: Stats Section — "Real Impact, Real Data" from Stitch
+ * SRS FR-002: Stats Section — "San hô — Nền tảng sự sống của đại dương"
  *
- * 3 stat cards with:
- * - Material Symbols icon
- * - Badge (Live Count / Community / Resilience)
- * - Big number with count-up animation
- * - Description text
- * - Progress bar / avatar stack / SVG chart
+ * 3 scientific stats from SRS H-06, H-07, H-08:
+ * - "< 1% — Tỉ lệ diện tích đáy biển mà san hô chiếm"
+ * - "25% — Lượng sinh vật biển phụ thuộc vào san hô"
+ * - "50% — Diện tích rạn san hô đã mất từ 1950 đến nay"
+ *
+ * Plus body text paragraph (SRS H-09)
  */
 export function StatsSection() {
   const { ref, isInView } = useInView(0.15, '-50px');
 
+  const stats = [
+    {
+      icon: 'water_drop',
+      value: 1,
+      prefix: '< ',
+      suffix: '%',
+      label: 'Tỉ lệ diện tích đáy biển mà san hô chiếm',
+      badge: 'Sinh thái',
+    },
+    {
+      icon: 'pets',
+      value: 25,
+      suffix: '%',
+      label: 'Lượng sinh vật biển phụ thuộc vào rạn san hô',
+      badge: 'Đa dạng sinh học',
+    },
+    {
+      icon: 'warning',
+      value: 50,
+      suffix: '%',
+      label: 'Diện tích rạn san hô đã mất từ 1950 đến nay',
+      badge: 'Khẩn cấp',
+    },
+  ];
+
   return (
-    <section ref={ref} className="py-24 px-[var(--spacing-margin-desktop)] max-w-[var(--spacing-container-max)] mx-auto">
-      {/* Section Header */}
-      <div className="text-center mb-16">
-        <span className="text-secondary font-label-sm uppercase tracking-widest mb-2 block">
-          Transparency & Science
-        </span>
-        <h2 className="font-heading-serif text-headline-md md:text-display-lg text-primary">
-          Real Impact, Real Data
+    <section
+      id="stats-section"
+      ref={ref}
+      className="py-24 px-[var(--spacing-margin-mobile)] md:px-[var(--spacing-margin-desktop)] max-w-[var(--spacing-container-max)] mx-auto"
+    >
+      {/* Section Header (SRS H-05) */}
+      <div className="text-center mb-12">
+        <h2 className="font-heading-serif text-headline-md md:text-display-lg text-primary mb-6">
+          San hô — Nền tảng sự sống của đại dương
         </h2>
+        {/* Body text (SRS H-09) */}
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto leading-relaxed">
+          San hô không chỉ là những rạn đá ngầm đầy màu sắc. Chúng là nền tảng của hệ sinh thái
+          biển — nơi cư trú, sinh sản và kiếm ăn của hàng triệu loài sinh vật. Tuy nhiên, biến đổi
+          khí hậu, ô nhiễm và khai thác quá mức đang đe dọa sự tồn tại của chúng với tốc độ chưa
+          từng có. Mỗi hành động nhỏ hôm nay sẽ quyết định tương lai của đại dương ngày mai.
+        </p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Stat Card 1: Corals Adopted */}
-        <div className="bg-white p-8 rounded-xl premium-shadow border border-surface-container">
-          <div className="flex justify-between items-start mb-6">
-            <span className="material-symbols-outlined text-secondary text-4xl" aria-hidden="true">
-              water_drop
-            </span>
-            <span className="bg-tertiary-container/10 text-tertiary px-3 py-1 rounded-full font-mono text-xs uppercase">
-              Live Count
-            </span>
-          </div>
-          <div className="font-mono text-4xl text-primary mb-2">
-            <AnimatedNumber target={500} suffix="+" isInView={isInView} />
-          </div>
-          <p className="font-body-md text-on-surface-variant">
-            Corals Adopted into our Nha Trang nurseries this year.
-          </p>
-          <div className="mt-6 pt-6 border-t border-surface-container">
-            <div className="flex justify-between text-xs font-label-sm mb-2">
-              <span>Restoration Target</span>
-              <span>84%</span>
+        {stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="bg-white p-8 rounded-xl premium-shadow border border-surface-container"
+          >
+            <div className="flex justify-between items-start mb-6">
+              <span
+                className="material-symbols-outlined text-secondary text-4xl"
+                aria-hidden="true"
+              >
+                {stat.icon}
+              </span>
+              <span className="bg-tertiary-container/10 text-tertiary px-3 py-1 rounded-full font-mono text-xs uppercase">
+                {stat.badge}
+              </span>
             </div>
-            <div className="coral-progress-bar w-full">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-secondary to-secondary-fixed-dim"
-                style={{ width: '84%', height: '8px' }}
+            <div className="text-4xl font-bold text-primary mb-3">
+              <AnimatedNumber
+                target={stat.value}
+                prefix={stat.prefix || ''}
+                suffix={stat.suffix}
+                isInView={isInView}
               />
             </div>
+            <p className="font-body-md text-on-surface-variant">{stat.label}</p>
           </div>
-        </div>
-
-        {/* Stat Card 2: Adopters Worldwide */}
-        <div className="bg-white p-8 rounded-xl premium-shadow border border-surface-container">
-          <div className="flex justify-between items-start mb-6">
-            <span className="material-symbols-outlined text-secondary text-4xl" aria-hidden="true">
-              public
-            </span>
-            <span className="bg-tertiary-container/10 text-tertiary px-3 py-1 rounded-full font-mono text-xs uppercase">
-              Community
-            </span>
-          </div>
-          <div className="font-mono text-4xl text-primary mb-2">
-            <AnimatedNumber target={1200} isInView={isInView} />
-            <span className="text-2xl">+</span>
-          </div>
-          <p className="font-body-md text-on-surface-variant">
-            Adopters Worldwide joining the stewardship movement.
-          </p>
-          <div className="mt-6 flex gap-2">
-            <div className="w-8 h-8 rounded-full bg-secondary-fixed" />
-            <div className="w-8 h-8 rounded-full bg-primary-fixed" />
-            <div className="w-8 h-8 rounded-full bg-tertiary-fixed" />
-            <div className="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-[10px] font-bold">
-              +1k
-            </div>
-          </div>
-        </div>
-
-        {/* Stat Card 3: Survival Rate */}
-        <div className="bg-white p-8 rounded-xl premium-shadow border border-surface-container">
-          <div className="flex justify-between items-start mb-6">
-            <span className="material-symbols-outlined text-secondary text-4xl" aria-hidden="true">
-              eco
-            </span>
-            <span className="bg-tertiary-container/10 text-tertiary px-3 py-1 rounded-full font-mono text-xs uppercase">
-              Resilience
-            </span>
-          </div>
-          <div className="font-mono text-4xl text-primary mb-2">
-            <AnimatedNumber target={98} suffix="%" isInView={isInView} />
-          </div>
-          <p className="font-body-md text-on-surface-variant">
-            Survival Rate monitored by our expert marine biologists.
-          </p>
-          <div className="mt-6">
-            <svg className="w-full h-12" viewBox="0 0 200 40">
-              <path
-                d="M0 35 Q 20 30, 40 32 T 80 20 T 120 25 T 160 10 T 200 15"
-                fill="none"
-                stroke="var(--color-surface-tint, #306576)"
-                strokeWidth="2"
-              />
-            </svg>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

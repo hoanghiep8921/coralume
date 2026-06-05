@@ -34,8 +34,8 @@ export function ProductsHeroSection() {
         }`}
         style={{ transitionDelay: '100ms' }}
       >
-        Chọn Hệ Sinh Thái{' '}
-        <span className="md:block italic text-secondary">Của Riêng Bạn</span>
+        Nuôi 1 bé san hô{' '}
+        <span className="md:block italic text-secondary">ngay tại đây!</span>
       </h1>
 
       {/* Sub-headline */}

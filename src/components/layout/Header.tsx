@@ -4,11 +4,12 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { UserMenu } from './UserMenu';
 
+/** SRS H-21: Ve chung toi, San pham, Blog, Cong dong */
 const NAV_LINKS = [
-  { href: '/san-pham', label: 'Adopt' },
-  { href: '/dashboard', label: 'Dashboard' },
-  { href: '/ve-chung-toi', label: 'Nha Trang' },
-  { href: '/cong-dong', label: 'Community' },
+  { href: '/ve-chung-toi', label: 'Về chúng tôi' },
+  { href: '/san-pham', label: 'Sản phẩm' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/cong-dong', label: 'Cộng đồng' },
 ];
 
 export function Header() {
@@ -62,7 +63,7 @@ export function Header() {
         <button
           className="md:hidden text-primary p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={isMobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
           aria-expanded={isMobileMenuOpen}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,10 +92,10 @@ export function Header() {
             ))}
             <Link
               href="/san-pham"
-              className="block text-center bg-secondary text-on-secondary px-6 py-3 rounded-full font-medium hover:scale-95 transition-transform duration-fast"
+              className="block text-center bg-secondary text-on-secondary px-6 py-3 rounded-lg font-medium hover:scale-95 transition-transform duration-fast"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Adopt Your Coral
+              Nhận nuôi ngay
             </Link>
           </div>
         </div>

@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     // 3. Create reset token & send via Resend
     const resetToken = await createResetToken(user.id, user.email);
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const resetUrl = `${baseUrl}/verify-email?resetToken=${resetToken}`;
+    const resetUrl = `${baseUrl}/dat-lai-mat-khau?token=${resetToken}`;
     await sendPasswordResetEmail(user.email, resetUrl);
 
     return NextResponse.json({

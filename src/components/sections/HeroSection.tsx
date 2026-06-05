@@ -4,13 +4,16 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 
 /**
- * FR-001: Hero Section — from Stitch coralume_home_1/code.html
+ * SRS FR-001: Hero Section
  *
  * Features:
  * - WebGL shader ocean animation background
  * - Hero gradient overlay
- * - Headline with heading-serif font
- * - Two CTAs: primary (Coral Orange) + ghost
+ * - Headline Lora Bold "Nhận nuôi san hô — Gieo mầm cho đại dương"
+ * - Sub-headline Vietnamese (SRS H-02)
+ * - CTA chính "Nhận nuôi ngay →" → /san-pham (SRS H-03)
+ * - CTA phụ "Tìm hiểu thêm ↓" scroll xuống section 2 (SRS H-04)
+ * - CTA styling: rounded-lg (SRS Design Spec 4.3.5)
  * - Mobile responsive: display-lg → display-lg-mobile
  *
  * TODO: Replace shader with actual video when CLB provides 1920×1080 file
@@ -130,6 +133,13 @@ void main() {
 }
 
 export function HeroSection() {
+  const scrollToSection2 = () => {
+    const statsSection = document.getElementById('stats-section');
+    if (statsSection) {
+      statsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="relative min-h-screen flex items-center justify-center pt-20">
       {/* WebGL Shader Background */}
@@ -140,37 +150,34 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-20 text-center max-w-4xl px-[var(--spacing-margin-mobile)]">
-        {/* Headline */}
+        {/* Headline (SRS H-01) */}
         <h1 className="font-heading-serif text-display-lg-mobile md:text-display-lg text-primary mb-4 leading-tight">
           Nhận nuôi san hô —{' '}
           <br className="hidden md:block" />{' '}
           Gieo mầm cho đại dương
         </h1>
 
-        {/* Sub-headline (English tagline) */}
-        <p className="font-body-lg text-body-lg text-on-surface-variant mb-2 italic">
-          Adopt a Coral — Plant a Future for the Ocean
+        {/* Sub-headline (SRS H-02) */}
+        <p className="font-body-lg text-body-lg text-on-surface-variant mb-4 max-w-2xl mx-auto">
+          Mỗi san hô bạn nhận nuôi sẽ được theo dõi, cập nhật ảnh và lớn lên cùng bạn.
         </p>
 
-        {/* Tagline */}
-        <p className="font-label-sm text-label-sm uppercase tracking-widest text-primary mb-[var(--spacing-stack-lg)]">
-          Your coral. Your story. Your impact.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col md:flex-row gap-4 justify-center">
+        {/* CTA Buttons (SRS H-03, H-04 + Design Spec 4.3.5) */}
+        <div className="flex flex-col md:flex-row gap-4 justify-center mt-8">
+          {/* CTA chính: "Nhận nuôi ngay →" — Coral Orange, rounded-lg */}
           <Link
             href="/san-pham"
-            className="bg-secondary text-on-secondary px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-normal"
+            className="bg-secondary text-on-secondary px-10 py-4 rounded-lg font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-normal"
           >
-            Adopt Your Coral →
+            Nhận nuôi ngay →
           </Link>
-          <Link
-            href="/dashboard"
-            className="bg-white/30 backdrop-blur-md border border-white/40 text-primary px-10 py-4 rounded-full font-bold text-lg hover:bg-white/50 transition-all duration-normal"
+          {/* CTA phụ: "Tìm hiểu thêm ↓" — ghost button with Navy border */}
+          <button
+            onClick={scrollToSection2}
+            className="border-2 border-primary text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-primary hover:text-on-primary transition-all duration-normal"
           >
-            Growth Report
-          </Link>
+            Tìm hiểu thêm ↓
+          </button>
         </div>
       </div>
     </header>

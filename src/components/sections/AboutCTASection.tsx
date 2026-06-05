@@ -37,7 +37,7 @@ export function AboutCTASection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/san-pham"
-              className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-container text-on-secondary px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-button"
+              className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-container text-on-secondary px-10 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-button"
             >
               Nhận nuôi San hô ngay
               <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
