@@ -8,7 +8,7 @@ export async function GET(
   try {
     const { slug } = await params;
     const post = await prisma.blogPost.findUnique({
-      where: { slug },
+      where: { slug, status: 'published' },
       include: { author: { select: { fullName: true } } },
     });
 

@@ -20,10 +20,10 @@ interface BlogPost {
 }
 
 const categoryLabels: Record<string, string> = {
-  ecology: 'Sinh thái',
+  ecology: 'Sinh thái san hô',
   conservation: 'Bảo tồn',
   green_economy: 'Kinh tế xanh',
-  adopter_stories: 'Câu chuyện',
+  adopter_stories: 'Chuyến lặn của adopter',
 };
 
 const categoryColors: Record<string, string> = {

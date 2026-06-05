@@ -9,7 +9,10 @@ export async function GET(request: NextRequest) {
     const limit = Math.min(parseInt(searchParams.get('limit') || '12'), 50);
     const skip = (page - 1) * limit;
 
-    const where = category ? { category: category as 'ecology' | 'conservation' | 'green_economy' | 'adopter_stories' } : {};
+    const where = {
+      status: 'published' as const,
+      ...(category ? { category: category as 'ecology' | 'conservation' | 'green_economy' | 'adopter_stories' } : {}),
+    };
 
     const [posts, total] = await Promise.all([
       prisma.blogPost.findMany({

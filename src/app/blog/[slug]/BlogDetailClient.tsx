@@ -28,8 +28,9 @@ function extractHeadings(html: string): Array<{ id: string; text: string; level:
   return headings;
 }
 
+/** SRS B-02: exact category labels */
 const categoryLabels: Record<string, string> = {
-  ecology: 'Sinh thái', conservation: 'Bảo tồn', green_economy: 'Kinh tế xanh', adopter_stories: 'Câu chuyện',
+  ecology: 'Sinh thái san hô', conservation: 'Bảo tồn', green_economy: 'Kinh tế xanh', adopter_stories: 'Chuyến lặn của adopter',
 };
 
 export function BlogDetailClient({ post, slug }: { post: PostData; slug: string }) {
@@ -120,7 +121,7 @@ export function BlogDetailClient({ post, slug }: { post: PostData; slug: string 
             {/* Content */}
             <div className="flex-1 min-w-0 prose max-w-none">
               <div
-                className="font-body-lg text-on-surface leading-relaxed space-y-4"
+                className="font-body-lg text-on-surface leading-[1.7] space-y-4"
                 dangerouslySetInnerHTML={{
                   __html: post.content
                     .replace(/<h([2-3])>/g, (_, level) => {
