@@ -52,7 +52,11 @@ export function NewsletterForm() {
         </p>
       ) : (
         <form onSubmit={handleSubmit} className="flex gap-2 max-w-sm">
+          <label htmlFor="newsletter-email" className="sr-only">
+            Địa chỉ email
+          </label>
           <input
+            id="newsletter-email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

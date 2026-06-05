@@ -74,13 +74,27 @@
   - Contact page: /lien-he with form, email/location/hours cards
   - Impact totals: live aggregate metrics on Home page (fetch from /api/v1/impact/totals)
   - Footer: updated "Liên hệ" link from mailto: → /lien-he
+- ✅ **Unit 10:** Email system audit + completion (SRS §5 email)
+  - All 7 transactional emails: verify, reset, payment confirm, coral update, ambassador, report, bulk
+  - sendReportEmail template added (monthly/quarterly — cron trigger pending)
+  - Payment confirmation email triggered from PayOS webhook callback
+- ✅ **Unit 11:** Responsive & Accessibility audit + fixes (WCAG 2.1 AA)
+  - Responsive: mobile-first patterns confirmed (138 breakpoints, 0 desktop-first)
+  - Fixed: --color-on-surface-variant #8A9BA8→#4a5568 (WCAG AA contrast ≥4.5:1)
+  - Fixed: Skip-to-content link in layout.tsx (WCAG 2.4.1)
+  - Fixed: NewsletterForm email input now has <label> (WCAG 1.3.1)
+  - Fixed: <nav> aria-label="Điều hướng chính" in Header
+  - Verified: prefers-reduced-motion support, focus-visible styles, ARIA coverage
+  - All 22 pages use <main> landmark, form inputs labeled, images have alt text
 
 ## In Progress
 
-- None yet.
+- 🔴 Performance & SEO Audit 2026-06-05 — 27 gaps identified (xem `context/audits/performance-seo-audit-2026-06-05.md`)
 
 ## Next Up
 
+- **P0 (go-live blockers):** sharp, next.config.ts, sitemap.xml, robots.txt, og-image.jpg, GA4 + Meta Pixel, Schema.org Organization/WebSite
+- **P1 (nên có):** migrate img → next/image, ISR/SSG, blur placeholder, Schema.org FAQPage/Product/Breadcrumb, canonical URLs
 - Production readiness: real images from CLB, video, payment credentials
 - Deploy: VPS/Vercel setup, database provisioning, SSL
 - Future: CMS blog editor, analytics GA4, report PDF export
@@ -453,6 +467,42 @@
 *Tổng: 15 tasks | 15 done ✅ — Phase 2 Complete!*
 *Được bóc tách từ context/specs/SRS.md và Stitch design export*
 
+### TASK-016: Performance & SEO Gap Closure (SRS §6.1)
+- **Status**: planned
+- **SRS**: §6.1 Performance & SEO + §11 Tích hợp bên thứ 3 (GA4, Meta Pixel)
+- **Branch**: main
+- **Dependencies**: TASK-001
+- **Priority**: P0 (go-live blockers)
+- **Description**: Đóng 27 gaps từ Performance & SEO Audit 2026-06-05. Gồm: cài sharp, cấu hình next.config.ts image optimization, tạo sitemap.xml + robots.txt, tạo og-image.jpg, tích hợp GA4 + Meta Pixel, Schema.org Organization/WebSite/FAQPage/Product/BreadcrumbList, canonical URLs, ISR/SSG cho static pages.
+- **Requirements**: NFR-001 (Lighthouse > 85), NFR-002 (Image optimization), NFR-003 (SEO), NFR-004 (Analytics)
+- **Acceptance Criteria** (P0 — 11 items):
+  - [ ] Cài `sharp` package cho production image optimization
+  - [ ] Cấu hình `next.config.ts`: formats (AVIF, WebP), remotePatterns, imageSizes, deviceSizes
+  - [ ] Tạo `app/sitemap.ts` — Next.js built-in sitemap generator
+  - [ ] Tạo `app/robots.ts` — Next.js built-in robots.txt generator
+  - [ ] Tạo `public/og-image.jpg` (1200×630) — fallback nếu chưa có ảnh thật
+  - [ ] Schema.org Organization + WebSite JSON-LD trong root layout
+  - [ ] Schema.org FAQPage cho Products page
+  - [ ] Schema.org Product (3 gói) cho Products page
+  - [ ] Schema.org BreadcrumbList cho Blog + Products
+  - [ ] Tích hợp Google Analytics 4 (next/script, GA_MEASUREMENT_ID)
+  - [ ] Tích hợp Meta Pixel (next/script, META_PIXEL_ID)
+- **Acceptance Criteria** (P1 — 7 items):
+  - [ ] Migrate `<img>` → `<Image>` ở tất cả component còn lại (blog, dashboard, community, about, avatar)
+  - [ ] ISR/SSG cho Home, About, Blog listing (`revalidate` hoặc `generateStaticParams`)
+  - [ ] Blur placeholder (`blurDataURL` + `placeholder="blur"`) cho ảnh quan trọng
+  - [ ] Canonical URLs cho tất cả trang (`alternates.canonical`)
+  - [ ] Preconnect cho external domains (CDN, fonts, API)
+  - [ ] Font preloading (`preload: true`) cho Lexend + Be Vietnam Pro
+  - [ ] Hero image preload (`priority` + `fetchPriority="high"`)
+- **Acceptance Criteria** (P2 — 6 items):
+  - [ ] Vercel Speed Insights (`@vercel/speed-insights`)
+  - [ ] Shared `<OptimizedImage>` component
+  - [ ] Audit lazy loading toàn bộ ảnh
+  - [ ] Quality config cho next/image fill
+  - [ ] WebP/AVIF fallback strategy
+  - [ ] Shared `<Analytics>` wrapper component
+
 ## Session Notes (2026-06-04)
 
 - **TASK-012 (Unit 12): Phân quyền & Quản lý Blog hoàn chỉnh — 11 files**
@@ -525,3 +575,10 @@
 - **Tests**: ✅ 123/123 passing (6 files)
 
 *Tổng: 15 tasks | 15 done ✅ + SRS Sync Complete ✅*
+
+- **Performance & SEO Audit 2026-06-05 ✅ — 27 gaps identified**
+  - Audit toàn diện 4 hạng mục SRS §6.1: Page Load, Image Optimization, SEO, Analytics
+  - 27 gaps: 11 P0 (go-live blockers), 7 P1 (nên có), 9 P2 (defer)
+  - Các gap nghiêm trọng nhất: KHÔNG có sitemap.xml, robots.txt, GA4, Meta Pixel, og-image.jpg, Schema.org Organization, sharp package
+  - TASK-016 created — Performance & SEO Gap Closure (24 acceptance criteria)
+  - Audit report: `context/audits/performance-seo-audit-2026-06-05.md`

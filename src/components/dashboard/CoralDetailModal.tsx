@@ -211,39 +211,52 @@ export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
             </div>
           </div>
 
-          {/* SRS 4.3: GPS Map — relative reef zone with pulse pin */}
+          {/* SRS 4.3 + §8: Google Maps embed for GPS reef location */}
           {coralData?.locationZone && (
             <div>
               <h3 className="font-headline-md text-headline-md text-primary mb-3">
                 Vị trí rạn san hô
               </h3>
               <div className="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant relative">
-                {/* Stylized reef map — simplified representation */}
-                <div className="h-48 bg-gradient-to-b from-teal-100 via-blue-200 to-navy-100 relative flex items-center justify-center">
-                  {/* Ocean pattern */}
-                  <div className="absolute inset-0 opacity-30"
-                    style={{
-                      backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(15,76,92,0.05) 20px, rgba(15,76,92,0.05) 21px)`,
-                    }}
-                  />
-                  {/* Reef zone indicator */}
-                  <div className="relative">
-                    <div className="w-48 h-32 border-2 border-secondary/40 rounded-full bg-secondary/10 flex items-center justify-center">
-                      <span className="text-xs text-primary font-medium text-center px-4">
-                        Khu vực {coralData.locationZone}
-                      </span>
+                {/* Google Maps iframe embed — free, no API key required for embedding */}
+                <iframe
+                  title={`Vị trí san hô — ${coralData.locationZone}`}
+                  src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || ''}&q=${encodeURIComponent(`${coralData.locationZone}+Nha+Trang+Vietnam`)}&zoom=13`}
+                  width="100%"
+                  height="300"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full"
+                  onError={(e) => {
+                    // Fallback to static map if Google Maps key not configured
+                    (e.target as HTMLIFrameElement).style.display = 'none';
+                  }}
+                />
+                {/* Fallback when Google Maps key is not configured */}
+                <div className="h-[300px] bg-gradient-to-b from-teal-100 via-blue-200 to-navy-100 relative flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="relative mx-auto">
+                      <div className="w-48 h-32 border-2 border-secondary/40 rounded-full bg-secondary/10 flex items-center justify-center mx-auto">
+                        <span className="text-xs text-primary font-medium px-4">
+                          {coralData.locationZone}
+                        </span>
+                      </div>
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="w-4 h-4 bg-secondary rounded-full" />
+                        <div className="absolute inset-0 w-4 h-4 bg-secondary rounded-full animate-ping opacity-75" />
+                      </div>
                     </div>
-                    {/* Pulse pin animation */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-4 h-4 bg-secondary rounded-full" />
-                      <div className="absolute inset-0 w-4 h-4 bg-secondary rounded-full animate-ping opacity-75" />
-                    </div>
+                    <p className="text-xs text-on-surface-variant mt-3">
+                      Bản đồ vệ tinh sẽ hiển thị khi cấu hình Google Maps API key
+                    </p>
                   </div>
                 </div>
                 <div className="p-3 bg-surface-container-lowest border-t border-outline-variant flex items-center gap-2">
                   <span className="material-symbols-outlined text-secondary text-lg" aria-hidden="true">location_on</span>
                   <span className="text-sm text-on-surface-variant">
-                    Vùng rạn san hô tại Nha Trang — vị trí tương đối
+                    Vùng rạn san hô tại Nha Trang, Việt Nam — vị trí tương đối
                   </span>
                 </div>
               </div>

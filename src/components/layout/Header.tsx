@@ -26,6 +26,7 @@ export function Header() {
 
   return (
     <nav
+      aria-label="Điều hướng chính"
       className={`fixed top-0 z-50 w-full transition-shadow duration-normal ${
         isScrolled ? 'shadow-lg' : ''
       } glass-nav bg-surface/80`}

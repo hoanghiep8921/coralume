@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { NewsletterForm } from './NewsletterForm';
+import { siteConfig } from '@/config/site';
 
 /** SRS H-21: Ve chung toi, San pham, Blog, Cong dong, Lien he */
 const FOOTER_LINKS = [
@@ -88,7 +89,15 @@ export function Footer() {
       {/* Copyright (SRS H-23) */}
       <div className="text-center mt-8 px-[var(--spacing-margin-mobile)]">
         <p className="text-on-primary/60 font-body-sm text-sm">
-          © 2026 Coralume. Tất cả quyền được bảo lưu. Đối tác: Trung tâm san hô Nha Trang
+          © 2026 Coralume. Tất cả quyền được bảo lưu.{' '}
+          <a
+            href={siteConfig.links.partner}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-secondary-fixed underline underline-offset-2 transition-colors"
+          >
+            Đối tác: Trung tâm san hô Nha Trang
+          </a>
         </p>
       </div>
 

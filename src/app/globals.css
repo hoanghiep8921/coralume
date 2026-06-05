@@ -38,7 +38,7 @@
 
   /* === TEXT (from Design Spec §1.1) === */
   --color-on-surface: #2C3E50;                    /* Text Dark — body, headings */
-  --color-on-surface-variant: #8A9BA8;            /* Text Gray — secondary, labels */
+  --color-on-surface-variant: #4a5568;            /* Secondary text — WCAG AA ≥4.5:1 on white */
   --color-inverse-surface: #0F4C5C;
   --color-inverse-on-surface: #B5D8E8;
   --color-inverse-primary: #B5D8E8;

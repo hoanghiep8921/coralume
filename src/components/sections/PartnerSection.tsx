@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { siteConfig } from '@/config/site';
 
 /**
  * SRS FR-005: Đối tác đồng hành — Trung tâm san hô Nha Trang
@@ -38,12 +39,14 @@ export function PartnerSection() {
               lên hệ thống của chúng tôi.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link
-                href="/ve-chung-toi"
+              <a
+                href={siteConfig.links.partner}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-secondary hover:text-on-secondary-container font-medium transition-colors text-sm"
               >
-                Tìm hiểu thêm →
-              </Link>
+                Tìm hiểu thêm về đối tác →
+              </a>
             </div>
           </div>
         </div>

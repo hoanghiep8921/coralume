@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdminOnly } from '@/lib/admin-guard';
+import { logActivity } from '@/lib/activity-log';
 
 export async function GET(request: NextRequest) {
   try {
@@ -47,7 +48,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    await requireAdminOnly();
+    const admin = await requireAdminOnly();
     const body = await request.json();
 
     // Auto-generate code CRL-2026-XXXX
@@ -64,6 +65,14 @@ export async function POST(request: NextRequest) {
         status: body.status || 'available',
         productTier: body.productTier || 'standard',
       },
+    });
+
+    logActivity({
+      adminId: admin.userId,
+      action: 'create_coral',
+      targetType: 'coral',
+      targetId: coral.id,
+      details: { code: coral.code, species: coral.species, status: coral.status },
     });
 
     return NextResponse.json({ data: coral }, { status: 201 });

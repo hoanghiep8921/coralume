@@ -70,18 +70,18 @@ Coralume là dự án "nhận nuôi san hô" theo mô hình behavioral economics
 
 | STT | Trang | Mục đích | Nội dung chính | Trạng thái |
 |-----|-------|----------|----------------|-----------|
-| 1 | Trang chủ (Home) | Giới thiệu dự án, thu hút khách | Tại sao san hô quan trọng, số liệu, 3 gói, liên kết đối tác | Cần xây dựng |
-| 2 | Về chúng tôi (About) | Tạo niềm tin, kể câu chuyện | Storytelling founder, sứ mệnh, đội ngũ, đối tác Nha Trang | Cần xây dựng |
-| 3 | Sản phẩm (Products) | Trang bán hàng chính — convert | 3 gói + Referral Ambassador + FAQ + Bảng so sánh | Cần xây dựng |
-| 4 | Dashboard cá nhân | Khu vực riêng cho adopter | Danh sách san hô, ảnh/video update, impact, certificate, mã AFF | Cần xây dựng |
-| 5 | Blog / Kiến thức san hô | Education + SEO + credibility | Bài viết, infographic về san hô, biển, hệ sinh thái | Cần xây dựng |
-| 6 | Bảng xếp hạng (Leaderboard) | Gamification | Top adopter theo số san hô, theo tháng và toàn thời gian | Cần xây dựng |
-| 7 | Cộng đồng (Community) | Social proof, tăng cảm xúc | Ảnh/video adopter chia sẻ, feedback | Cần xây dựng |
-| 8 | Đăng nhập / Đăng ký | Xác thực người dùng | Login, Register, Forgot Password, Email Verification, Google OAuth | ✅ Đã xây dựng |
-| 9 | Trang thanh toán | Bước thanh toán sau chọn gói | Thông tin gói, form adopter, đặt tên san hô, chọn phương thức | Cần xây dựng |
-| 10 | Trang xác nhận / Cảm ơn | Sau thanh toán thành công | Certificate, link tải, CTA vào dashboard, email xác nhận | Cần xây dựng |
-| 11 | Admin Panel | Quản trị hệ thống | Quản lý user, sản phẩm, nội dung, doanh thu, analytics, báo cáo | Cần xây dựng |
-| 12 | Coral Portal (Backend cho trung tâm SH) | Portal cho nhân viên trung tâm | Upload ảnh/video san hô, nhập chỉ số growth, đồng bộ dashboard | Cần xây dựng |
+| 1 | Trang chủ (Home) | Giới thiệu dự án, thu hút khách | Tại sao san hô quan trọng, số liệu, 3 gói, liên kết đối tác | ✅ Đã xây dựng |
+| 2 | Về chúng tôi (About) | Tạo niềm tin, kể câu chuyện | Storytelling founder, sứ mệnh, đội ngũ, đối tác Nha Trang | ✅ Đã xây dựng |
+| 3 | Sản phẩm (Products) | Trang bán hàng chính — convert | 3 gói + Referral Ambassador + FAQ + Bảng so sánh | ✅ Đã xây dựng |
+| 4 | Dashboard cá nhân | Khu vực riêng cho adopter | Danh sách san hô, ảnh/video update, impact, certificate, mã AFF | ✅ Đã xây dựng |
+| 5 | Blog / Kiến thức san hô | Education + SEO + credibility | Bài viết, infographic về san hô, biển, hệ sinh thái | ✅ Đã xây dựng |
+| 6 | Bảng xếp hạng (Leaderboard) | Gamification | Top adopter theo số san hô, theo tháng và toàn thời gian | ✅ Đã xây dựng |
+| 7 | Cộng đồng (Community) | Social proof, tăng cảm xúc | Ảnh/video adopter chia sẻ, feedback | ✅ Đã xây dựng |
+| 8 | Đăng nhập / Đăng ký | Xác thực người dùng | Login, Register, Forgot Password, Email Verification, Google OAuth, 2FA | ✅ Đã xây dựng |
+| 9 | Trang thanh toán | Bước thanh toán sau chọn gói | Thông tin gói, form adopter, đặt tên san hô, chọn phương thức | ✅ Đã xây dựng |
+| 10 | Trang xác nhận / Cảm ơn | Sau thanh toán thành công | Certificate, link tải, CTA vào dashboard, email xác nhận | ✅ Đã xây dựng |
+| 11 | Admin Panel | Quản trị hệ thống | Quản lý user, sản phẩm, nội dung, doanh thu, analytics, báo cáo | ✅ Đã xây dựng |
+| 12 | Coral Portal (Backend cho trung tâm SH) | Portal cho nhân viên trung tâm | Upload ảnh/video san hô, nhập chỉ số growth, đồng bộ dashboard | ✅ Đã xây dựng |
 
 ---
 

@@ -1,15 +1,23 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdminOnly } from '@/lib/admin-guard';
+import { logActivity } from '@/lib/activity-log';
 
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAdminOnly();
+    const admin = await requireAdminOnly();
     const { id } = await params;
     const body = await request.json();
+
+    // Fetch existing coral for activity log details
+    const existing = await prisma.coral.findUnique({
+      where: { id },
+      select: { code: true, species: true, status: true },
+    });
+    if (!existing) return NextResponse.json({ error: 'Không tìm thấy san hô' }, { status: 404 });
 
     const coral = await prisma.coral.update({
       where: { id },
@@ -17,6 +25,19 @@ export async function PUT(
         ...(body.status && { status: body.status }),
         ...(body.species && { species: body.species }),
         ...(body.locationZone && { locationZone: body.locationZone }),
+      },
+    });
+
+    logActivity({
+      adminId: admin.userId,
+      action: 'update_coral',
+      targetType: 'coral',
+      targetId: coral.id,
+      details: {
+        code: coral.code,
+        previousStatus: existing.status,
+        newStatus: coral.status,
+        speciesChanged: existing.species !== coral.species,
       },
     });
 

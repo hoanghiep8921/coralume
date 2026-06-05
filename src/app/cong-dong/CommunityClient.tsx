@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { communitySubmissionSchema, type CommunitySubmissionInput } from '@/lib/validation';
+import { FacebookPagePlugin } from '@/components/ui/FacebookPagePlugin';
 
 const GALLERY_VIDEOS = [
   { id: '1', title: 'Hành trình trồng san hô tại Nha Trang', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ', thumbnail: '' },
@@ -198,6 +199,11 @@ export function CommunityClient({ submissions }: { submissions: Submission[] }) 
           <img src={previewImage} alt="" className="max-w-full max-h-[90vh] rounded-lg object-contain" />
         </div>
       )}
+
+      {/* SRS §8: Facebook Page Plugin — social embed widget */}
+      <section className="mt-16 max-w-lg mx-auto">
+        <FacebookPagePlugin />
+      </section>
 
       {/* Video Lightbox */}
       {activeVideo && (

@@ -7,6 +7,7 @@ export const siteConfig = {
     facebook: "https://facebook.com/coralume_official",
     instagram: "https://instagram.com/coralume_official",
     email: "hello@coralume.vn",
+    partner: "https://nhatrang.vn" /* TODO: thay bằng link chính thức của Trung tâm san hô Nha Trang khi CLB cung cấp */,
   },
 };
 
