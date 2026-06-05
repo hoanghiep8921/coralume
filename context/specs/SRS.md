@@ -629,10 +629,14 @@ Third-party: VNPay/MoMo, Email (Resend/SES), Maps, GA4
 - **Mô tả:** Google OAuth 2.0 — redirect sang Google + callback xử lý
 - **Acceptance Criteria:**
   - [x] GET /api/v1/auth/google → Redirect Google OAuth consent screen
-  - [x] GET /api/v1/auth/google/callback → Exchange code, fetch user info
+  - [x] CSRF protection: random state token (32 bytes), httpOnly cookie 5 min
+  - [x] callbackUrl passthrough: cookie-preserved redirect URL sau login
+  - [x] id_token decode + validate (iss, aud checks)
+  - [x] GET /api/v1/auth/google/callback → Exchange code, verify state, decode id_token
   - [x] Find or create user (auto-verify nếu Google email_verified=true)
+  - [x] Fallback: Google /userinfo endpoint nếu id_token thiếu fields
   - [x] Block nếu user.isActive=false
-  - [x] Set JWT cookie + redirect /dashboard
+  - [x] Set JWT cookie + redirect về callbackUrl gốc
   - [x] 501 nếu GOOGLE_CLIENT_ID chưa cấu hình
 
 ---

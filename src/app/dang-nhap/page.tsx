@@ -13,6 +13,10 @@ const OAUTH_ERRORS: Record<string, string> = {
   google_oauth_not_configured: 'Đăng nhập Google chưa được cấu hình.',
   google_auth_failed: 'Đăng nhập Google thất bại. Vui lòng thử lại.',
   google_token_exchange_failed: 'Xác thực Google không thành công.',
+  google_id_token_invalid: 'Token Google không hợp lệ.',
+  google_id_token_issuer: 'Token Google không đúng issuer.',
+  google_id_token_audience: 'Token Google không đúng audience.',
+  google_csrf_mismatch: 'Phiên đăng nhập không hợp lệ. Vui lòng thử lại.',
   google_userinfo_failed: 'Không thể lấy thông tin từ Google.',
   google_email_missing: 'Tài khoản Google không có email.',
   google_server_error: 'Lỗi server khi đăng nhập Google.',
@@ -189,7 +193,8 @@ function LoginForm() {
             type="button"
             onClick={() => {
               setIsGoogleLoading(true);
-              window.location.href = '/api/v1/auth/google';
+              const redirectTo = `/api/v1/auth/google?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+              window.location.href = redirectTo;
             }}
             disabled={isGoogleLoading}
             className="w-full flex items-center justify-center gap-2.5 bg-surface-container-low hover:bg-surface-container border border-outline-variant text-on-surface font-medium py-2.5 px-4 rounded-lg transition-all duration-fast hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"

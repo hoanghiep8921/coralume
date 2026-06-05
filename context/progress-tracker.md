@@ -142,7 +142,7 @@
   - [x] UI: /quen-mat-khau — email input, anti-enumeration success state
   - [x] UI: /verify-email — auto-verify with token, success/error states
   - [x] 🔄 UI: /verify-email — sync SRS 4.4 text "Tài khoản của bạn đã được kích hoạt. [Đăng nhập]" (2026-06-05)
-  - [x] 🔄 API: Google OAuth flow — /api/v1/auth/google + /api/v1/auth/google/callback (2026-06-05)
+  - [x] 🔄 API: Google OAuth flow — CSRF state + id_token verify + callbackUrl passthrough (2026-06-05)
   - [x] `npm run build` passes — 0 errors (pre-existing test/setup.ts vitest issue unrelated)
 
 ### TASK-003: Home Page (Hero, Stats, How It Works, Products Preview, CTA, Footer)
