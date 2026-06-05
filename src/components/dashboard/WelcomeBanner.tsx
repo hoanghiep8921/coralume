@@ -44,12 +44,12 @@ export function WelcomeBanner({ fullName, coralCount, role }: WelcomeBannerProps
             {role === 'ambassador' ? 'Đại sứ' : 'Người giám hộ'}
           </span>
           <h1 className="font-display text-display-lg-mobile md:text-display-lg text-primary">
-            Chào mừng trở lại, {fullName}!
+            Chào mừng, {fullName}!
           </h1>
           <p className="font-body-lg text-on-surface-variant mt-2">
             Bạn đang chăm sóc{' '}
             <strong className="text-primary font-mono">{coralCount}</strong>{' '}
-            san hô{coralCount !== 1 ? '' : ''} tại Nha Trang
+            san hô
           </p>
         </div>
       </div>

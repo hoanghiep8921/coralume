@@ -5,6 +5,7 @@ import { useInView } from '@/hooks/useInView';
 
 interface ProfileData {
   fullName: string;
+  email: string;
   phone?: string | null;
   avatarUrl?: string | null;
   isPublic: boolean;
@@ -98,6 +99,22 @@ export function ProfileSettings({ profile }: ProfileSettingsProps) {
           />
         </div>
 
+        {/* Email (SRS 8.1: read-only display) */}
+        <div className="space-y-1">
+          <label htmlFor="profile-email" className="block text-sm font-medium text-on-surface">
+            Email
+          </label>
+          <input
+            id="profile-email"
+            type="email"
+            value={profile.email}
+            readOnly
+            disabled
+            className="block w-full rounded-lg border border-outline-variant bg-surface-container px-3 py-2.5 text-base font-body text-on-surface-variant outline-none cursor-not-allowed"
+          />
+          <p className="text-xs text-on-surface-variant">Email không thể thay đổi. Liên hệ hỗ trợ nếu cần cập nhật.</p>
+        </div>
+
         {/* Phone */}
         <div className="space-y-1">
           <label htmlFor="profile-phone" className="block text-sm font-medium text-on-surface">
@@ -125,6 +142,23 @@ export function ProfileSettings({ profile }: ProfileSettingsProps) {
             placeholder="https://..."
             className="block w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2.5 text-base font-body text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-secondary/20 transition-colors duration-fast"
           />
+        </div>
+
+        {/* Mật khẩu (SRS 8.1: link to change password page) */}
+        <div className="pt-2 border-t border-outline-variant/50">
+          <label className="block text-sm font-medium text-on-surface mb-1">
+            Mật khẩu
+          </label>
+          <p className="text-sm text-on-surface-variant mb-2">
+            Bảo mật tài khoản của bạn bằng mật khẩu mạnh.
+          </p>
+          <a
+            href="/quen-mat-khau"
+            className="inline-flex items-center gap-1 text-secondary hover:text-on-secondary-container font-medium text-sm transition-colors"
+          >
+            <span className="material-symbols-outlined text-lg" aria-hidden="true">lock</span>
+            Đổi mật khẩu →
+          </a>
         </div>
 
         {/* Toggles */}

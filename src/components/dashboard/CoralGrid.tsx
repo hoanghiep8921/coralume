@@ -65,17 +65,17 @@ export function CoralGrid({ corals, onSelectCoral }: CoralGridProps) {
           </span>
         </div>
         <h2 className="font-display text-display-lg-mobile text-primary mb-3">
-          Bạn chưa có san hô nào
+          Bạn chưa nhận nuôi san hô nào
         </h2>
         <p className="text-on-surface-variant mb-8 max-w-md mx-auto">
-          Nhận nuôi san hô đầu tiên của bạn và bắt đầu hành trình bảo tồn đại dương.
+          Mỗi san hô là một câu chuyện. Bắt đầu hành trình của bạn ngay hôm nay.
         </p>
         <Link
           href="/san-pham"
           className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-container text-on-secondary font-semibold py-3 px-8 rounded-lg transition-all duration-normal hover:-translate-y-0.5 shadow-button"
         >
           <span className="material-symbols-outlined text-xl" aria-hidden="true">add_circle</span>
-          Nhận nuôi san hô đầu tiên
+          Bắt đầu nhận nuôi →
         </Link>
       </section>
     );
@@ -102,14 +102,19 @@ export function CoralGrid({ corals, onSelectCoral }: CoralGridProps) {
               }`}
               style={{ transitionDelay: isInView ? `${i * 80}ms` : '0ms' }}
             >
-              {/* Image */}
+              {/* Image — SRS 3.1: show latest update image if available */}
               <div className="h-56 bg-primary-fixed-dim/20 flex items-center justify-center relative overflow-hidden">
-                <span className="material-symbols-outlined text-6xl text-on-surface-variant/20 group-hover:scale-110 transition-transform duration-700" aria-hidden="true">
-                  water
-                </span>
-                <span className="material-symbols-outlined text-5xl text-on-surface-variant/30" aria-hidden="true">
-                  image
-                </span>
+                {coralData?.updates?.[0]?.images?.[0] ? (
+                  <img
+                    src={coralData.updates[0].images[0]}
+                    alt={coral.customName || coralData.code || 'San hô'}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <span className="material-symbols-outlined text-5xl text-on-surface-variant/30" aria-hidden="true">
+                    image
+                  </span>
+                )}
                 {/* Status dot */}
                 <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-surface-container-lowest/90 backdrop-blur-sm rounded-full px-3 py-1">
                   <div className={`w-2 h-2 rounded-full ${healthColors[health] || 'bg-green-500'}`} />
@@ -159,17 +164,20 @@ export function CoralGrid({ corals, onSelectCoral }: CoralGridProps) {
                   )}
                 </div>
 
-                {/* Last update */}
-                {coralData?.updates?.[0] && (
-                  <div className="mt-3 pt-3 border-t border-outline-variant">
+                {/* Last update + View detail CTA */}
+                <div className="mt-3 pt-3 border-t border-outline-variant flex items-center justify-between">
+                  {coralData?.updates?.[0] && (
                     <span className="text-xs text-on-surface-variant">
-                      Cập nhật lần cuối:{' '}
+                      Cập nhật:{' '}
                       <span className="font-medium text-on-surface">
                         {new Date(coralData.updates[0].createdAt).toLocaleDateString('vi-VN')}
                       </span>
                     </span>
-                  </div>
-                )}
+                  )}
+                  <span className="text-xs text-secondary font-medium flex items-center gap-1 ml-auto">
+                    Xem chi tiết →
+                  </span>
+                </div>
               </div>
             </button>
           );

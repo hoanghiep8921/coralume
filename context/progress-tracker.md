@@ -57,6 +57,21 @@
   - 5 API routes: orders, payment status, product lookup, VNPay/MoMo callback handlers
   - Payment lib: vnpay.ts, momo.ts, bank-transfer.ts, certificate.ts (stub)
   - Auth: middleware + API guard (login + email verified required)
+- ✅ **Unit 08:** Leaderboard page + Design Spec sync
+  - Leaderboard: Hero gradient, Top 10 monthly + Top 20 all-time tabs
+  - My Ranking: personalized banner + progress bar + "Cần thêm X san hô để lên hạng #Y"
+  - Avatar with initials fallback, Top 3 gold/silver/bronze highlighting
+  - Anonymous mode support (isPublic=false hides avatar + shows "Người ẩn danh")
+  - CountUp animation for numbers (Design Spec §4.5 compliance)
+  - Material Symbols icons replacing emoji (Design Spec §5 compliance)
+  - 27 test cases (13 API + 14 component)
+- ✅ **Unit 09:** Role-based feature audit + gap fixes (SRS §5)
+  - Referral tracking: wired up real DB count (was hardcoded 0)
+  - Ambassador auto-upgrade: trigger at ≥5 completed referrals + congratulations email
+  - Newsletter signup: form in Footer + POST /api/v1/newsletter/subscribe
+  - Contact page: /lien-he with form, email/location/hours cards
+  - Impact totals: live aggregate metrics on Home page (fetch from /api/v1/impact/totals)
+  - Footer: updated "Liên hệ" link from mailto: → /lien-he
 
 ## In Progress
 

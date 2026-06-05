@@ -61,9 +61,27 @@ function getHealthTrend(current: string, previous?: string): 'up' | 'down' | 'st
   return 'stable';
 }
 
-/** FR-044: Coral Detail Modal */
+/** Calculate monthly growth rate (mm/month) from the last 2 updates */
+function calcGrowthRate(
+  updates: Array<{ sizeCm?: number | null; createdAt: string }>
+): number | null {
+  if (updates.length < 2) return null;
+  const latest = updates[0].sizeCm;
+  const previous = updates[1].sizeCm;
+  if (!latest || !previous) return null;
+  const daysDiff =
+    (new Date(updates[0].createdAt).getTime() - new Date(updates[1].createdAt).getTime()) /
+    (1000 * 60 * 60 * 24);
+  if (daysDiff <= 0) return null;
+  // Convert cm difference to mm, then to monthly rate
+  return parseFloat((((latest - previous) * 10) / daysDiff * 30).toFixed(1));
+}
+
+/** FR-044: Coral Detail Modal — SRS 4.1-4.5 */
 export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
   const coralData = coral.coral;
+  const latestUpdateImage = coralData?.updates?.[0]?.images?.[0];
+  const growthRate = calcGrowthRate(coralData?.updates || []);
 
   // Close on Escape key
   const handleKeyDown = useCallback(
@@ -82,8 +100,25 @@ export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
     };
   }, [handleKeyDown]);
 
+  const handleDownloadCert = () => {
+    if (coral.certificate?.pdfUrl) {
+      window.open(coral.certificate.pdfUrl, '_blank');
+    }
+  };
+
+  const handleShareCert = async () => {
+    const shareText = `🌊 Tôi vừa nhận nuôi san hô "${coral.customName || coralData?.code}" tại Coralume! Nhận nuôi san hô — Gieo mầm cho đại dương. coralume.vn`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'Chứng nhận san hô Coralume', text: shareText, url: window.location.origin });
+      } catch { /* user cancelled */ }
+    } else {
+      await navigator.clipboard.writeText(shareText);
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4" role="dialog" aria-modal="true">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm"
@@ -105,11 +140,19 @@ export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
           </svg>
         </button>
 
-        {/* Header image */}
-        <div className="h-64 bg-primary-fixed-dim/20 flex items-center justify-center relative">
-          <span className="material-symbols-outlined text-6xl text-on-surface-variant/30" aria-hidden="true">
-            image
-          </span>
+        {/* SRS 4.1: Header image — show latest update image */}
+        <div className="h-64 bg-primary-fixed-dim/20 flex items-center justify-center relative overflow-hidden">
+          {latestUpdateImage ? (
+            <img
+              src={latestUpdateImage}
+              alt={coral.customName || coralData?.code || 'San hô'}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="material-symbols-outlined text-6xl text-on-surface-variant/30" aria-hidden="true">
+              image
+            </span>
+          )}
           {coralData?.code && (
             <span className="absolute bottom-4 left-4 bg-primary/80 text-on-primary font-mono text-sm px-3 py-1.5 rounded">
               {coralData.code}
@@ -119,7 +162,7 @@ export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
 
         {/* Content */}
         <div className="p-6 md:p-8 space-y-8">
-          {/* Name + Status */}
+          {/* SRS 4.1: Header — coral name + ID + species + product */}
           <div>
             <h2 className="font-display text-display-lg-mobile md:text-display-lg text-primary mb-2">
               {coral.customName || coralData?.code || 'San hô chưa đặt tên'}
@@ -136,13 +179,13 @@ export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
             </div>
           </div>
 
-          {/* Stats Grid */}
+          {/* SRS 4.4: Stats Grid — kích thước, sức khoẻ, growth rate, species */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="bg-surface-container-low rounded-xl p-4 text-center">
               <span className="font-mono text-2xl text-primary font-bold block">
                 {coralData?.updates?.[0]?.sizeCm || '—'}
               </span>
-              <span className="text-xs text-on-surface-variant">cm</span>
+              <span className="text-xs text-on-surface-variant">Kích thước (cm)</span>
             </div>
             <div className="bg-surface-container-low rounded-xl p-4 text-center">
               <span className="font-mono text-2xl text-primary font-bold block">
@@ -152,23 +195,62 @@ export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
             </div>
             <div className="bg-surface-container-low rounded-xl p-4 text-center">
               <span className="font-mono text-2xl text-primary font-bold block">
+                {growthRate !== null ? `${growthRate > 0 ? '+' : ''}${growthRate}` : '—'}
+              </span>
+              <span className="text-xs text-on-surface-variant">Tốc độ growth (mm/tháng)</span>
+            </div>
+            <div className="bg-surface-container-low rounded-xl p-4 text-center">
+              <span className="font-mono text-2xl text-primary font-bold block">
                 {coral.adoptedAt
                   ? Math.floor(
                       (Date.now() - new Date(coral.adoptedAt).getTime()) / (1000 * 60 * 60 * 24)
                     )
                   : '—'}
               </span>
-              <span className="text-xs text-on-surface-variant">Ngày</span>
-            </div>
-            <div className="bg-surface-container-low rounded-xl p-4 text-center">
-              <span className="font-mono text-2xl text-primary font-bold block">
-                {coralData?.locationZone || '—'}
-              </span>
-              <span className="text-xs text-on-surface-variant">Khu vực</span>
+              <span className="text-xs text-on-surface-variant">Ngày đồng hành</span>
             </div>
           </div>
 
-          {/* Growth Timeline */}
+          {/* SRS 4.3: GPS Map — relative reef zone with pulse pin */}
+          {coralData?.locationZone && (
+            <div>
+              <h3 className="font-headline-md text-headline-md text-primary mb-3">
+                Vị trí rạn san hô
+              </h3>
+              <div className="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant relative">
+                {/* Stylized reef map — simplified representation */}
+                <div className="h-48 bg-gradient-to-b from-teal-100 via-blue-200 to-navy-100 relative flex items-center justify-center">
+                  {/* Ocean pattern */}
+                  <div className="absolute inset-0 opacity-30"
+                    style={{
+                      backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(15,76,92,0.05) 20px, rgba(15,76,92,0.05) 21px)`,
+                    }}
+                  />
+                  {/* Reef zone indicator */}
+                  <div className="relative">
+                    <div className="w-48 h-32 border-2 border-secondary/40 rounded-full bg-secondary/10 flex items-center justify-center">
+                      <span className="text-xs text-primary font-medium text-center px-4">
+                        Khu vực {coralData.locationZone}
+                      </span>
+                    </div>
+                    {/* Pulse pin animation */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                      <div className="w-4 h-4 bg-secondary rounded-full" />
+                      <div className="absolute inset-0 w-4 h-4 bg-secondary rounded-full animate-ping opacity-75" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 bg-surface-container-lowest border-t border-outline-variant flex items-center gap-2">
+                  <span className="material-symbols-outlined text-secondary text-lg" aria-hidden="true">location_on</span>
+                  <span className="text-sm text-on-surface-variant">
+                    Vùng rạn san hô tại Nha Trang — vị trí tương đối
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* SRS 4.2: Growth Timeline */}
           <div>
             <h3 className="font-headline-md text-headline-md text-primary mb-4">
               Lịch sử phát triển
@@ -278,28 +360,52 @@ export function CoralDetailModal({ coral, onClose }: CoralDetailModalProps) {
             )}
           </div>
 
-          {/* Certificate */}
+          {/* SRS 4.5: Certificate — Xem / Tải PDF / Chia sẻ */}
           <div className="bg-secondary/5 rounded-xl p-6 border border-secondary/20">
             <h3 className="font-headline-md text-headline-md text-primary mb-3">
               Chứng nhận
             </h3>
             <p className="text-on-surface-variant mb-4">
               {coral.certificate?.pdfUrl
-                ? 'Chứng nhận của bạn đã sẵn sàng để tải xuống.'
+                ? 'Chứng nhận của bạn đã sẵn sàng.'
                 : 'Chứng nhận đang được tạo. Bạn sẽ nhận được thông báo khi sẵn sàng.'}
             </p>
-            <button
-              type="button"
-              disabled={!coral.certificate?.pdfUrl}
-              className={`inline-flex items-center gap-2 font-semibold py-2 px-4 rounded-lg transition-all ${
-                coral.certificate?.pdfUrl
-                  ? 'bg-secondary text-on-secondary hover:bg-secondary-container'
-                  : 'bg-outline-variant/30 text-on-surface-variant cursor-not-allowed'
-              }`}
-            >
-              <span className="material-symbols-outlined text-xl" aria-hidden="true">download</span>
-              {coral.certificate?.pdfUrl ? 'Tải chứng nhận PDF' : 'Đang chờ chứng nhận...'}
-            </button>
+            <div className="flex flex-wrap gap-3">
+              {/* Xem Certificate */}
+              {coral.certificate?.pdfUrl && (
+                <button
+                  type="button"
+                  onClick={handleDownloadCert}
+                  className="inline-flex items-center gap-2 font-semibold py-2 px-4 rounded-lg border-2 border-secondary text-secondary hover:bg-secondary hover:text-on-secondary transition-all"
+                >
+                  <span className="material-symbols-outlined text-xl" aria-hidden="true">visibility</span>
+                  Xem Certificate
+                </button>
+              )}
+              {/* Tải PDF */}
+              <button
+                type="button"
+                disabled={!coral.certificate?.pdfUrl}
+                onClick={handleDownloadCert}
+                className={`inline-flex items-center gap-2 font-semibold py-2 px-4 rounded-lg transition-all ${
+                  coral.certificate?.pdfUrl
+                    ? 'bg-secondary text-on-secondary hover:bg-secondary-container'
+                    : 'bg-outline-variant/30 text-on-surface-variant cursor-not-allowed'
+                }`}
+              >
+                <span className="material-symbols-outlined text-xl" aria-hidden="true">download</span>
+                {coral.certificate?.pdfUrl ? 'Tải PDF' : 'Đang chờ...'}
+              </button>
+              {/* Chia sẻ */}
+              <button
+                type="button"
+                onClick={handleShareCert}
+                className="inline-flex items-center gap-2 font-semibold py-2 px-4 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container transition-all"
+              >
+                <span className="material-symbols-outlined text-xl" aria-hidden="true">share</span>
+                Chia sẻ
+              </button>
+            </div>
           </div>
         </div>
       </div>

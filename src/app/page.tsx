@@ -5,6 +5,7 @@ import { HowItWorksSection } from '@/components/sections/HowItWorksSection';
 import { ProductsPreviewSection } from '@/components/sections/ProductsPreviewSection';
 import { PartnerSection } from '@/components/sections/PartnerSection';
 import { CTABannerSection } from '@/components/sections/CTABannerSection';
+import { ImpactTotalsSection } from '@/components/sections/ImpactTotalsSection';
 
 export const metadata: Metadata = {
   title: 'Coralume — Nhận nuôi san hô, Gieo mầm cho đại dương',
@@ -37,6 +38,7 @@ export default function HomePage() {
     <main className="flex-1">
       <HeroSection />
       <StatsSection />
+      <ImpactTotalsSection />
       <HowItWorksSection />
       <ProductsPreviewSection />
       <PartnerSection />

@@ -20,6 +20,7 @@ export const registerSchema = z.object({
     .regex(/^[0-9+\-\s()]{7,20}$/, "Số điện thoại không hợp lệ")
     .optional(),
   agreeTerms: z.boolean().refine((val) => val === true, "Bạn phải đồng ý điều khoản"),
+  referralCode: z.string().max(50).optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Mật khẩu xác nhận không khớp",
   path: ["confirmPassword"],

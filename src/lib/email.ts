@@ -212,3 +212,79 @@ export async function sendEmail(params: SendEmailParams): Promise<boolean> {
     return false;
   }
 }
+
+/**
+ * Ambassador welcome + congratulations email.
+ * Sent automatically when an adopter reaches the referral threshold.
+ */
+export interface AmbassadorWelcomeData {
+  adopterName: string;
+  referralCount: number;
+  dashboardUrl: string;
+}
+
+export async function sendAmbassadorWelcomeEmail(
+  to: string,
+  data: AmbassadorWelcomeData
+): Promise<boolean> {
+  try {
+    const resend = getResend();
+    if (!resend) {
+      console.error('[Resend] No API key configured');
+      return false;
+    }
+
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to,
+      subject: 'Chúc mừng bạn đã trở thành Đại sứ Coralume!',
+      html: `
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
+          <h1 style="color: #003441; font-size: 24px;">Chúc mừng bạn đã trở thành Đại sứ Coralume!</h1>
+          <p style="color: #40484b; font-size: 16px; line-height: 1.6;">
+            Chào ${data.adopterName},<br/><br/>
+            Bạn vừa đạt mốc <strong>${data.referralCount} lượt giới thiệu</strong> — đủ điều kiện để trở thành <strong>Đại sứ Coralume</strong>.
+          </p>
+          <div style="background-color: #f8f4e6; border-radius: 8px; padding: 16px; margin: 16px 0; border-left: 4px solid #9f411e;">
+            <p style="color: #003441; font-weight: 600; margin: 0 0 8px;">
+              Quyền lợi Đại sứ của bạn:
+            </p>
+            <ul style="color: #40484b; margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 4px;">Badge Đại sứ hiển thị trên profile và bảng xếp hạng</li>
+              <li style="margin-bottom: 4px;">Voucher trải nghiệm lặn miễn phí tại Nha Trang</li>
+              <li style="margin-bottom: 4px;">Quà tặng Coralume phiên bản giới hạn</li>
+              <li>Lời mời tham dự sự kiện offline độc quyền</li>
+            </ul>
+          </div>
+          <p style="color: #40484b; font-size: 16px; line-height: 1.6;">
+            Chúng tôi sẽ liên hệ với bạn trong thời gian tới để gửi quà tặng và hướng dẫn nhận voucher.
+          </p>
+          <a href="${data.dashboardUrl}"
+             style="display: inline-block; background-color: #9f411e; color: white;
+                    padding: 12px 32px; border-radius: 8px; text-decoration: none;
+                    font-weight: 600; margin: 16px 0;">
+            Xem Dashboard →
+          </a>
+          <p style="color: #70787c; font-size: 14px; margin-top: 24px;">
+            Cảm ơn bạn đã đồng hành cùng Coralume trong sứ mệnh bảo vệ đại dương.<br/>
+            Mỗi san hô được nhận nuôi là một bước tiến cho hệ sinh thái biển.
+          </p>
+          <hr style="border: none; border-top: 1px solid #c0c8cb; margin: 24px 0;" />
+          <p style="color: #70787c; font-size: 12px;">
+            Coralume — Nhận nuôi san hô, Gieo mầm cho đại dương<br/>
+            Nha Trang, Việt Nam
+          </p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error('[Resend] Failed to send ambassador email:', error);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error('[Resend] Error sending ambassador email:', error);
+    return false;
+  }
+}

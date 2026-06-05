@@ -14,6 +14,7 @@ const PUBLIC_ROUTES = [
   '/blog',
   '/bang-xep-hang',
   '/cong-dong',
+  '/lien-he',
   '/dang-nhap',
   '/dang-ky',
   '/quen-mat-khau',

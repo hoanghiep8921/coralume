@@ -7,6 +7,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth';
+import { getReferralCount, maybeUpgradeToAmbassador } from '@/lib/ambassador';
 
 export async function GET() {
   try {
@@ -86,6 +87,11 @@ export async function GET() {
         )
       : 0;
 
+    // Get real referral count from DB
+    const referralCount = await getReferralCount(user.id);
+    // Check ambassador upgrade eligibility
+    await maybeUpgradeToAmbassador(user.id);
+
     return NextResponse.json({
       data: {
         user,
@@ -98,7 +104,7 @@ export async function GET() {
           marineLife: totalCorals * 15, // estimated marine species supported
         },
         referrals: {
-          count: 0, // TODO: implement referral tracking
+          count: referralCount,
           code: `CRL-${user.fullName?.toUpperCase().replace(/\s+/g, '') || user.id.substring(0, 6)}`,
           threshold: 5,
         },

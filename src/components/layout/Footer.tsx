@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { NewsletterForm } from './NewsletterForm';
 
 /** SRS H-21: Ve chung toi, San pham, Blog, Cong dong, Lien he */
 const FOOTER_LINKS = [
@@ -6,7 +7,7 @@ const FOOTER_LINKS = [
   { href: '/san-pham', label: 'Sản phẩm' },
   { href: '/blog', label: 'Blog' },
   { href: '/cong-dong', label: 'Cộng đồng' },
-  { href: 'mailto:hello@coralume.vn', label: 'Liên hệ' },
+  { href: '/lien-he', label: 'Liên hệ' },
 ];
 
 export function Footer() {
@@ -78,6 +79,11 @@ export function Footer() {
         <p className="text-on-primary/60 font-body-sm text-sm">
           © 2026 Coralume. Đối tác: Trung tâm san hô Nha Trang
         </p>
+      </div>
+
+      {/* Newsletter signup (SRS 1.2) */}
+      <div className="mt-10 px-[var(--spacing-margin-mobile)] md:px-[var(--spacing-margin-desktop)] w-full max-w-[var(--spacing-container-max)] mx-auto">
+        <NewsletterForm />
       </div>
     </footer>
   );
