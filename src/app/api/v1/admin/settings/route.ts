@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth';
 import { clearSettingsCache } from '@/lib/site-settings';
+import { adminSettingsSchema } from '@/lib/validation';
 
 // GET /api/v1/admin/settings — Get all site settings
 export async function GET() {
@@ -35,19 +36,27 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    if (!body || typeof body !== 'object' || Array.isArray(body)) {
-      return NextResponse.json({ error: 'Dữ liệu không hợp lệ' }, { status: 400 });
-    }
 
-    const entries = Object.entries(body) as [string, string][];
+    const parsed = adminSettingsSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
+    }
+    const data = parsed.data;
+
     const updated: string[] = [];
 
-    for (const [key, value] of entries) {
-      if (typeof key !== 'string' || key.length === 0) continue;
+    const settingsToUpsert: { key: string; value: string }[] = [];
+    if (data.siteName !== undefined) settingsToUpsert.push({ key: 'site_name', value: data.siteName });
+    if (data.contactEmail !== undefined) settingsToUpsert.push({ key: 'contact_email', value: data.contactEmail });
+    if (data.facebookUrl !== undefined) settingsToUpsert.push({ key: 'facebook_url', value: data.facebookUrl ?? '' });
+    if (data.instagramUrl !== undefined) settingsToUpsert.push({ key: 'instagram_url', value: data.instagramUrl ?? '' });
+    if (data.maintenanceMode !== undefined) settingsToUpsert.push({ key: 'maintenance_mode', value: String(data.maintenanceMode) });
+
+    for (const { key, value } of settingsToUpsert) {
       await prisma.siteSetting.upsert({
         where: { key },
-        update: { value: String(value), updatedBy: user.userId },
-        create: { key, value: String(value), updatedBy: user.userId },
+        update: { value, updatedBy: user.userId },
+        create: { key, value, updatedBy: user.userId },
       });
       updated.push(key);
     }

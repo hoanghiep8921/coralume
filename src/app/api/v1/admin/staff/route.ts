@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth';
 import { hashPassword } from '@/lib/auth';
+import { logActivity } from '@/lib/activity-log';
+import { adminStaffCreateSchema } from '@/lib/validation';
 
 // GET /api/v1/admin/staff — List staff accounts (editor, coral_staff)
 export async function GET(request: NextRequest) {
@@ -60,25 +62,18 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { fullName, email, password, role } = body;
 
-    if (!fullName || !email || !password || !role) {
-      return NextResponse.json(
-        { error: 'Thiếu thông tin: fullName, email, password, role' },
-        { status: 400 }
-      );
+    const parsed = adminStaffCreateSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
     }
+    const { fullName, email, password } = parsed.data;
+    const role = body.role;
 
+    // Validate role separately (not in adminStaffCreateSchema)
     if (!['editor', 'coral_staff'].includes(role)) {
       return NextResponse.json(
         { error: 'Role không hợp lệ. Hỗ trợ: editor, coral_staff' },
-        { status: 400 }
-      );
-    }
-
-    if (password.length < 8) {
-      return NextResponse.json(
-        { error: 'Mật khẩu tối thiểu 8 ký tự' },
         { status: 400 }
       );
     }
@@ -112,14 +107,12 @@ export async function POST(request: NextRequest) {
     });
 
     // Log activity
-    await prisma.adminActivityLog.create({
-      data: {
-        adminId: user.userId,
-        action: 'create_staff',
-        targetType: 'user',
-        targetId: staff.id,
-        details: { fullName, email, role },
-      },
+    logActivity({
+      adminId: user.userId,
+      action: 'create_staff',
+      targetType: 'user',
+      targetId: staff.id,
+      details: { fullName, email, role },
     });
 
     return NextResponse.json({ data: staff }, { status: 201 });

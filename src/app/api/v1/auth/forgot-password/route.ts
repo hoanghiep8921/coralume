@@ -1,11 +1,16 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { forgotPasswordSchema } from '@/lib/validation';
 import { createResetToken } from '@/lib/auth';
 import { sendPasswordResetEmail } from '@/lib/email';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const rateLimitResponse = rateLimit(request, RATE_LIMITS.authStrict);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // 1. Validate input
     const body = await request.json();
     const validation = forgotPasswordSchema.safeParse(body);

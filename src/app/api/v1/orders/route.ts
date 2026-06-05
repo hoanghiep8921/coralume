@@ -11,9 +11,14 @@ import { prisma } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth';
 import { createOrderSchema } from '@/lib/validation';
 import { createPaymentLink } from '@/lib/payment';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const rateLimitResponse = rateLimit(request, RATE_LIMITS.payment);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // 1. Auth guard
     const currentUser = await getCurrentUser();
     if (!currentUser) {

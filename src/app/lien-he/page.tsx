@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Liên Hệ — Coralume',
   description:
     'Liên hệ với Coralume để được tư vấn về nhận nuôi san hô, hợp tác, hoặc bất kỳ câu hỏi nào.',
+  alternates: {
+    canonical: `${siteConfig.url}/lien-he`,
+  },
   openGraph: {
     title: 'Coralume — Liên Hệ',
     description: 'Liên hệ với Coralume — Chúng tôi luôn sẵn sàng lắng nghe.',

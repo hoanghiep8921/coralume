@@ -127,6 +127,14 @@ export const blogPostSchema = z.object({
   status: z.enum(["draft", "published"]).optional(),
 });
 
+/** Admin blog create — slug is optional (auto-generated from title) */
+export const adminBlogCreateSchema = blogPostSchema.extend({
+  slug: z.string().min(3).max(500).regex(/^[a-z0-9-]+$/).optional(),
+});
+
+/** Admin blog update — all fields optional for partial update */
+export const adminBlogUpdateSchema = blogPostSchema.partial();
+
 // ============================================================
 // COMMUNITY SUBMISSION VALIDATION
 // ============================================================
@@ -167,6 +175,68 @@ export const paginationSchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(20),
   sort: z.string().optional(),
   order: z.enum(["asc", "desc"]).default("desc"),
+});
+
+// ============================================================
+// ADMIN SCHEMAS (CRUD operations in admin panel)
+// ============================================================
+
+/** Admin: Create a new coral in the pool */
+export const adminCoralCreateSchema = z.object({
+  species: z.string().min(2, "Tên loài tối thiểu 2 ký tự").max(255),
+  locationZone: z.string().max(500).optional(),
+  locationGps: z.string().max(100).optional(),
+  productTier: z.enum(["standard", "premium", "premium_plus"]).optional(),
+  status: z.enum(["available", "assigned", "growing", "dead"]).optional(),
+  code: z.string().max(50).optional(),
+});
+
+/** Admin: Update an existing coral */
+export const adminCoralUpdateSchema = adminCoralCreateSchema.partial().extend({
+  status: z.enum(["available", "assigned", "growing", "dead"]).optional(),
+});
+
+/** Admin: Create a new product */
+export const adminProductCreateSchema = z.object({
+  slug: z.string().min(3).max(50).regex(/^[a-z0-9-]+$/),
+  name: z.string().min(2).max(255),
+  tier: z.enum(["standard", "premium", "premium_plus"]),
+  priceMin: z.number().int().min(0),
+  priceMax: z.number().int().min(0),
+  description: z.string().max(2000).optional(),
+  benefits: z.array(z.string()).max(20).optional(),
+  isActive: z.boolean().optional(),
+});
+
+/** Admin: Update user (role change, block/unblock) */
+export const adminUserUpdateSchema = z.object({
+  role: z.enum(["visitor", "adopter", "ambassador", "admin", "editor", "coral_staff"]).optional(),
+  isActive: z.boolean().optional(),
+  isVerified: z.boolean().optional(),
+});
+
+/** Admin: Create coral center staff account */
+export const adminStaffCreateSchema = z.object({
+  email: z.string().email("Email không hợp lệ"),
+  fullName: z.string().min(2, "Họ tên tối thiểu 2 ký tự").max(255),
+  password: z.string().min(6, "Mật khẩu tối thiểu 6 ký tự"),
+  phone: z.string().max(20).optional(),
+});
+
+/** Admin: Update site settings */
+export const adminSettingsSchema = z.object({
+  siteName: z.string().max(255).optional(),
+  contactEmail: z.string().email().optional(),
+  facebookUrl: z.string().url().optional().nullable(),
+  instagramUrl: z.string().url().optional().nullable(),
+  maintenanceMode: z.boolean().optional(),
+});
+
+/** Admin: Send bulk email to users by role */
+export const adminBulkEmailSchema = z.object({
+  subject: z.string().min(5, "Tiêu đề tối thiểu 5 ký tự").max(500),
+  content: z.string().min(10, "Nội dung tối thiểu 10 ký tự"),
+  targetRole: z.enum(["all", "adopter", "ambassador", "visitor"]).optional(),
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;

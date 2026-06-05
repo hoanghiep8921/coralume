@@ -1,13 +1,18 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { registerSchema } from '@/lib/validation';
 import { hashPassword, createToken, createVerifyToken } from '@/lib/auth';
 import { sendVerificationEmail } from '@/lib/email';
 import { AMBASSADOR_THRESHOLD } from '@/config/site';
 import { maybeUpgradeToAmbassador } from '@/lib/ambassador';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const rateLimitResponse = rateLimit(request, RATE_LIMITS.auth);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // 1. Validate input
     const body = await request.json();
     const validation = registerSchema.safeParse(body);

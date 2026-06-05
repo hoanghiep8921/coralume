@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdminOnly } from '@/lib/admin-guard';
 import { logActivity } from '@/lib/activity-log';
+import { adminUserUpdateSchema } from '@/lib/validation';
 
 // ============================================================
 // GET — user detail with payment history & adoptions
@@ -82,12 +83,19 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
+    const parsed = adminUserUpdateSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
+    }
+    const data = parsed.data;
+
+    const updateData: Record<string, unknown> = {};
+    if (data.isActive !== undefined) updateData.isActive = data.isActive;
+    if (data.role !== undefined) updateData.role = data.role;
+
     const user = await prisma.user.update({
       where: { id },
-      data: {
-        ...(body.isActive !== undefined && { isActive: body.isActive }),
-        ...(body.role && { role: body.role }),
-      },
+      data: updateData,
       select: { id: true, fullName: true, email: true, role: true, isActive: true },
     });
 

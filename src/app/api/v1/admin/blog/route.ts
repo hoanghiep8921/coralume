@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/admin-guard';
 import { logActivity } from '@/lib/activity-log';
+import { adminBlogCreateSchema } from '@/lib/validation';
+import { sanitizeBlogHtml } from '@/lib/security';
 
 // ============================================================
 // HELPERS
@@ -90,24 +92,27 @@ export async function POST(request: NextRequest) {
     const user = await requireAdmin();
     const body = await request.json();
 
-    if (!body.title || !body.content) {
-      return NextResponse.json({ error: 'Tiêu đề và nội dung là bắt buộc' }, { status: 400 });
+    const parsed = adminBlogCreateSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
     }
+    const data = parsed.data;
 
-    const slug = body.slug || slugify(body.title);
-    const readingTime = calcReadingTime(body.content);
-    const isPublished = body.status === 'published';
+    const slug = data.slug || slugify(data.title);
+    const sanitizedContent = sanitizeBlogHtml(data.content);
+    const readingTime = calcReadingTime(sanitizedContent);
+    const isPublished = data.status === 'published';
 
     const post = await prisma.blogPost.create({
       data: {
         authorId: user.userId,
-        title: body.title,
+        title: data.title,
         slug,
-        excerpt: body.excerpt || '',
-        content: body.content,
-        category: body.category || 'ecology',
-        tags: Array.isArray(body.tags) ? body.tags : [],
-        featuredImage: body.featuredImage || null,
+        excerpt: data.excerpt || '',
+        content: sanitizedContent,
+        category: data.category || 'ecology',
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        featuredImage: data.featuredImage || null,
         status: isPublished ? 'published' : 'draft',
         readingTime,
         publishedAt: isPublished ? new Date() : null,
@@ -121,7 +126,7 @@ export async function POST(request: NextRequest) {
       action: 'create_post',
       targetType: 'blog_post',
       targetId: post.id,
-      details: { title: body.title, slug },
+      details: { title: data.title, slug },
     });
 
     return NextResponse.json({ data: post }, { status: 201 });

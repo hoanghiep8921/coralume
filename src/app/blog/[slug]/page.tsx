@@ -34,6 +34,9 @@ export async function generateMetadata({
   return {
     title: `${post.title} — Coralume Blog`,
     description: post.excerpt,
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_APP_URL || 'https://coralume.vn'}/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,

@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 const newsletterSchema = z.object({
   email: z.string().email('Email không hợp lệ'),
@@ -10,8 +11,12 @@ const newsletterSchema = z.object({
  * Public — store newsletter subscription.
  * In production, integrate with Mailchimp/SendGrid/Resend audiences.
  */
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const rateLimitResponse = rateLimit(request, RATE_LIMITS.form);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const body = await request.json();
     const validation = newsletterSchema.safeParse(body);
     if (!validation.success) {

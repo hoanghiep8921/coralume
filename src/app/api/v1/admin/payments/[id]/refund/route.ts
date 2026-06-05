@@ -18,7 +18,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAdminOnly();
+    const adminUser = await requireAdminOnly();
 
     const { id } = await params;
     const body = await request.json().catch(() => ({}));
@@ -120,7 +120,7 @@ export async function POST(
 
     // 4. Log activity
     await logActivity({
-      adminId: 'admin',
+      adminId: adminUser.userId,
       action: 'REFUND_PAYMENT',
       targetType: 'Payment',
       targetId: id,

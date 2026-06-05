@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { storage, generateKey, getExtension, validateFile, MAX_IMAGE_COUNT } from '@/lib/storage';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const rateLimitResponse = rateLimit(request, RATE_LIMITS.upload);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // Auth guard
     const user = await getCurrentUser();
     if (!user) {

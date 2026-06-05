@@ -3,6 +3,12 @@ import { Lexend, Lora, Be_Vietnam_Pro, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { Analytics } from "@/components/layout/Analytics";
+import {
+  StructuredData,
+  organizationSchema,
+  websiteSchema,
+} from "@/components/layout/StructuredData";
 
 // Font loading strategy from Stitch DESIGN.md (coralume_design_system)
 // Lexend: display-lg, headline-md (headlines, nav)
@@ -55,6 +61,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Coralume" }],
   creator: "Coralume",
+  metadataBase: new URL("https://coralume.vn"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "vi_VN",
@@ -99,6 +109,10 @@ export default function RootLayout({
       className={`${lexend.variable} ${beVietnamPro.variable} ${lora.variable} ${jetBrainsMono.variable}`}
     >
       <body className="min-h-screen flex flex-col antialiased">
+        {/* Schema.org Organization + WebSite — SRS §6.1 NFR-003 */}
+        <StructuredData data={organizationSchema()} />
+        <StructuredData data={websiteSchema()} />
+
         {/* Skip-to-content — WCAG 2.4.1 Bypass Blocks */}
         <a
           href="#main-content"
@@ -109,6 +123,9 @@ export default function RootLayout({
         <Header />
         <div id="main-content">{children}</div>
         <Footer />
+
+        {/* Analytics — GA4 + Meta Pixel (SRS §6.1 NFR-004) */}
+        <Analytics />
       </body>
     </html>
   );

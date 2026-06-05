@@ -5,6 +5,9 @@ import { CommunityClient } from './CommunityClient';
 export const metadata: Metadata = {
   title: 'Cộng Đồng — Coralume',
   description: 'Khám phá câu chuyện, hình ảnh từ cộng đồng người nhận nuôi san hô. Chia sẻ hành trình của bạn.',
+  alternates: {
+    canonical: `${siteConfig.url}/cong-dong`,
+  },
   openGraph: {
     title: 'Coralume — Cộng Đồng',
     description: 'Câu chuyện và hình ảnh từ cộng đồng người nhận nuôi san hô tại Coralume.',

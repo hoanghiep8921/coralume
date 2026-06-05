@@ -18,7 +18,9 @@
     "@fontsource/lora": "^5.2.8",
     "@hookform/resolvers": "^5.4.0",
     "@prisma/client": "^6.19.3",
+    "@types/dompurify": "^3.0.5",
     "bcryptjs": "^3.0.3",
+    "dompurify": "^3.4.8",
     "jose": "^6.2.3",
     "jspdf": "^4.2.1",
     "next": "16.2.7",
@@ -30,6 +32,7 @@
     "react-hook-form": "^7.77.0",
     "recharts": "^3.8.1",
     "resend": "^6.12.4",
+    "xlsx": "^0.18.5",
     "zod": "^4.4.3"
   },
   "devDependencies": {

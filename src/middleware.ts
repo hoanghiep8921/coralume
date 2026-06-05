@@ -1,6 +1,27 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyToken, canAccess } from '@/lib/auth';
+import { ADMIN_PATH, isAdminPath } from '@/lib/admin-path';
+
+// ============================================================
+// SECURITY HEADERS
+// ============================================================
+
+const SECURITY_HEADERS: Record<string, string> = {
+  'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(self), interest-cohort=()',
+};
+
+/** Add security headers to a NextResponse */
+function addSecurityHeaders(response: NextResponse): NextResponse {
+  for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
+    response.headers.set(key, value);
+  }
+  return response;
+}
 
 // ============================================================
 // ROUTE PROTECTION PATTERNS
@@ -29,8 +50,8 @@ const PROTECTED_PREFIXES = [
   '/profile',
 ];
 
-// Admin-only routes
-const ADMIN_PREFIXES = ['/admin'];
+// Admin-only routes — protected by role check below
+const ADMIN_PREFIXES = [ADMIN_PATH];
 
 // Coral portal-only routes
 const PORTAL_PREFIXES = ['/coral-portal'];
@@ -39,7 +60,21 @@ const PORTAL_PREFIXES = ['/coral-portal'];
 const AUTH_ONLY_ROUTES = ['/dang-nhap', '/dang-ky', '/quen-mat-khau'];
 
 export async function middleware(request: NextRequest) {
+  // 0. HTTP → HTTPS redirect (applies to ALL routes including API)
+  const proto = request.headers.get('x-forwarded-proto');
+  if (proto === 'http') {
+    const httpsUrl = request.nextUrl.clone();
+    httpsUrl.protocol = 'https';
+    return addSecurityHeaders(NextResponse.redirect(httpsUrl, 301));
+  }
+
   const { pathname } = request.nextUrl;
+
+  // API routes — skip auth checks, apply security headers only
+  if (pathname.startsWith('/api')) {
+    return addSecurityHeaders(NextResponse.next());
+  }
+
   const token = request.cookies.get('token')?.value;
 
   // Verify token if present
@@ -47,7 +82,7 @@ export async function middleware(request: NextRequest) {
 
   // 1. Auth-only routes (login, register) — redirect to dashboard if logged in
   if (AUTH_ONLY_ROUTES.includes(pathname) && user) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return addSecurityHeaders(NextResponse.redirect(new URL('/dashboard', request.url)));
   }
 
   // 2. Protected routes — require authentication
@@ -57,26 +92,26 @@ export async function middleware(request: NextRequest) {
     if (!user) {
       const loginUrl = new URL('/dang-nhap', request.url);
       loginUrl.searchParams.set('callbackUrl', pathname);
-      return NextResponse.redirect(loginUrl);
+      return addSecurityHeaders(NextResponse.redirect(loginUrl));
     }
     if (!user.isVerified && pathname.startsWith('/thanh-toan')) {
       // Require email verification before payment
-      return NextResponse.redirect(new URL('/verify-email', request.url));
+      return addSecurityHeaders(NextResponse.redirect(new URL('/verify-email', request.url)));
     }
-    return NextResponse.next();
+    return addSecurityHeaders(NextResponse.next());
   }
 
-  // 3. Admin routes — require admin role
+  // 3. Admin routes — require admin role (path configurable via NEXT_PUBLIC_ADMIN_PATH)
   if (ADMIN_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
     if (!user) {
       const loginUrl = new URL('/dang-nhap', request.url);
       loginUrl.searchParams.set('callbackUrl', pathname);
-      return NextResponse.redirect(loginUrl);
+      return addSecurityHeaders(NextResponse.redirect(loginUrl));
     }
     if (!canAccess(user.role, 'editor')) {
-      return NextResponse.redirect(new URL('/dashboard', request.url));
+      return addSecurityHeaders(NextResponse.redirect(new URL('/dashboard', request.url)));
     }
-    return NextResponse.next();
+    return addSecurityHeaders(NextResponse.next());
   }
 
   // 4. Coral portal routes — require coral_staff or admin role
@@ -84,28 +119,30 @@ export async function middleware(request: NextRequest) {
     if (!user) {
       const loginUrl = new URL('/dang-nhap', request.url);
       loginUrl.searchParams.set('callbackUrl', pathname);
-      return NextResponse.redirect(loginUrl);
+      return addSecurityHeaders(NextResponse.redirect(loginUrl));
     }
     if (user.role !== 'coral_staff' && user.role !== 'admin') {
-      return NextResponse.redirect(new URL('/dashboard', request.url));
+      return addSecurityHeaders(NextResponse.redirect(new URL('/dashboard', request.url)));
     }
-    return NextResponse.next();
+    return addSecurityHeaders(NextResponse.next());
   }
 
   // 5. Public routes — allow
-  return NextResponse.next();
+  return addSecurityHeaders(NextResponse.next());
 }
 
 export const config = {
   matcher: [
     /*
      * Match all request paths except:
-     * - api routes (handled by route handlers)
      * - _next/static (static files)
      * - _next/image (image optimization)
      * - favicon.ico
-     * - public files
+     * - static files (by file extension)
+     *
+     * API routes are now INCLUDED for HTTPS redirect + security headers.
+     * Auth logic is skipped for API routes inside the middleware function.
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)',
   ],
 };

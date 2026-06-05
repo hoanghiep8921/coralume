@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { loginSchema } from '@/lib/validation';
 import { createToken, verifyPassword } from '@/lib/auth';
 import { userNeedsTotpChallenge } from '@/lib/two-factor';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 import { SignJWT } from 'jose';
 
 const JWT_SECRET = new TextEncoder().encode(
@@ -20,8 +21,12 @@ async function createTotpChallengeToken(userId: string): Promise<string> {
     .sign(JWT_SECRET);
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const rateLimitResponse = rateLimit(request, RATE_LIMITS.auth);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const body = await request.json();
 
     // 1. Validate input

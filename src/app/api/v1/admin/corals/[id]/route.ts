@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdminOnly } from '@/lib/admin-guard';
 import { logActivity } from '@/lib/activity-log';
+import { adminCoralUpdateSchema } from '@/lib/validation';
 
 export async function PUT(
   request: Request,
@@ -12,6 +13,12 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
+    const parsed = adminCoralUpdateSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
+    }
+    const data = parsed.data;
+
     // Fetch existing coral for activity log details
     const existing = await prisma.coral.findUnique({
       where: { id },
@@ -19,13 +26,15 @@ export async function PUT(
     });
     if (!existing) return NextResponse.json({ error: 'Không tìm thấy san hô' }, { status: 404 });
 
+    const updateData: Record<string, unknown> = {};
+    if (data.status !== undefined) updateData.status = data.status;
+    if (data.species !== undefined) updateData.species = data.species;
+    if (data.locationZone !== undefined) updateData.locationZone = data.locationZone;
+    if (data.locationGps !== undefined) updateData.locationGps = data.locationGps;
+
     const coral = await prisma.coral.update({
       where: { id },
-      data: {
-        ...(body.status && { status: body.status }),
-        ...(body.species && { species: body.species }),
-        ...(body.locationZone && { locationZone: body.locationZone }),
-      },
+      data: updateData,
     });
 
     logActivity({

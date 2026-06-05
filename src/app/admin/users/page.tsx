@@ -75,6 +75,7 @@ export default function AdminUsersPage() {
   const [detailUser, setDetailUser] = useState<UserDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [refunding, setRefunding] = useState<string | null>(null); // payment ID being refunded
+  const [exporting, setExporting] = useState(false);
 
   const fetchUsers = useCallback(async (q?: string) => {
     setLoading(true);
@@ -139,17 +140,27 @@ export default function AdminUsersPage() {
     }
   };
 
-  const downloadCsv = () => {
-    const header = 'Tên,Email,Role,Xác thực,Trạng thái,Nhận nuôi,Thanh toán,Ngày tham gia';
-    const rows = users.map((u) =>
-      [u.fullName, u.email, roleLabels[u.role] || u.role, u.isVerified ? 'Yes' : 'No', u.isActive ? 'Active' : 'Blocked', u._count.adoptions, u._count.payments, new Date(u.createdAt).toLocaleDateString('vi-VN')].join(',')
-    );
-    const csv = '﻿' + [header, ...rows].join('\n');
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `coralume-users-${new Date().toISOString().slice(0, 10)}.csv`; a.click();
-    URL.revokeObjectURL(url);
+  const downloadCsv = async (format: 'csv' | 'xlsx' = 'csv') => {
+    try {
+      setExporting(true);
+      const res = await fetch(`/api/v1/admin/reports/export?type=users&format=${format}`);
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}));
+        alert(json.error || 'Không thể xuất báo cáo');
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `coralume-users-${new Date().toISOString().slice(0, 10)}.${format}`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert('Lỗi kết nối khi xuất báo cáo');
+    } finally {
+      setExporting(false);
+    }
   };
 
   return (
@@ -172,14 +183,24 @@ export default function AdminUsersPage() {
         >
           Tìm
         </button>
-        <button
-          onClick={downloadCsv}
-          disabled={users.length === 0}
-          className="bg-surface-container-low text-on-surface-variant px-4 py-2 rounded-lg text-sm font-medium hover:bg-surface-container transition-colors disabled:opacity-50 flex items-center gap-1.5"
-        >
-          <span className="material-symbols-outlined text-base">download</span>
-          Xuất CSV
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => downloadCsv('csv')}
+            disabled={users.length === 0 || exporting}
+            className="bg-surface-container-low text-on-surface-variant px-4 py-2 rounded-lg text-sm font-medium hover:bg-surface-container transition-colors disabled:opacity-50 flex items-center gap-1.5"
+          >
+            <span className="material-symbols-outlined text-base">download</span>
+            {exporting ? 'Đang xuất...' : 'CSV'}
+          </button>
+          <button
+            onClick={() => downloadCsv('xlsx')}
+            disabled={users.length === 0 || exporting}
+            className="bg-surface-container-low text-on-surface-variant px-4 py-2 rounded-lg text-sm font-medium hover:bg-surface-container transition-colors disabled:opacity-50 flex items-center gap-1.5"
+          >
+            <span className="material-symbols-outlined text-base">table_view</span>
+            {exporting ? 'Đang xuất...' : 'Excel'}
+          </button>
+        </div>
       </div>
 
       {/* Table */}

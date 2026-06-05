@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: 'Coralume — Nhận nuôi san hô, Gieo mầm cho đại dương',
   description:
     'Nhận nuôi san hô tại Nha Trang, Việt Nam. Theo dõi sự phát triển, nhận báo cáo hàng quý. San hô của bạn. Hành trình của bạn. Tác động của bạn.',
+  alternates: {
+    canonical: 'https://coralume.vn',
+  },
   openGraph: {
     title: 'Coralume — Nhận nuôi san hô, Gieo mầm cho đại dương',
     description:

@@ -1,12 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { contactSchema } from '@/lib/validation';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 // ============================================================
 // POST — contact form submission
 // ============================================================
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const rateLimitResponse = rateLimit(request, RATE_LIMITS.form);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const body = await request.json();
     const parsed = contactSchema.safeParse(body);
 

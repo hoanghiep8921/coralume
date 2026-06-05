@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: 'Về Chúng Tôi — Coralume',
   description:
     'Chúng tôi không phải tổ chức từ thiện. Chúng tôi là một cách khác để bảo vệ đại dương. Hành trình bảo tồn rạn san hô tại Nha Trang qua công nghệ và cộng đồng.',
+  alternates: {
+    canonical: `${siteConfig.url}/ve-chung-toi`,
+  },
   openGraph: {
     title: 'Coralume — Về Chúng Tôi',
     description:

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { sanitizeBlogHtml } from '@/lib/security';
 
 interface PostData {
   title: string;
@@ -15,6 +16,41 @@ interface PostData {
   author: { fullName: string };
 }
 
+/** SRS B-02: exact category labels */
+const categoryLabels: Record<string, string> = {
+  ecology: 'Sinh thái san hô', conservation: 'Bảo tồn', green_economy: 'Kinh tế xanh', adopter_stories: 'Chuyến lặn của adopter',
+};
+
+/**
+ * Sanitize raw HTML content with DOMPurify, then inject heading IDs
+ * for anchor navigation (TOC links). Preserves existing IDs when present.
+ */
+function prepareContent(rawHtml: string): string {
+  // 1. Sanitize against XSS
+  const clean = sanitizeBlogHtml(rawHtml);
+
+  // 2. Inject id attributes on h2/h3 for TOC anchor navigation
+  return clean.replace(
+    /<h([2-3])(\s[^>]*)?>(.*?)<\/h\1>/gi,
+    (match, level, attrs, text) => {
+      // Skip if the heading already has an id
+      if (attrs && /\bid\s*=/i.test(attrs)) return match;
+
+      // Generate id from plain text content
+      const plainText = text.replace(/<[^>]*>/g, '');
+      const id = plainText
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '') // strip Vietnamese diacritics
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]/g, '');
+
+      const attrsStr = attrs || '';
+      return `<h${level}${attrsStr} id="${id}">${text}</h${level}>`;
+    }
+  );
+}
+
 /** Extract headings from HTML content for TOC */
 function extractHeadings(html: string): Array<{ id: string; text: string; level: number }> {
   const headingRegex = /<h([2-3])[^>]*>(.*?)<\/h[2-3]>/gi;
@@ -22,21 +58,26 @@ function extractHeadings(html: string): Array<{ id: string; text: string; level:
   let match;
   while ((match = headingRegex.exec(html)) !== null) {
     const text = match[2].replace(/<[^>]*>/g, '');
-    const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    const id = text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '');
     headings.push({ id, text, level: parseInt(match[1]) });
   }
   return headings;
 }
 
-/** SRS B-02: exact category labels */
-const categoryLabels: Record<string, string> = {
-  ecology: 'Sinh thái san hô', conservation: 'Bảo tồn', green_economy: 'Kinh tế xanh', adopter_stories: 'Chuyến lặn của adopter',
-};
-
 export function BlogDetailClient({ post, slug }: { post: PostData; slug: string }) {
   const [scrollPercent, setScrollPercent] = useState(0);
   const [activeId, setActiveId] = useState('');
-  const headings = extractHeadings(post.content);
+
+  // Sanitize + inject heading IDs once (memoized)
+  const sanitizedContent = useMemo(() => prepareContent(post.content), [post.content]);
+
+  // Extract headings from sanitized content for TOC
+  const headings = useMemo(() => extractHeadings(sanitizedContent), [sanitizedContent]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,6 +103,15 @@ export function BlogDetailClient({ post, slug }: { post: PostData; slug: string 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJson) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: 'https://coralume.vn' },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://coralume.vn/blog' },
+          { '@type': 'ListItem', position: 3, name: post.title, item: `https://coralume.vn/blog/${slug}` },
+        ],
+      })}} />
 
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-0.5 z-50 bg-outline-variant">
@@ -118,19 +168,11 @@ export function BlogDetailClient({ post, slug }: { post: PostData; slug: string 
 
           {/* Layout: TOC sidebar + Content */}
           <div className="lg:flex lg:gap-10">
-            {/* Content */}
+            {/* Content — sanitized HTML with injected heading IDs */}
             <div className="flex-1 min-w-0 prose max-w-none">
               <div
                 className="font-body-lg text-on-surface leading-[1.7] space-y-4"
-                dangerouslySetInnerHTML={{
-                  __html: post.content
-                    .replace(/<h([2-3])>/g, (_, level) => {
-                      const headingMatch = post.content.match(new RegExp(`<h${level}[^>]*>(.*?)</h${level}>`));
-                      const text = headingMatch ? headingMatch[1].replace(/<[^>]*>/g, '') : '';
-                      const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-                      return `<h${level} id="${id}">`;
-                    })
-                }}
+                dangerouslySetInnerHTML={{ __html: sanitizedContent }}
               />
             </div>
 

@@ -17,6 +17,7 @@ import {
   disableTotpForUser,
 } from '@/lib/two-factor';
 import { prisma } from '@/lib/db';
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 // ============================================================
 // GET — 2FA status
@@ -48,6 +49,10 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const rateLimitResponse = rateLimit(request, RATE_LIMITS.authStrict);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const { searchParams } = request.nextUrl;
     const action = searchParams.get('action') || 'setup';
     const body = await request.json().catch(() => ({}));

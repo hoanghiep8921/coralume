@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdminOnly } from '@/lib/admin-guard';
 import { sendEmail } from '@/lib/email';
+import { adminBulkEmailSchema } from '@/lib/validation';
+import { escapeHtml, sanitizeBlogHtml } from '@/lib/security';
 
 // ============================================================
 // POST — send bulk email to users
@@ -12,19 +14,28 @@ export async function POST(request: NextRequest) {
     const admin = await requireAdminOnly();
     const body = await request.json();
 
-    const { subject, content, role } = body;
-
-    if (!subject || !content) {
-      return NextResponse.json({ error: 'Tiêu đề và nội dung là bắt buộc' }, { status: 400 });
+    // Zod validation
+    const parsed = adminBulkEmailSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: 'Dữ liệu không hợp lệ', details: parsed.error.flatten().fieldErrors },
+        { status: 400 }
+      );
     }
+
+    const { subject, content, targetRole } = parsed.data;
+    const role = targetRole;
+
+    // Sanitize admin-provided HTML content (strip XSS, keep formatting)
+    const safeContent = sanitizeBlogHtml(content);
 
     // Find target users
     const where: Record<string, unknown> = {
       isActive: true,
       emailNotify: true,
     };
-    if (role && role !== 'all') {
-      where.role = role;
+    if (targetRole && targetRole !== 'all') {
+      where.role = targetRole;
     }
 
     const users = await prisma.user.findMany({
@@ -47,11 +58,11 @@ export async function POST(request: NextRequest) {
           subject,
           html: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto">
             <h2 style="color:#0F4C5C">Coralume</h2>
-            <p>Xin chào ${user.fullName},</p>
-            <div style="margin:20px 0">${content}</div>
+            <p>Xin chào ${escapeHtml(user.fullName)},</p>
+            <div style="margin:20px 0">${safeContent}</div>
             <hr style="border-color:#E8DFC8;margin:30px 0" />
             <p style="color:#8A9BA8;font-size:12px">
-              Email được gửi từ Coralume Admin bởi ${admin.email}.
+              Email được gửi từ Coralume Admin bởi ${escapeHtml(admin.email)}.
               Bạn nhận được email này vì đã đăng ký nhận thông báo từ Coralume.
             </p>
           </div>`,
@@ -68,7 +79,7 @@ export async function POST(request: NextRequest) {
       adminId: admin.userId,
       action: 'bulk_email',
       targetType: 'user',
-      details: { subject, role: role || 'all', sent, failed, total: users.length },
+      details: { subject, role: targetRole || 'all', sent, failed, total: users.length },
     });
 
     return NextResponse.json({

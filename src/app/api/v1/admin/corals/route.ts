@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdminOnly } from '@/lib/admin-guard';
 import { logActivity } from '@/lib/activity-log';
+import { adminCoralCreateSchema } from '@/lib/validation';
 
 export async function GET(request: NextRequest) {
   try {
@@ -51,19 +52,25 @@ export async function POST(request: NextRequest) {
     const admin = await requireAdminOnly();
     const body = await request.json();
 
+    const parsed = adminCoralCreateSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
+    }
+    const data = parsed.data;
+
     // Auto-generate code CRL-2026-XXXX
     const year = new Date().getFullYear();
     const count = await prisma.coral.count();
-    const code = body.code || `CRL-${year}-${String(count + 1).padStart(4, '0')}`;
+    const code = data.code || `CRL-${year}-${String(count + 1).padStart(4, '0')}`;
 
     const coral = await prisma.coral.create({
       data: {
         code,
-        species: body.species || null,
-        locationZone: body.locationZone || null,
-        locationGps: body.locationGps || null,
-        status: body.status || 'available',
-        productTier: body.productTier || 'standard',
+        species: data.species || null,
+        locationZone: data.locationZone || null,
+        locationGps: data.locationGps || null,
+        status: 'available',
+        productTier: data.productTier || 'standard',
       },
     });
 

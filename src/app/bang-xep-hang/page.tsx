@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Bảng Xếp Hạng — Coralume',
   description:
     'Top những người nhận nuôi san hô tích cực nhất. Xem thứ hạng của bạn và cạnh tranh cùng cộng đồng.',
+  alternates: {
+    canonical: `${siteConfig.url}/bang-xep-hang`,
+  },
   openGraph: {
     title: 'Coralume — Bảng Xếp Hạng',
     description:

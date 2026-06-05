@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdminOnly } from '@/lib/admin-guard';
+import { logActivity } from '@/lib/activity-log';
 
 // ============================================================
 // POST — assign a coral to an adoption
@@ -11,7 +12,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAdminOnly();
+    const admin = await requireAdminOnly();
     const { id } = await params;
     const body = await request.json();
     const { coralId } = body;
@@ -58,6 +59,22 @@ export async function POST(
         data: { status: 'assigned' },
       }),
     ]);
+
+    logActivity({
+      adminId: admin.userId,
+      action: 'assign_coral',
+      targetType: 'adoption',
+      targetId: updatedAdoption.id,
+      details: {
+        coralCode: updatedAdoption.coral?.code,
+        coralId,
+        adopter: updatedAdoption.user?.fullName,
+        adopterEmail: updatedAdoption.user?.email,
+        product: updatedAdoption.product?.name,
+        previousAdoptionStatus: 'pending',
+        newAdoptionStatus: 'active',
+      },
+    });
 
     return NextResponse.json({ data: updatedAdoption });
   } catch (error) {
