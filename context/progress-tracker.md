@@ -42,9 +42,10 @@
   - Footer: 3 cột, Navy background, mobile stack
   - ✅ **Unit 04:** Products page (5 sections: Hero, 3 detail cards, comparison table, Ambassador, FAQ accordion) — **Stitch tokens**
   - 🔄 SRS sync 2026-06-05: Hero sub text, badge positions, card names, CTA labels, FAQ answers, comparison table
+  - 🔄 CDN/Storage 2026-06-05: Next.js public/ + next/image (free, auto-CDN on Vercel) + SVG ocean placeholders + ProductImage component
   - ProductsHeroSection: badge chip + H1 "Nuôi 1 bé san hô ngay tại đây!" + SRS 1.2 sub text, stagger fade-in
   - ProductDetailCardsSection: "Phổ biến nhất" → Seed Coral (top-center), "Trải nghiệm thật" → Diving (top-left), Reef Guardian featured (scale 1.05 + border-primary), Diving CTA "Đặt lịch ngay"
-  - Mỗi card: "SEED CORAL · Standard" / "REEF GUARDIAN · Premium" / "DIVING EXPERIENCE · Premium+", image placeholder, specs bento grid, benefits list, pricing
+  - Mỗi card: "SEED CORAL · Standard" / "REEF GUARDIAN · Premium" / "DIVING EXPERIENCE · Premium+", SVG ocean placeholder → CDN ảnh thật khi có, specs bento grid, benefits list, pricing
   - ComparisonTableSection: sticky header + sticky feature column, zebra striping, mobile scroll ngang, checkmark icons, feature names synced to SRS 3.1
   - AmbassadorSection: bg-primary container, 4 rewards grid, progress bar 0/5, CTA chia sẻ link
   - FAQSection: 5 câu hỏi accordion, grid-template-rows animation 0.3s ease-out-expo, WCAG AA, answers synced to SRS 5.1-5.5

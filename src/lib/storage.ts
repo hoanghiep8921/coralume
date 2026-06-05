@@ -14,67 +14,32 @@ export const MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50MB
 export const MAX_IMAGE_COUNT = 5;
 
 // ============================================================
-// INTERFACE
+// STORAGE PROVIDER
 // ============================================================
+// Free CDN: Next.js `public/` directory + next/image optimization.
+// When deployed to Vercel, static files are auto-distributed
+// via global CDN with optimal cache headers.
+// For user uploads at scale, swap this with Cloudinary free tier
+// (25 GB storage, built-in CDN, auto-optimization).
 
-export interface StorageProvider {
-  /** Upload a file buffer, returns the public URL */
-  upload(file: Buffer, key: string, contentType: string): Promise<string>;
-  /** Delete a file by its key (relative path) */
-  delete(key: string): Promise<void>;
-  /** Get the public URL for a given key */
-  getPublicUrl(key: string): string;
-}
+const publicDir = join(process.cwd(), 'public');
 
-// ============================================================
-// LOCAL FILESYSTEM PROVIDER
-// ============================================================
+export const storage = {
+  async upload(file: Buffer, key: string, _contentType: string): Promise<string> {
+    const fullPath = join(publicDir, key);
+    await mkdir(dirname(fullPath), { recursive: true });
+    await writeFile(fullPath, file);
+    return `/${key}`;
+  },
 
-function createLocalStorageProvider(baseDir?: string): StorageProvider {
-  const publicDir = baseDir || join(process.cwd(), 'public');
+  async delete(key: string): Promise<void> {
+    const fullPath = join(publicDir, key);
+    try { await unlink(fullPath); } catch { /* already gone */ }
+  },
 
-  return {
-    async upload(file, key, _contentType) {
-      const fullPath = join(publicDir, key);
-      await mkdir(dirname(fullPath), { recursive: true });
-      await writeFile(fullPath, file);
-      return `/${key}`;
-    },
-
-    async delete(key) {
-      const fullPath = join(publicDir, key);
-      try {
-        await unlink(fullPath);
-      } catch {
-        // File may already be deleted — ignore
-      }
-    },
-
-    getPublicUrl(key) {
-      return `/${key}`;
-    },
-  };
-}
-
-// ============================================================
-// SINGLETON
-// ============================================================
-
-let _storage: StorageProvider | null = null;
-
-function getStorage(): StorageProvider {
-  if (!_storage) {
-    _storage = createLocalStorageProvider();
-  }
-  return _storage;
-}
-
-const provider = process.env.STORAGE_PROVIDER || 'local';
-
-export const storage: StorageProvider = {
-  upload(file, key, contentType) { return getStorage().upload(file, key, contentType); },
-  delete(key) { return getStorage().delete(key); },
-  getPublicUrl(key) { return getStorage().getPublicUrl(key); },
+  getPublicUrl(key: string): string {
+    return `/${key}`;
+  },
 };
 
 // ============================================================

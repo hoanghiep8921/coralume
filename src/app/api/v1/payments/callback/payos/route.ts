@@ -13,6 +13,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { sendPaymentConfirmationEmail } from '@/lib/email';
 
 // === ALL HTTP methods return 200 OK (PayOS uses various methods for verification) ===
 export async function GET()    { return NextResponse.json({ success: true }); }
@@ -146,6 +147,37 @@ async function handleWebhook(request: NextRequest) {
         adoptionId: payment.adoptionId,
         adoptionStatus: 'active',
       });
+
+      // SRS §5.3: Gửi hoá đơn điện tử qua email
+      try {
+        const user = await prisma.user.findUnique({
+          where: { id: payment.userId },
+          select: { email: true, fullName: true },
+        });
+        const product = payment.adoption
+          ? await prisma.product.findUnique({
+              where: { id: payment.adoption.productId },
+              select: { name: true },
+            })
+          : null;
+
+        if (user?.email) {
+          await sendPaymentConfirmationEmail(user.email, {
+            adopterName: user.fullName,
+            productName: product?.name || 'Gói san hô',
+            amount: payment.amount,
+            paymentMethod: payment.method,
+            orderCode,
+            paidAt: new Date().toISOString(),
+            coralName: payment.adoption?.customName || undefined,
+            dashboardUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'https://coralume.vn'}/dashboard`,
+          });
+          log('EMAIL_SENT', { to: user.email, orderCode });
+        }
+      } catch (emailError) {
+        // Non-blocking — payment succeeded even if email fails
+        log('EMAIL_FAILED', { error: String(emailError) });
+      }
     } else {
       log('PAYMENT_FAILURE', {
         paymentId: payment.id,

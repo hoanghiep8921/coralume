@@ -15,6 +15,7 @@ export interface ProductTierData {
   specs: Array<{ label: string; value: string; valueType: 'text' | 'icon' | 'progress' }>;
   ctaHref: string;
   ctaLabel: string;
+  imageUrl?: string;     // CDN URL — khi có ảnh thật từ CLB
   imageAlt: string;
 }
 

@@ -1,12 +1,30 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { loginSchema } from '@/lib/validation';
-import { hashPassword, createToken, verifyPassword } from '@/lib/auth';
+import { createToken, verifyPassword } from '@/lib/auth';
+import { userNeedsTotpChallenge } from '@/lib/two-factor';
+import { SignJWT } from 'jose';
+
+const JWT_SECRET = new TextEncoder().encode(
+  process.env.JWT_SECRET || 'dev-secret-change-in-production-min-32-chars!!!'
+);
+
+/**
+ * Create a short-lived 2FA challenge token (5 min expiry).
+ */
+async function createTotpChallengeToken(userId: string): Promise<string> {
+  return new SignJWT({ userId, type: '2fa-challenge' })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setExpirationTime('5m')
+    .sign(JWT_SECRET);
+}
 
 export async function POST(request: Request) {
   try {
-    // 1. Validate input
     const body = await request.json();
+
+    // 1. Validate input
     const validation = loginSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
@@ -35,7 +53,20 @@ export async function POST(request: Request) {
       );
     }
 
-    // 4. Create JWT and set cookie
+    // 4. Check if 2FA is required
+    const needs2FA = await userNeedsTotpChallenge(user.id);
+    if (needs2FA) {
+      const challengeToken = await createTotpChallengeToken(user.id);
+      return NextResponse.json({
+        data: {
+          requires2FA: true,
+          challengeToken,
+          message: 'Vui lòng nhập mã xác thực 2 lớp từ ứng dụng Authenticator.',
+        },
+      });
+    }
+
+    // 5. Create JWT and set cookie (no 2FA)
     const token = await createToken({
       userId: user.id,
       email: user.email,

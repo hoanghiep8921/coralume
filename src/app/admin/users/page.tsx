@@ -74,6 +74,7 @@ export default function AdminUsersPage() {
   const [loading, setLoading] = useState(true);
   const [detailUser, setDetailUser] = useState<UserDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
+  const [refunding, setRefunding] = useState<string | null>(null); // payment ID being refunded
 
   const fetchUsers = useCallback(async (q?: string) => {
     setLoading(true);
@@ -112,6 +113,30 @@ export default function AdminUsersPage() {
       const json = await res.json();
       setDetailUser(json.data || null);
     } catch { /* ignore */ } finally { setDetailLoading(false); }
+  };
+
+  // SRS AD-11: Admin trigger refund
+  const handleRefund = async (paymentId: string) => {
+    if (!confirm('Bạn có chắc muốn hoàn tiền giao dịch này? Hành động không thể hoàn tác.')) return;
+    setRefunding(paymentId);
+    try {
+      const res = await fetch(`/api/v1/admin/payments/${paymentId}/refund`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason: 'Admin hoàn tiền từ admin panel' }),
+      });
+      const json = await res.json();
+      if (res.ok) {
+        alert(json.data?.message || 'Đã hoàn tiền thành công');
+        if (detailUser) viewDetail(detailUser.id);
+      } else {
+        alert(json.error || 'Không thể hoàn tiền');
+      }
+    } catch {
+      alert('Lỗi kết nối');
+    } finally {
+      setRefunding(null);
+    }
   };
 
   const downloadCsv = () => {
@@ -333,6 +358,7 @@ export default function AdminUsersPage() {
                               <th className="text-left py-2 font-label-sm text-on-surface-variant">Số tiền</th>
                               <th className="text-left py-2 font-label-sm text-on-surface-variant">PP</th>
                               <th className="text-left py-2 font-label-sm text-on-surface-variant">Trạng thái</th>
+                              <th className="text-right py-2 font-label-sm text-on-surface-variant">Hành động</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -343,8 +369,20 @@ export default function AdminUsersPage() {
                                 <td className="py-2 text-on-surface-variant">{methodLabels[p.method] || p.method}</td>
                                 <td className="py-2">
                                   <span className={`font-label-sm px-1.5 py-0.5 rounded-full text-xs ${statusColors[p.status] || 'bg-surface-container text-on-surface-variant'}`}>
-                                    {p.status === 'completed' ? '✅' : p.status === 'pending' ? '⏳' : '❌'} {p.status}
+                                    {p.status === 'completed' ? '✅' : p.status === 'pending' ? '⏳' : p.status === 'refunded' ? '↩️' : '❌'} {p.status}
                                   </span>
+                                </td>
+                                <td className="py-2 text-right">
+                                  {/* SRS AD-11: Refund button for completed payments */}
+                                  {p.status === 'completed' && (
+                                    <button
+                                      onClick={() => handleRefund(p.id)}
+                                      disabled={refunding === p.id}
+                                      className="text-xs font-medium px-2 py-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors disabled:opacity-50"
+                                    >
+                                      {refunding === p.id ? 'Đang hoàn...' : 'Hoàn tiền'}
+                                    </button>
+                                  )}
                                 </td>
                               </tr>
                             ))}

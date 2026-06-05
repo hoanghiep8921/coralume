@@ -8,6 +8,7 @@ import { CoralDetailModal } from '@/components/dashboard/CoralDetailModal';
 import { ImpactDashboard } from '@/components/dashboard/ImpactDashboard';
 import { ReferralCode } from '@/components/dashboard/ReferralCode';
 import { ProfileSettings } from '@/components/dashboard/ProfileSettings';
+import { TwoFactorSection } from '@/components/dashboard/TwoFactorSection';
 import Link from 'next/link';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,6 +67,11 @@ export function DashboardClient({ data }: DashboardClientProps) {
         count={data.referrals.count}
         threshold={data.referrals.threshold}
       />
+
+      {/* SRS §5: 2FA section — bảo vệ tài khoản admin/staff */}
+      <section className="mb-12">
+        <TwoFactorSection />
+      </section>
 
       <ProfileSettings
         profile={{

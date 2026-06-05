@@ -30,6 +30,8 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [totpChallenge, setTotpChallenge] = useState<{ challengeToken: string } | null>(null);
+  const [totpCode, setTotpCode] = useState('');
 
   // Handle OAuth errors from URL
   useEffect(() => {
@@ -68,6 +70,14 @@ function LoginForm() {
 
       if (!res.ok) {
         setError(json.error || 'Có lỗi xảy ra');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Check if 2FA is required
+      if (json.data?.requires2FA) {
+        setTotpChallenge({ challengeToken: json.data.challengeToken });
+        setIsSubmitting(false);
         return;
       }
 
@@ -75,7 +85,37 @@ function LoginForm() {
       router.refresh();
     } catch {
       setError('Không thể kết nối đến server');
-    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleTotpVerify = async () => {
+    if (!totpChallenge || totpCode.length !== 6) return;
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch('/api/v1/auth/2fa?action=verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          challengeToken: totpChallenge.challengeToken,
+          totpCode,
+        }),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        setError(json.error || 'Mã xác thực không đúng');
+        setIsSubmitting(false);
+        return;
+      }
+
+      router.push(callbackUrl);
+      router.refresh();
+    } catch {
+      setError('Không thể kết nối đến server');
       setIsSubmitting(false);
     }
   };
@@ -94,7 +134,50 @@ function LoginForm() {
           <p className="text-on-surface-variant mt-2">Đăng nhập vào tài khoản của bạn</p>
         </div>
 
-        {/* Form */}
+        {/* If 2FA challenge is active, show TOTP form instead */}
+        {totpChallenge ? (
+          <div className="bg-surface-container-low rounded-2xl shadow-[0px_10px_40px_rgba(15,76,92,0.08)] p-8 space-y-5">
+            <div className="text-center">
+              <span className="material-symbols-outlined text-4xl text-secondary mb-2" aria-hidden="true">shield_lock</span>
+              <h2 className="font-headline-md text-headline-md text-primary">Xác thực 2 lớp</h2>
+              <p className="text-on-surface-variant text-sm mt-1">Nhập mã 6 số từ ứng dụng Authenticator</p>
+            </div>
+
+            {error && (
+              <div className="bg-error-container border border-error/20 text-error text-sm rounded-lg px-4 py-3" role="alert">
+                {error}
+              </div>
+            )}
+
+            <input
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              maxLength={6}
+              value={totpCode}
+              onChange={(e) => setTotpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+              onKeyDown={(e) => { if (e.key === 'Enter' && totpCode.length === 6) handleTotpVerify(); }}
+              className="block w-full rounded-lg border border-outline-variant px-3 py-3 text-2xl font-mono text-center tracking-[0.3em] text-primary bg-surface focus:border-primary focus:ring-2 focus:ring-secondary/20 outline-none"
+              placeholder="000000"
+              autoFocus
+            />
+
+            <button
+              onClick={handleTotpVerify}
+              disabled={isSubmitting || totpCode.length !== 6}
+              className="w-full bg-secondary hover:bg-secondary-container text-on-secondary font-semibold py-3 rounded-lg transition-all disabled:opacity-50"
+            >
+              {isSubmitting ? 'Đang xác thực...' : 'Xác thực'}
+            </button>
+
+            <button
+              onClick={() => { setTotpChallenge(null); setTotpCode(''); setError(''); }}
+              className="w-full text-on-surface-variant text-sm underline hover:text-on-surface"
+            >
+              ← Quay lại đăng nhập
+            </button>
+          </div>
+        ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="bg-surface-container-low rounded-2xl shadow-[0px_10px_40px_rgba(15,76,92,0.08)] p-8 space-y-5"
@@ -221,6 +304,7 @@ function LoginForm() {
             )}
           </button>
         </form>
+        )}
 
         {/* Register link */}
         <p className="text-center text-sm text-on-surface-variant mt-6">

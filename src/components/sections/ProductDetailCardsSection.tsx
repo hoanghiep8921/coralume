@@ -1,8 +1,63 @@
 'use client';
 
+import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useInView } from '@/hooks/useInView';
 import { productTiers, type ProductTierData } from '@/data/products';
+import { resolveMediaUrl } from '@/lib/media';
+
+/* ------------------------------------------------------------------ */
+/*  ProductImage — lazy-loaded image with SVG placeholder fallback     */
+/* ------------------------------------------------------------------ */
+
+const PLACEHOLDER_MAP: Record<string, string> = {
+  'seed-coral': '/images/placeholders/seed-coral.svg',
+  'reef-guardian': '/images/placeholders/reef-guardian.svg',
+  'diving-experience': '/images/placeholders/diving-experience.svg',
+};
+
+function ProductImage({ tier }: { tier: ProductTierData }) {
+  const [imgError, setImgError] = useState(false);
+  const cdnUrl = tier.imageUrl ? resolveMediaUrl(tier.imageUrl) : null;
+  const placeholder = PLACEHOLDER_MAP[tier.slug] || '/images/placeholders/coral-detail.jpg';
+  const showPlaceholder = !cdnUrl || imgError;
+
+  return (
+    <div className="relative h-64 w-full overflow-hidden bg-gradient-to-b from-primary/20 to-primary/5">
+      {showPlaceholder ? (
+        <Image
+          src={placeholder}
+          alt={tier.imageAlt}
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 33vw"
+          priority={tier.isFeatured}
+        />
+      ) : (
+        <Image
+          src={cdnUrl}
+          alt={tier.imageAlt}
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 33vw"
+          priority={tier.isFeatured}
+          onError={() => setImgError(true)}
+        />
+      )}
+      {/* Gradient overlay on featured */}
+      {tier.isFeatured && (
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
+      )}
+      {/* Caption when using placeholder */}
+      {showPlaceholder && !tier.imageUrl && (
+        <span className="absolute bottom-4 left-4 text-on-primary text-xs font-label-sm bg-primary/60 backdrop-blur-sm px-2 py-1 rounded">
+          Đang chờ ảnh từ CLB
+        </span>
+      )}
+    </div>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /*  ProductDetailCard — individual tier card with image, specs, CTA   */
@@ -46,28 +101,8 @@ function ProductDetailCard({
         </div>
       )}
 
-      {/* Image placeholder */}
-      <div
-        className={`relative h-64 w-full overflow-hidden ${
-          tier.isFeatured
-            ? 'bg-gradient-to-t from-primary/40 to-transparent'
-            : ''
-        }`}
-      >
-        <div className="w-full h-full bg-primary-fixed-dim/20 flex items-center justify-center">
-          <span className="material-symbols-outlined text-5xl text-on-surface-variant/30" aria-hidden="true">
-            image
-          </span>
-        </div>
-        {/* Gradient overlay on featured */}
-        {tier.isFeatured && (
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
-        )}
-        {/* Caption */}
-        <span className="absolute bottom-4 left-4 text-on-primary text-xs font-label-sm bg-primary/60 px-2 py-1 rounded">
-          Đang chờ ảnh từ CLB
-        </span>
-      </div>
+      {/* Product Image (SVG placeholder → CDN when available) */}
+      <ProductImage tier={tier} />
 
       {/* Body */}
       <div className="p-[var(--spacing-stack-md)] flex-grow flex flex-col">

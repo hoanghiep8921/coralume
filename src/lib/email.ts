@@ -183,6 +183,113 @@ export async function sendCoralUpdateEmail(
 /**
  * Generic email sender — used for bulk emails and custom admin messages.
  */
+/**
+ * Payment confirmation email with invoice details.
+ * Sent automatically after PayOS webhook confirms successful payment.
+ * SRS §5.3: "Sau khi thanh toán thành công, tự động gửi hoá đơn PDF qua email."
+ */
+export interface PaymentConfirmationData {
+  adopterName: string;
+  productName: string;
+  amount: number;
+  paymentMethod: string;
+  orderCode: string;
+  paidAt: string;
+  coralName?: string;
+  dashboardUrl: string;
+}
+
+export async function sendPaymentConfirmationEmail(
+  to: string,
+  data: PaymentConfirmationData
+): Promise<boolean> {
+  try {
+    const resend = getResend();
+    if (!resend) {
+      console.error('[Resend] No API key configured');
+      return false;
+    }
+
+    const methodLabel =
+      data.paymentMethod === 'vnpay' ? 'VNPay' :
+      data.paymentMethod === 'momo' ? 'MoMo' :
+      'Chuyển khoản ngân hàng';
+
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to,
+      subject: `Xác nhận thanh toán — Coralume #${data.orderCode}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
+          <h1 style="color: #003441; font-size: 24px;">Thanh toán thành công!</h1>
+          <p style="color: #40484b; font-size: 16px; line-height: 1.6;">
+            Chào ${data.adopterName},<br/><br/>
+            Cảm ơn bạn đã đồng hành cùng Coralume. Thanh toán của bạn đã được xác nhận.
+          </p>
+
+          <!-- Hoá đơn -->
+          <div style="background-color: #f5f5f5; border-radius: 8px; padding: 16px; margin: 16px 0;">
+            <h2 style="color: #003441; font-size: 16px; margin: 0 0 12px;">Chi tiết hoá đơn</h2>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+              <tr>
+                <td style="padding: 6px 0; color: #70787c;">Mã đơn hàng</td>
+                <td style="padding: 6px 0; color: #003441; font-weight: 600; text-align: right;">#${data.orderCode}</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; color: #70787c;">Gói sản phẩm</td>
+                <td style="padding: 6px 0; color: #003441; font-weight: 600; text-align: right;">${data.productName}</td>
+              </tr>
+              ${data.coralName ? `
+              <tr>
+                <td style="padding: 6px 0; color: #70787c;">Tên san hô</td>
+                <td style="padding: 6px 0; color: #003441; font-weight: 600; text-align: right;">${data.coralName}</td>
+              </tr>` : ''}
+              <tr>
+                <td style="padding: 6px 0; color: #70787c;">Phương thức</td>
+                <td style="padding: 6px 0; color: #003441; font-weight: 600; text-align: right;">${methodLabel}</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; color: #70787c;">Ngày thanh toán</td>
+                <td style="padding: 6px 0; color: #003441; font-weight: 600; text-align: right;">${new Date(data.paidAt).toLocaleDateString('vi-VN', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+              </tr>
+              <tr style="border-top: 1px solid #ddd;">
+                <td style="padding: 8px 0; color: #003441; font-weight: 700; font-size: 16px;">Tổng thanh toán</td>
+                <td style="padding: 8px 0; color: #003441; font-weight: 700; font-size: 16px; text-align: right;">${data.amount.toLocaleString('vi-VN')} VND</td>
+              </tr>
+            </table>
+          </div>
+
+          <a href="${data.dashboardUrl}"
+             style="display: inline-block; background-color: #9f411e; color: white;
+                    padding: 12px 32px; border-radius: 8px; text-decoration: none;
+                    font-weight: 600; margin: 16px 0;">
+            Xem Dashboard →
+          </a>
+
+          <p style="color: #70787c; font-size: 14px; margin-top: 24px;">
+            Hoá đơn này được tạo tự động bởi Coralume.<br/>
+            Mọi thắc mắc vui lòng liên hệ hello@coralume.vn.
+          </p>
+          <hr style="border: none; border-top: 1px solid #c0c8cb; margin: 24px 0;" />
+          <p style="color: #70787c; font-size: 12px;">
+            Coralume — Nhận nuôi san hô, Gieo mầm cho đại dương<br/>
+            Nha Trang, Việt Nam
+          </p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error('[Resend] Failed to send payment confirmation email:', error);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error('[Resend] Error sending payment confirmation:', error);
+    return false;
+  }
+}
+
 export interface SendEmailParams {
   to: string;
   subject: string;
@@ -285,6 +392,107 @@ export async function sendAmbassadorWelcomeEmail(
     return true;
   } catch (error) {
     console.error('[Resend] Error sending ambassador email:', error);
+    return false;
+  }
+}
+
+/**
+ * Monthly/quarterly report email.
+ * SRS §5.3: "Báo cáo hàng tháng/quý (theo gói)"
+ *
+ * Sent to adopters on Reef Guardian and Diving Experience tiers.
+ * Triggered by cron job / scheduled task.
+ */
+export interface ReportEmailData {
+  adopterName: string;
+  reportType: 'monthly' | 'quarterly';
+  totalCorals: number;
+  reefArea: number;
+  co2Absorbed: number;
+  newUpdates: number;
+  topCoralName: string;
+  dashboardUrl: string;
+}
+
+export async function sendReportEmail(
+  to: string,
+  data: ReportEmailData
+): Promise<boolean> {
+  try {
+    const resend = getResend();
+    if (!resend) {
+      console.error('[Resend] No API key configured');
+      return false;
+    }
+
+    const typeLabel =
+      data.reportType === 'monthly' ? 'hàng tháng' : 'hàng quý';
+
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to,
+      subject: `Báo cáo ${typeLabel} Coralume — San hô của bạn`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
+          <h1 style="color: #003441; font-size: 24px;">Báo cáo ${typeLabel} của bạn</h1>
+          <p style="color: #40484b; font-size: 16px; line-height: 1.6;">
+            Chào ${data.adopterName},<br/><br/>
+            Đây là báo cáo ${typeLabel} về san hô của bạn tại Coralume.
+          </p>
+          <div style="background-color: #f8f4e6; border-radius: 8px; padding: 16px; margin: 16px 0;">
+            <p style="color: #003441; font-weight: 600; margin: 0 0 12px;">
+              Tổng quan
+            </p>
+            <table style="width: 100%; color: #40484b; font-size: 14px;">
+              <tr>
+                <td style="padding: 4px 0;">San hô đang nuôi</td>
+                <td style="text-align: right; font-weight: 600; color: #003441;">${data.totalCorals}</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px 0;">Diện tích rạn được bảo vệ</td>
+                <td style="text-align: right; font-weight: 600; color: #003441;">${data.reefArea} m²</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px 0;">CO₂ hấp thụ ước tính</td>
+                <td style="text-align: right; font-weight: 600; color: #003441;">${data.co2Absorbed} kg</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px 0;">Cập nhật mới</td>
+                <td style="text-align: right; font-weight: 600; color: #003441;">${data.newUpdates}</td>
+              </tr>
+            </table>
+          </div>
+          ${data.topCoralName ? `
+          <p style="color: #40484b; font-size: 14px;">
+            San hô nổi bật: <strong style="color: #003441;">${data.topCoralName}</strong>
+          </p>
+          ` : ''}
+          <a href="${data.dashboardUrl}"
+             style="display: inline-block; background-color: #9f411e; color: white;
+                    padding: 12px 32px; border-radius: 8px; text-decoration: none;
+                    font-weight: 600; margin: 16px 0;">
+            Xem Dashboard →
+          </a>
+          <p style="color: #70787c; font-size: 14px; margin-top: 24px;">
+            Bạn nhận được email này vì bạn đang nuôi san hô tại Coralume.<br/>
+            Bạn có thể tắt thông báo trong phần Cài đặt profile.
+          </p>
+          <hr style="border: none; border-top: 1px solid #c0c8cb; margin: 24px 0;" />
+          <p style="color: #70787c; font-size: 12px;">
+            Coralume — Nhận nuôi san hô, Gieo mầm cho đại dương<br/>
+            Nha Trang, Việt Nam
+          </p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error('[Resend] Failed to send report email:', error);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error('[Resend] Error sending report email:', error);
     return false;
   }
 }
