@@ -45,8 +45,8 @@ export function ProductsHeroSection() {
         }`}
         style={{ transitionDelay: '200ms' }}
       >
-        Mỗi gói bảo tồn được thiết kế để mang lại tác động tối đa đến đa dạng sinh học biển.
-        Từ việc nuôi trồng mầm sống đến giám sát bằng trí tuệ nhân tạo.
+        Mỗi gói là một mức cam kết và một mức trải nghiệm khác nhau.
+        Tất cả đều bắt đầu bằng một san hô có tên — của riêng bạn.
       </p>
     </section>
   );

@@ -228,8 +228,8 @@ export function ProductDetailCardsSection() {
           Chọn gói nhận nuôi của bạn
         </h2>
         <p className="font-body-lg text-on-surface-variant max-w-2xl mx-auto">
-          Mỗi gói là một mức cam kết và một mức trải nghiệm khác nhau.
-          Tất cả đều bắt đầu bằng một san hô có tên — của riêng bạn.
+          Từ certificate kỹ thuật số đến trải nghiệm lặn thực tế — chọn gói phù hợp
+          với hành trình bảo tồn đại dương của bạn.
         </p>
       </div>
 

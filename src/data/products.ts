@@ -21,9 +21,9 @@ export interface ProductTierData {
 export const productTiers: ProductTierData[] = [
   {
     slug: 'seed-coral',
-    name: 'Seed Coral',
-    badge: 'Khởi Đầu',
-    badgePosition: 'top-left',
+    name: 'SEED CORAL · Standard',
+    badge: 'Phổ biến nhất',
+    badgePosition: 'top-center',
     isFeatured: false,
     description:
       'Bắt đầu hành trình bảo tồn san hô với một bé san hô có tên riêng, được theo dõi định kỳ.',
@@ -46,8 +46,8 @@ export const productTiers: ProductTierData[] = [
   },
   {
     slug: 'reef-guardian',
-    name: 'Reef Guardian',
-    badge: 'PHỔ BIẾN NHẤT',
+    name: 'REEF GUARDIAN · Premium',
+    badge: undefined,
     badgePosition: 'top-center',
     isFeatured: true,
     description:
@@ -56,7 +56,7 @@ export const productTiers: ProductTierData[] = [
     priceUnit: '/ Năm',
     benefits: [
       'Toàn bộ quyền lợi Seed Coral',
-      'Tracking growth chi tiết hơn (kích thước, sức khoẻ, môi trường)',
+      'Tracking growth chi tiết hơn (kích thước, sức khoẻ, môi trường xung quanh)',
       'Premium video updates (chất lượng cao)',
       'GPS reef location (vùng tương đối)',
       'Báo cáo hàng quý chi tiết',
@@ -73,8 +73,8 @@ export const productTiers: ProductTierData[] = [
   },
   {
     slug: 'diving-experience',
-    name: 'Diving Experience',
-    badge: 'Đại Sứ',
+    name: 'DIVING EXPERIENCE · Premium+',
+    badge: 'Trải nghiệm thật',
     badgePosition: 'top-left',
     isFeatured: false,
     description:
@@ -93,7 +93,7 @@ export const productTiers: ProductTierData[] = [
       { label: 'Quyền Đại Sứ', value: 'stars', valueType: 'icon' },
     ],
     ctaHref: '/thanh-toan?goi=diving-experience',
-    ctaLabel: 'Nhận nuôi ngay',
+    ctaLabel: 'Đặt lịch ngay',
     imageAlt: 'Diving Experience — Trải nghiệm lặn và trồng san hô tại Nha Trang',
   },
 ];
@@ -111,31 +111,31 @@ export const faqItems: FAQItem[] = [
     id: 'faq-1',
     question: 'San hô của tôi có thật không?',
     answer:
-      'Có, hoàn toàn thật. Mỗi san hô có một ID riêng, được nuôi trồng tại trung tâm đối tác ở Nha Trang. Nhân viên trung tâm chụp ảnh và cập nhật trạng thái hàng tháng.',
+      'Có, hoàn toàn thật. Mỗi san hô có ID riêng, được trồng tại trung tâm đối tác ở Nha Trang. Nhân viên trung tâm chụp ảnh và cập nhật trạng thái san hô của bạn mỗi tháng.',
   },
   {
     id: 'faq-2',
-    question: 'Tôi có được đến thăm san hô không?',
+    question: 'Tôi có được đến thăm san hô của mình không?',
     answer:
-      'Với gói Diving Experience, bạn có thể lặn xuống khu vực san hô. Với các gói khác, bạn có thể đặt thêm chuyến lặn riêng với chi phí bổ sung.',
+      'Với gói Diving Experience, bạn được lặn xuống tận nơi để gặp san hô của mình. Với các gói khác, bạn có thể đặt thêm chuyến lặn riêng với chi phí phụ trội.',
   },
   {
     id: 'faq-3',
     question: 'Nếu san hô của tôi chết thì sao?',
     answer:
-      'Tỉ lệ sống sót tại trung tâm > 85%. Nếu san hô không sống sót, chúng tôi sẽ trồng lại san hô mới và thông báo cho bạn — đây là cam kết của Coralume.',
+      'Tỉ lệ sống của san hô tại trung tâm đối tác là > 85%. Nếu san hô của bạn không sống được, chúng tôi sẽ trồng một san hô mới và thông báo cho bạn — đây là cam kết của Coralume.',
   },
   {
     id: 'faq-4',
     question: 'Tôi có thể nhận nuôi nhiều san hô không?',
     answer:
-      'Có. Trong dashboard của bạn, bạn có thể xem danh sách tất cả san hô đã nhận nuôi, mỗi bé có một tên riêng.',
+      'Có. Trong dashboard, bạn có thể thấy danh sách tất cả san hô đã nhận nuôi, mỗi cái có tên riêng do bạn đặt.',
   },
   {
     id: 'faq-5',
     question: 'Coralume có phải tổ chức từ thiện không?',
     answer:
-      'Không. Coralume là dự án social impact với mô hình tài chính tự cân đối. 100% doanh thu sau chi phí vận hành được dùng cho việc trồng và chăm sóc san hô.',
+      'Không. Coralume là một dự án social impact với mô hình tự cân đối tài chính. 100% doanh thu sau chi phí vận hành dùng cho việc trồng và chăm sóc san hô.',
   },
 ];
 
@@ -152,7 +152,7 @@ export const comparisonFeatures: ComparisonFeature[] = [
     values: ['✓', '✓', '✓'],
   },
   {
-    name: 'Cập nhật ảnh/video hàng tháng',
+    name: 'Cập nhật hàng tháng',
     values: ['✓', '✓', '✓'],
   },
   {
@@ -164,15 +164,15 @@ export const comparisonFeatures: ComparisonFeature[] = [
     values: ['—', '✓', '✓'],
   },
   {
-    name: 'Premium video updates',
+    name: 'Premium video',
     values: ['—', '✓', '✓'],
   },
   {
-    name: 'Báo cáo hàng quý chi tiết',
+    name: 'Báo cáo hàng quý',
     values: ['—', '✓', '✓'],
   },
   {
-    name: 'Trải nghiệm lặn thực tế tại Nha Trang',
+    name: 'Trải nghiệm lặn thực tế',
     values: ['—', '—', '✓'],
   },
   {

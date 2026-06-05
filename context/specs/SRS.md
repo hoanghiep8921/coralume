@@ -209,39 +209,46 @@ Third-party: VNPay/MoMo, Email (Resend/SES), Maps, GA4
 #### FR-020: Products Hero
 - **Mô tả:** "Nuôi 1 bé san hô ngay tại đây!"
 - **Acceptance Criteria:**
-  - [ ] Title + sub-headline
-  - [ ] "Mỗi gói là một mức cam kết và một mức trải nghiệm khác nhau"
+  - [x] Title: "Nuôi 1 bé san hô ngay tại đây!" + fade-in (100ms delay)
+  - [x] Sub-headline: "Mỗi gói là một mức cam kết và một mức trải nghiệm khác nhau. Tất cả đều bắt đầu bằng một san hô có tên — của riêng bạn." (200ms delay)
+  - [x] Badge chip: "Đầu tư vào Tương lai Đại dương"
+  - [x] Background ảnh nhẹ: placeholder san hô + ánh sáng
 
 #### FR-021: 3 Gói Chi Tiết
-- **Mô tả:** Seed Coral, Reef Guardian, Diving Experience — giá, quyền lợi, CTA
+- **Mô tả:** SEED CORAL · Standard, REEF GUARDIAN · Premium, DIVING EXPERIENCE · Premium+
 - **Acceptance Criteria:**
-  - [ ] Seed Coral: 200-300K, 5 quyền lợi
-  - [ ] Reef Guardian: 500-700K, border Coral nổi bật, 6 quyền lợi
-  - [ ] Diving Experience: 1-2M, badge "Trải nghiệm thật", 5 quyền lợi
-  - [ ] Mỗi gói: tên, giá, danh sách quyền lợi, CTA "Nhận nuôi ngay"
+  - [x] Seed Coral: "Phổ biến nhất" (badge top-center), 200-300Kđ, 5 quyền lợi, CTA "Nhận nuôi ngay"
+  - [x] Reef Guardian: border-2 border-primary + scale 1.05 (featured), 500-700Kđ, 6 quyền lợi, CTA "Nhận nuôi ngay"
+  - [x] Diving Experience: badge "Trải nghiệm thật" (top-left), 1-2Mđ, 5 quyền lợi, CTA "Đặt lịch ngay"
+  - [x] Card hover: translateY(-8px) + shadow-card-hover, stagger fade-in 100ms/card
 
 #### FR-022: Bảng So Sánh
-- **Mô tả:** Bảng so sánh 3 gói theo tính năng
+- **Mô tả:** Bảng so sánh 8 tính năng × 3 gói (✓/—)
 - **Acceptance Criteria:**
-  - [ ] Sticky header khi scroll
-  - [ ] Zebra striping
-  - [ ] Mobile: Scroll ngang, sticky column "Tính năng"
+  - [x] 8 tính năng: Certificate, Cập nhật hàng tháng, Dashboard, GPS, Premium video, Báo cáo quý, Trải nghiệm lặn, Tự tay trồng
+  - [x] Sticky header khi scroll + sticky feature column (mobile)
+  - [x] Zebra striping (even/odd rows)
+  - [x] Mobile: Scroll ngang, sticky column "Tính năng"
+  - [x] Checkmark ✓ icon với circle background xanh
 
 #### FR-023: Referral / Ambassador Program
-- **Mô tả:** "Mời bạn bè — Trở thành Ambassador"
+- **Mô tả:** "Mời bạn bè — Trở thành Ambassador" (bg-primary container)
 - **Acceptance Criteria:**
-  - [ ] 5 referrals = Badge + Quà + Voucher lặn + Event invite
-  - [ ] Hiển thị cơ chế nâng cấp
+  - [x] 4 rewards grid: Huy hiệu + Quà tặng + Voucher lặn + Sự kiện
+  - [x] Progress bar: 0/5 referrals → Ambassador threshold
+  - [x] CTA "Chia sẻ link giới thiệu" + Material Symbols share icon
+  - [x] "Yêu cầu đăng nhập để nhận mã giới thiệu"
 
 #### FR-024: FAQ Accordion
-- **Mô tả:** 5 câu hỏi — expand/collapse
+- **Mô tả:** 5 câu hỏi — expand/collapse single-open
 - **Acceptance Criteria:**
-  - [ ] FAQ-1: "San hô của tôi có thật không?" → Có, ID riêng
-  - [ ] FAQ-2: "Tôi có được đến thăm san hô không?" → Diving Experience
-  - [ ] FAQ-3: "Nếu san hô chết?" → Trồng mới (> 85% sống)
-  - [ ] FAQ-4: "Nhận nuôi nhiều san hô?" → Có
-  - [ ] FAQ-5: "Coralume có phải từ thiện?" → Không, social impact
-  - [ ] Animation: grid-template-rows 0fr→1fr, 0.3s ease-out-expo
+  - [x] FAQ-1: "San hô của tôi có thật không?" → Có, ID riêng, Nha Trang
+  - [x] FAQ-2: "Tôi có được đến thăm san hô của mình không?" → Diving Experience lặn tận nơi
+  - [x] FAQ-3: "Nếu san hô của tôi chết thì sao?" → Trồng mới (> 85% sống)
+  - [x] FAQ-4: "Tôi có thể nhận nuôi nhiều san hô không?" → Có, mỗi cái tên riêng
+  - [x] FAQ-5: "Coralume có phải tổ chức từ thiện không?" → Không, social impact
+  - [x] Animation: grid-template-rows 0fr→1fr, 0.3s ease-out-expo
+  - [x] WCAG AA: aria-expanded, aria-controls, role=region, keyboard nav
 
 ---
 

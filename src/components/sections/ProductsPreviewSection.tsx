@@ -138,7 +138,7 @@ export function ProductsPreviewSection() {
           }`}
         >
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary mb-4">
-            Chọn gói nhận nuôi của bạn
+            Chọn cách bạn đồng hành
           </h2>
           <p className="text-on-surface-variant text-lg">
             Mỗi gói là một mức cam kết và một mức trải nghiệm khác nhau. Tất cả đều bắt đầu bằng một san hô có tên — của riêng bạn.

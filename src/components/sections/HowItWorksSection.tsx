@@ -18,21 +18,21 @@ export function HowItWorksSection() {
   const steps = [
     {
       number: '01',
-      title: 'Chọn san hô của bạn',
+      title: 'Chọn gói nhận nuôi',
       description:
-        'Duyệt qua các vườn ươm đang hoạt động của chúng tôi và chọn một mẫu san hô phù hợp. Mỗi san hô có một hồ sơ sinh học riêng biệt.',
+        'Bạn chọn một trong 3 gói phù hợp với mong muốn của mình — từ Seed Coral cơ bản đến Diving Experience trải nghiệm thực tế.',
     },
     {
       number: '02',
-      title: 'Đặt tên và nhận chứng nhận',
+      title: 'Đặt tên cho san hô',
       description:
-        'Cá nhân hóa trải nghiệm. Đặt tên cho san hô của bạn và nhận chứng nhận kỹ thuật số. Một món quà ý nghĩa cho người thân yêu.',
+        'Mỗi san hô có tên riêng do bạn đặt. Một cách ý nghĩa để kết nối cá nhân với đại dương và theo dõi hành trình của san hô.',
     },
     {
       number: '03',
-      title: 'Theo dõi hành trình phát triển',
+      title: 'Theo dõi & cùng lớn lên',
       description:
-        'Nhận báo cáo tăng trưởng và hình ảnh độ phân giải cao của san hô, trực tiếp từ đội ngũ thợ lặn của chúng tôi tại Nha Trang.',
+        'Nhận ảnh/video update hàng tháng từ trung tâm tại Nha Trang. Theo dõi kích thước, sức khỏe và sự phát triển của san hô qua dashboard.',
     },
   ];
 

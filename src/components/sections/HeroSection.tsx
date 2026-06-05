@@ -157,8 +157,13 @@ export function HeroSection() {
           Gieo mầm cho đại dương
         </h1>
 
+        {/* English tagline (SRS 1.1) */}
+        <p className="font-body-lg text-body-lg text-on-surface-variant/70 mb-2 italic">
+          Adopt a Coral — Plant a Future for the Ocean
+        </p>
+
         {/* Sub-headline (SRS H-02) */}
-        <p className="font-body-lg text-body-lg text-on-surface-variant mb-4 max-w-2xl mx-auto">
+        <p className="font-body-lg text-body-lg text-on-surface-variant mb-6 max-w-2xl mx-auto">
           Mỗi san hô bạn nhận nuôi sẽ được theo dõi, cập nhật ảnh và lớn lên cùng bạn.
         </p>
 

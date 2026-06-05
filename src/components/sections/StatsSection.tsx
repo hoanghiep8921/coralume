@@ -41,7 +41,7 @@ export function StatsSection() {
 
   const stats = [
     {
-      icon: 'water_drop',
+      icon: 'public',
       value: 1,
       prefix: '< ',
       suffix: '%',
@@ -49,14 +49,14 @@ export function StatsSection() {
       badge: 'Sinh thái',
     },
     {
-      icon: 'pets',
+      icon: 'phishing',
       value: 25,
       suffix: '%',
-      label: 'Lượng sinh vật biển phụ thuộc vào rạn san hô',
+      label: 'Lượng sinh vật biển phụ thuộc vào san hô',
       badge: 'Đa dạng sinh học',
     },
     {
-      icon: 'warning',
+      icon: 'trending_down',
       value: 50,
       suffix: '%',
       label: 'Diện tích rạn san hô đã mất từ 1950 đến nay',
@@ -76,11 +76,10 @@ export function StatsSection() {
           San hô — Nền tảng sự sống của đại dương
         </h2>
         {/* Body text (SRS H-09) */}
-        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto leading-relaxed">
-          San hô không chỉ là những rạn đá ngầm đầy màu sắc. Chúng là nền tảng của hệ sinh thái
-          biển — nơi cư trú, sinh sản và kiếm ăn của hàng triệu loài sinh vật. Tuy nhiên, biến đổi
-          khí hậu, ô nhiễm và khai thác quá mức đang đe dọa sự tồn tại của chúng với tốc độ chưa
-          từng có. Mỗi hành động nhỏ hôm nay sẽ quyết định tương lai của đại dương ngày mai.
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[720px] mx-auto leading-relaxed">
+          San hô không chỉ đẹp — chúng là nền tảng sinh thái cho 25% sinh vật biển, bảo vệ
+          bờ biển khỏi lũ và sóng lớn, và là chỉ báo sức khỏe đại dương. Nhưng thế hệ chúng
+          ta đang chứng kiến một nửa số rạn san hô biến mất.
         </p>
       </div>
 
